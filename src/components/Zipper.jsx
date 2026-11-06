@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { sound } from '../utils/soundEffects';
 import { ChevronDown, Zap } from 'lucide-react';
 
-export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpen }) {
+export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpen, onTriggerTransition }) {
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
   const lastSoundProgress = useRef(0);
@@ -72,7 +72,11 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
 
       if (progress > 0.35) {
         onToggleOpen(true);
-        document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' });
+        if (onTriggerTransition) {
+          onTriggerTransition();
+        } else {
+          document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' });
+        }
       } else {
         onToggleOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -80,13 +84,17 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
     }
   };
 
-  // Click on the throttle slider triggers scroll down
+  // Click on the throttle slider triggers scroll down with transition
   const handleThrottleClick = (e) => {
     e.stopPropagation();
-    sound.playZipper();
-    const target = document.getElementById('bento') || document.getElementById('projects');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (onTriggerTransition) {
+      onTriggerTransition();
+    } else {
+      sound.playTransition();
+      const target = document.getElementById('bento') || document.getElementById('projects');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

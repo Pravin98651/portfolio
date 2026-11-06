@@ -335,3 +335,26 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.5);
 }
+
+/* Cinematic Mechanical Unzip Shutter Animations */
+@keyframes shutterTop {
+  0% { transform: translateY(-100%); }
+  35% { transform: translateY(0%); }
+  65% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
+}
+
+@keyframes shutterBottom {
+  0% { transform: translateY(100%); }
+  35% { transform: translateY(0%); }
+  65% { transform: translateY(0%); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-shutter-top {
+  animation: shutterTop 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shutter-bottom {
+  animation: shutterBottom 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

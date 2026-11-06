@@ -109,6 +109,27 @@ export default function App() {
     setBgPalette(nextPalette.id);
   };
 
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionText, setTransitionText] = useState('UNZIPPING WORKSPACE...');
+
+  const triggerUnzipTransition = (targetId = 'workspace-portal') => {
+    sound.playTransition();
+    setIsTransitioning(true);
+    setTransitionText('INITIALIZING ARCHITECTURAL DOSSIER...');
+    setIsUnzipped(true);
+
+    setTimeout(() => {
+      const elem = document.getElementById(targetId) || document.getElementById('bento');
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 220);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 650);
+  };
+
   const scrollToSection = (id) => {
     sound.playClick();
     const elem = document.getElementById(id);
@@ -253,11 +274,41 @@ export default function App() {
         </div>
       </header>
 
+      {/* Full-Screen Mechanical Unzip Aperture Shutter Transition */}
+      {isTransitioning && (
+        <div className="fixed inset-0 z-50 pointer-events-none flex flex-col justify-between overflow-hidden">
+          {/* Top Shutter Plate */}
+          <div className="w-full h-1/2 bg-[#090b10] border-b-4 border-brand-yellow flex flex-col justify-end items-center pb-6 animate-shutter-top shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
+            <div className="flex items-center gap-2.5 px-5 py-2 bg-black border-2 border-brand-yellow rounded-full text-brand-yellow font-mono text-xs font-black tracking-wider uppercase shadow-[3px_3px_0px_#f3670e]">
+              <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow animate-ping" />
+              <span>{transitionText}</span>
+            </div>
+            <div className="w-full h-2 bg-badge-stripes mt-4 border-y border-black" />
+          </div>
+
+          {/* Bottom Shutter Plate */}
+          <div className="w-full h-1/2 bg-[#090b10] border-t-4 border-brand-orange flex flex-col justify-start items-center pt-6 animate-shutter-bottom shadow-[0_-12px_40px_rgba(0,0,0,0.85)]">
+            <div className="w-full h-2 bg-badge-stripes mb-4 border-y border-black" />
+            <div className="flex items-center gap-3 font-mono text-[11px] text-gray-300 font-bold uppercase tracking-widest">
+              <span className="text-brand-orange">LEVEL 02</span>
+              <span>•</span>
+              <span className="text-white">DOSSIER WORKSPACE ONLINE</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ================= HERO INTERACTIVE STAGE ================= */}
       <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 px-4 sm:px-8 py-4 sm:py-6 z-10 max-w-7xl mx-auto w-full">
         
-        {/* Left Side: Screwed Signboard & Floating Stickers */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2">
+        {/* Left Side: Screwed Signboard & Floating Stickers (Physical divergence during unzipping) */}
+        <div
+          className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2 transition-transform duration-200"
+          style={{
+            transform: `translateX(-${zipperProgress * 44}px) translateY(-${zipperProgress * 20}px)`,
+            opacity: Math.max(0.15, 1 - zipperProgress * 0.75),
+          }}
+        >
           <Signboard />
         </div>
 
@@ -268,11 +319,18 @@ export default function App() {
             onProgressChange={setZipperProgress}
             isOpen={isUnzipped}
             onToggleOpen={handleToggleUnzip}
+            onTriggerTransition={() => triggerUnzipTransition('workspace-portal')}
           />
         </div>
 
-        {/* Right Side: Red Backpack Pocket + Hanging ID Badge */}
-        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2">
+        {/* Right Side: Red Backpack Pocket + Hanging ID Badge (Physical divergence during unzipping) */}
+        <div
+          className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2 transition-transform duration-200"
+          style={{
+            transform: `translateX(${zipperProgress * 44}px) translateY(-${zipperProgress * 20}px)`,
+            opacity: Math.max(0.15, 1 - zipperProgress * 0.75),
+          }}
+        >
           
           {/* Backpack Pocket with 3 interactive folder tabs */}
           <div className="w-full max-w-[480px]">
@@ -297,13 +355,73 @@ export default function App() {
       <div className="lg:hidden w-full flex justify-center py-4 px-4 z-20">
         <button
           type="button"
-          onClick={() => scrollToSection('bento')}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border-[3px] border-black rounded-full font-black text-xs uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:bg-brand-yellow transition-all"
+          onClick={() => triggerUnzipTransition('workspace-portal')}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-yellow hover:bg-yellow-400 text-black border-[3px] border-black rounded-full font-black text-xs uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:scale-105 transition-all"
         >
-          <span>EXPLORE OVERVIEW & CASE STUDIES</span>
+          <span>⚡ UNZIP & ENTER FULL WORKSPACE</span>
           <ChevronDown className="w-4 h-4 animate-bounce" />
         </button>
       </div>
+
+      {/* ================= WORKSPACE TRANSITION PORTAL / LEVEL 02 GATE ================= */}
+      <section
+        id="workspace-portal"
+        className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 z-20 scroll-mt-20"
+      >
+        <div className="relative bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#f3670e] transition-all">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            {/* Status Telemetry & Pulse */}
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-black dark:bg-brand-orange flex items-center justify-center text-brand-yellow dark:text-black font-black text-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+                ⚡
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-brand-yellow text-black px-2 py-0.5 rounded border border-black">
+                    LEVEL 02 DOSSIER
+                  </span>
+                  <span className="text-xs font-mono font-bold text-gray-500 dark:text-gray-400">
+                    // WORKSPACE UNZIPPED
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+                  Complete Engineering Dossier & Live Architecture
+                </h3>
+              </div>
+            </div>
+
+            {/* Quick Jump Action Controls */}
+            <div className="flex items-center gap-2.5">
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="px-3.5 py-2 bg-gray-100 hover:bg-black hover:text-white text-black dark:bg-gray-800 dark:text-white dark:hover:bg-brand-yellow dark:hover:text-black rounded-xl border-2 border-black font-mono text-xs font-bold transition-all shadow-[2px_2px_0px_#000]"
+              >
+                ↑ CONSOLE HERO
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('projects')}
+                className="px-4 py-2 bg-brand-orange hover:bg-orange-600 text-white rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
+              >
+                VIEW PROJECTS (4) ↓
+              </button>
+            </div>
+
+          </div>
+
+          {/* Mechanical Zipper Track Partition Teeth Graphic */}
+          <div className="mt-4 pt-3 border-t-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-600 dark:text-gray-400 uppercase tracking-widest">
+            <span className="flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              SYSTEM MODULES: ONLINE
+            </span>
+            <span className="hidden sm:inline">TAMIL LLM • LANGGRAPH AGENTS • HYBRID RAG • MULTI-ROLE RECRUITER AI</span>
+            <span className="font-bold">PRAVIN · APPLIED AI</span>
+          </div>
+        </div>
+      </section>
 
       {/* ================= 1. BENTO GRID CAPABILITIES & LIVE METRICS ================= */}
       <BentoGrid
