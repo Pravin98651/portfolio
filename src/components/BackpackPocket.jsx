@@ -398,7 +398,7 @@ export default function BackpackPocket({
 
               {/* Experience / Flagship Systems List */}
               <div className="space-y-2.5 my-1 max-h-52 overflow-y-auto pr-1">
-                {resume.experiences.map((exp, idx) => (
+                {(resume?.experiences || []).map((exp, idx) => (
                   <div key={idx} className="p-2.5 rounded-lg border border-black/80 bg-gray-50">
                     <div className="flex items-baseline justify-between text-xs">
                       <span className="font-bold text-black">{exp.role}</span>
@@ -420,7 +420,7 @@ export default function BackpackPocket({
                   Technical Matrix
                 </span>
                 <div className="flex flex-wrap gap-1">
-                  {resume.skills.flatMap(s => s.items).slice(0, 16).map((item, idx) => (
+                  {(resume?.skills || []).flatMap(s => s.items).slice(0, 16).map((item, idx) => (
                     <span
                       key={idx}
                       className="px-2 py-0.5 bg-gray-100 rounded border border-gray-300 text-[10px] font-mono text-gray-800"

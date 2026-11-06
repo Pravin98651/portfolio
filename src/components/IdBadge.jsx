@@ -116,22 +116,42 @@ export default function IdBadge({ onOpenResume }) {
 
             {/* Social Icons Bar */}
             <div className="mt-1.5 flex items-center justify-center gap-2">
-              {personal.socials.map((s) => (
-                <a
-                  key={s.id}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    sound.playClick();
-                  }}
-                  title={s.label}
-                  className="w-7 h-7 sm:w-8 sm:h-8 bg-black hover:bg-brand-orange text-white rounded-md flex items-center justify-center transition-transform hover:-translate-y-0.5 border border-black"
-                >
-                  <img src={s.icon} alt={s.label} className="w-3.5 h-3.5 invert" />
-                </a>
-              ))}
+              {personal.socials.map((s) => {
+                if (s.id === 'resume') {
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        sound.playClick();
+                        if (onOpenResume) onOpenResume();
+                      }}
+                      title="Open Official Résumé Dossier"
+                      className="w-7 h-7 sm:w-8 sm:h-8 bg-black hover:bg-brand-yellow hover:text-black text-white rounded-md flex items-center justify-center transition-transform hover:-translate-y-0.5 border border-black cursor-pointer"
+                    >
+                      <img src={s.icon} alt={s.label} className="w-3.5 h-3.5 invert hover:invert-0" />
+                    </button>
+                  );
+                }
+
+                const isExternal = typeof s.href === 'string' && s.href.startsWith('http');
+                return (
+                  <a
+                    key={s.id}
+                    href={s.href}
+                    {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      sound.playClick();
+                    }}
+                    title={s.label}
+                    className="w-7 h-7 sm:w-8 sm:h-8 bg-black hover:bg-brand-orange text-white rounded-md flex items-center justify-center transition-transform hover:-translate-y-0.5 border border-black"
+                  >
+                    <img src={s.icon} alt={s.label} className="w-3.5 h-3.5 invert" />
+                  </a>
+                );
+              })}
             </div>
 
             {/* Professional Micro Barcode & Flip Hint */}

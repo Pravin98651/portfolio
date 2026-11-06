@@ -140,11 +140,12 @@ APPROACH:
       case 'download':
         newHistory.push({
           type: 'success',
-          text: 'Triggering resume download (/assets/Pravin_Resume.pdf)...'
+          text: 'Opening official resume dossier & triggering download (/assets/Pravin_Resume.pdf)...'
         });
+        if (onOpenResume) onOpenResume();
         const link = document.createElement('a');
         link.href = '/assets/Pravin_Resume.pdf';
-        link.download = 'Pravin_Resume.pdf';
+        link.download = 'Pravin_G_Resume.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

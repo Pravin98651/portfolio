@@ -102,7 +102,7 @@ export default function CaseStudyModal({ project, onClose }) {
             <span>Overview & Screens</span>
           </button>
 
-          {project.caseStudy.workflowSteps && (
+          {project?.caseStudy?.workflowSteps && (
             <button
               type="button"
               onClick={() => {
@@ -116,7 +116,7 @@ export default function CaseStudyModal({ project, onClose }) {
               }`}
             >
               <GitMerge className="w-3.5 h-3.5" />
-              <span>Step-by-Step Flow ({project.caseStudy.workflowSteps.length} Steps)</span>
+              <span>Step-by-Step Flow ({project?.caseStudy?.workflowSteps?.length || 0} Steps)</span>
             </button>
           )}
 
@@ -149,10 +149,10 @@ export default function CaseStudyModal({ project, onClose }) {
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
-            <span>Key Features ({project.caseStudy.keyFeatures.length})</span>
+            <span>Key Features ({project?.caseStudy?.keyFeatures?.length || 0})</span>
           </button>
 
-          {project.caseStudy.interviewQA && (
+          {project?.caseStudy?.interviewQA && (
             <button
               type="button"
               onClick={() => {
@@ -267,7 +267,7 @@ export default function CaseStudyModal({ project, onClose }) {
                     The Problem
                   </div>
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-medium">
-                    {project.caseStudy.problem}
+                    {project?.caseStudy?.problem || project?.summary}
                   </p>
                 </div>
 
@@ -277,7 +277,7 @@ export default function CaseStudyModal({ project, onClose }) {
                     The Solution
                   </div>
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-medium">
-                    {project.caseStudy.solution}
+                    {project?.caseStudy?.solution || project?.tagline}
                   </p>
                 </div>
               </div>
@@ -290,7 +290,7 @@ export default function CaseStudyModal({ project, onClose }) {
               <div>
                 <h3 className="font-black text-base sm:text-lg text-black uppercase tracking-tight flex items-center gap-2">
                   <span className="w-3 h-3 bg-brand-orange rounded-full border border-black" />
-                  <span>End-to-End Processing Workflow ({project.caseStudy.workflowSteps.length} Steps)</span>
+                  <span>End-to-End Processing Workflow ({project?.caseStudy?.workflowSteps?.length || 0} Steps)</span>
                 </h3>
                 <p className="text-xs text-gray-500 font-mono mt-0.5">
                   Detailed technical walk-through of the data flow and execution pipeline.
@@ -298,7 +298,7 @@ export default function CaseStudyModal({ project, onClose }) {
               </div>
 
               <div className="space-y-3">
-                {project.caseStudy.workflowSteps.map((step) => (
+                {(project?.caseStudy?.workflowSteps || []).map((step) => (
                   <div
                     key={step.step}
                     className="p-3.5 bg-gray-50 border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] flex items-start gap-3"
@@ -319,7 +319,7 @@ export default function CaseStudyModal({ project, onClose }) {
               </div>
 
               {/* Data Entities Table if available */}
-              {project.caseStudy.dataEntities && (
+              {project?.caseStudy?.dataEntities && (
                 <div className="mt-6 pt-4 border-t-2 border-dashed border-gray-300">
                   <h4 className="font-black text-xs sm:text-sm text-black uppercase mb-2 flex items-center gap-2">
                     <Database className="w-4 h-4 text-brand-blue" />
@@ -334,7 +334,7 @@ export default function CaseStudyModal({ project, onClose }) {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-white font-mono">
-                        {project.caseStudy.dataEntities.map((row, idx) => (
+                        {(project?.caseStudy?.dataEntities || []).map((row, idx) => (
                           <tr key={idx} className="hover:bg-amber-50/50">
                             <td className="p-2.5 font-bold text-black border-r border-gray-200">{row.entity}</td>
                             <td className="p-2.5 text-gray-800">{row.purpose}</td>
@@ -371,7 +371,7 @@ export default function CaseStudyModal({ project, onClose }) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white font-mono">
-                    {project.caseStudy.techStackTable.map((row, idx) => (
+                    {(project?.caseStudy?.techStackTable || []).map((row, idx) => (
                       <tr key={idx} className="hover:bg-amber-50/50 transition-colors">
                         <td className="p-3 font-bold text-black border-r border-gray-200">
                           {row.component}
@@ -386,14 +386,14 @@ export default function CaseStudyModal({ project, onClose }) {
               </div>
 
               {/* Engineering Decisions Worth Discussing */}
-              {project.caseStudy.engineeringDecisions && (
+              {project?.caseStudy?.engineeringDecisions && (
                 <div className="space-y-3 pt-2">
                   <h4 className="font-black text-sm uppercase text-black flex items-center gap-2">
                     <Layers className="w-4 h-4 text-brand-orange" />
                     <span>Key Engineering Decisions & Trade-offs</span>
                   </h4>
                   <div className="space-y-2">
-                    {project.caseStudy.engineeringDecisions.map((dec, idx) => (
+                    {(project?.caseStudy?.engineeringDecisions || []).map((dec, idx) => (
                       <div key={idx} className="p-3 bg-gray-50 border-2 border-black rounded-lg text-xs leading-relaxed font-medium">
                         {dec}
                       </div>
@@ -418,7 +418,7 @@ export default function CaseStudyModal({ project, onClose }) {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-3">
-                {project.caseStudy.keyFeatures.map((feat, idx) => (
+                {(project?.caseStudy?.keyFeatures || []).map((feat, idx) => (
                   <div
                     key={idx}
                     className="p-3.5 bg-gray-50 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-2.5"
@@ -434,7 +434,7 @@ export default function CaseStudyModal({ project, onClose }) {
           )}
 
           {/* ================= TAB 5: INTERVIEW PREP & FAQ ================= */}
-          {activeTab === 'faq' && project.caseStudy.interviewQA && (
+          {activeTab === 'faq' && project?.caseStudy?.interviewQA && (
             <div className="space-y-4 animate-in fade-in duration-150">
               <div>
                 <h3 className="font-black text-base sm:text-lg text-black uppercase tracking-tight flex items-center gap-2">
@@ -447,7 +447,7 @@ export default function CaseStudyModal({ project, onClose }) {
               </div>
 
               <div className="space-y-3.5">
-                {project.caseStudy.interviewQA.map((item, idx) => (
+                {(project?.caseStudy?.interviewQA || []).map((item, idx) => (
                   <div
                     key={idx}
                     className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] space-y-2"
@@ -475,7 +475,7 @@ export default function CaseStudyModal({ project, onClose }) {
                   <span>My Engineering Contribution</span>
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium">
-                  {project.caseStudy.myContribution}
+                  {project?.caseStudy?.myContribution || "Primary developer and architect."}
                 </p>
               </div>
 
@@ -486,7 +486,7 @@ export default function CaseStudyModal({ project, onClose }) {
                   <span>Key Architectural Insights</span>
                 </h4>
                 <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium">
-                  {project.caseStudy.whatILearned}
+                  {project?.caseStudy?.whatILearned || "Hands-on engineering across architecture, state, and API layers."}
                 </p>
               </div>
 
@@ -497,7 +497,7 @@ export default function CaseStudyModal({ project, onClose }) {
                   <span>Technical Accuracy & Scope Note</span>
                 </h4>
                 <p className="text-xs text-amber-900 leading-relaxed">
-                  {project.caseStudy.accuracyNote}
+                  {project?.caseStudy?.accuracyNote || "Verified against tested build and official repository code."}
                 </p>
               </div>
             </div>

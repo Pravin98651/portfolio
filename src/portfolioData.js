@@ -1,10 +1,14 @@
 export const portfolioData = {
   personal: {
-    name: "Pravin",
-    fullName: "Pravin",
-    role: "Software Developer",
-    positioning: "Software Developer | Full-Stack Development | Applied AI",
-    coreMessage: "I build useful digital products by combining software engineering, AI, backend systems, and practical problem-solving.",
+    name: "Pravin G",
+    fullName: "Pravin G",
+    role: "Software Developer & AI Engineer",
+    positioning: "Software Engineering Student · Applied AI · Full-Stack Systems",
+    location: "Vellore, India",
+    email: "pravin98651@gmail.com",
+    github: "https://github.com/Pravin98651",
+    linkedin: "https://linkedin.com/in/pravin-g-",
+    coreMessage: "Innovative software engineering student building intelligent systems with LLMs, agentic AI, RAG, and Computer Vision. Holder of 6 patent filings, with 1 in the grant process.",
     heroTitle: {
       line1: "BUILDING",
       line2: "IDEAS INTO",
@@ -12,30 +16,30 @@ export const portfolioData = {
       line3: "PRODUCTS",
       since: "SOFTWARE DEVELOPER · APPLIED AI",
     },
-    heroIntro: "I design and develop software products that bring together full-stack engineering, AI, and automation. From user-facing applications to backend workflows and intelligent systems, I enjoy turning practical problems into working technology.",
-    aboutLong: "I'm a software developer passionate about building technology that solves meaningful problems. My interests span full-stack development, artificial intelligence, backend engineering, and automation. My projects have involved building applications with multiple user interfaces, connecting frontend applications to backend APIs, integrating AI models into practical workflows, processing documents, designing retrieval pipelines, and working with databases and external services. I approach projects by first understanding the problem and the people who experience it, breaking the idea into modular components, and building incrementally with clean data modelling and robust error handling.",
-    aboutShort: "I'm a software developer who enjoys building complete applications using full-stack technologies and applied AI. I like working across the development lifecycle—from understanding a problem and designing the architecture to implementing features, integrating services, and improving the final experience.",
+    heroIntro: "Innovative software engineering student with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. Demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. Holder of 6 patent filings, with 1 currently in the grant process.",
+    aboutLong: "I am an innovative software engineering student at Vellore Institute of Technology (VIT, Integrated M.Tech in Software Engineering, CGPA 8.92/10.0) with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. I have demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. Holder of 6 patent filings, with 1 currently in the grant process.",
+    aboutShort: "Software engineering student at VIT (CGPA 8.92/10) specializing in LLMs, agentic AI, RAG, and full-stack systems. Holder of 6 patent filings, with 1 in the grant process.",
     backCard: {
       title: "Full-Stack & Applied AI",
-      since: "PRAVIN · DEV",
+      since: "PRAVIN G · DEV",
       skillsCategory: "CORE FOCUS & SPECIALTIES",
       skills: [
-        "Full-Stack Product Architecture",
-        "Applied AI & LangGraph Workflows",
-        "Python · FastAPI · Node.js",
-        "Next.js 14 · React Native · TypeScript",
-        "Vector Retrieval & RAG Pipelines"
+        "LLMs, LangGraph & Agentic AI",
+        "Enterprise RBAC & RAG Pipelines",
+        "Python · FastAPI · Streamlit",
+        "Next.js 14 · Expo / React Native",
+        "Supabase (pgvector) · FAISS · Redis"
       ],
-      buttonText: "DOWNLOAD CV",
+      buttonText: "DOWNLOAD RESUME",
       downloadUrl: "/assets/Pravin_Resume.pdf",
       footerNote: "flip to see photo & socials"
     },
     avatar: "/assets/user-avatar.png",
     socials: [
       { id: "github", label: "GitHub", href: "https://github.com/Pravin98651", icon: "/assets/icon-github.svg" },
-      { id: "email", label: "Email", href: "mailto:pravin.dev@example.com", icon: "/assets/icon-email.svg" },
-      { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com", icon: "/assets/icon-linkedin.svg" },
-      { id: "resume", label: "Resume", href: "#resume", icon: "/assets/icon-resume.svg" },
+      { id: "email", label: "Email", href: "mailto:pravin98651@gmail.com", icon: "/assets/icon-email.svg" },
+      { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/pravin-g-", icon: "/assets/icon-linkedin.svg" },
+      { id: "resume", label: "Resume", href: "/assets/Pravin_Resume.pdf", icon: "/assets/icon-resume.svg" },
     ],
     stickers: [
       {
@@ -588,58 +592,75 @@ export const portfolioData = {
   ],
 
   resume: {
-    downloadLink: "#",
-    summary: "Software developer passionate about building useful digital products by combining full-stack engineering, applied AI, backend architecture, and automation. Experienced across the complete development lifecycle—from problem discovery and data modelling to API design, service integration, and user experience refinement.",
+    downloadLink: "/assets/Pravin_Resume.pdf",
+    summary: "Innovative software engineering student with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. Demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. Holder of 6 patent filings, with 1 currently in the grant process.",
+    education: {
+      institution: "Vellore Institute of Technology",
+      degree: "Integrated M.Tech in Software Engineering",
+      period: "Aug 2023 – May 2028",
+      cgpa: "8.92 / 10.0",
+      location: "Vellore, India"
+    },
+    patents: "Holder of 6 patent filings, with 1 currently in the grant process.",
+    languagesKnown: [
+      { name: "Tamil", level: "Native" },
+      { name: "English", level: "Fluent" },
+      { name: "Hindi", level: "Basic Proficiency" }
+    ],
     experiences: [
       {
-        role: "Primary Developer & Architect",
-        company: "KidTube (Next.js 14, React Native / Expo, TensorFlow.js)",
+        role: "Primary Developer & Full-Stack Architect",
+        company: "KidTube — AI-Moderated, Parent-Controlled Video Platform",
         period: "2024 — Present",
+        tech: "Next.js, Expo/React Native, Node.js/Express, Firebase Firestore, TensorFlow.js, JWT",
         location: "Remote / Open-Source",
-        description: "Architected a parent-controlled video platform built around an allowlist curation model. Built the Next.js 14 parent management console, the Expo/React Native child viewing app with custom touch-blocking overlays, and a Node/Express backend with TensorFlow.js + NSFWJS concurrent thumbnail screening."
+        description: "Architected a three-tier, whitelist-only video platform (parent dashboard, child mobile app, backend API) replacing recommendation-driven feeds with full parental curation. Built an AI thumbnail moderation pipeline using TensorFlow.js and nsfwjs with concurrent batch processing to screen channels before approval. Designed backend with Chain-of-Responsibility auth middleware, factory-based input validation, and a Repository-pattern API client for maintainable, secure routes."
       },
       {
-        role: "Lead Developer & System Architect",
-        company: "Job Hunt AI (FastAPI, Google Gemini, LangGraph, Playwright)",
+        role: "Lead Developer & Agentic AI Architect",
+        company: "Job Hunt AI Agent — Autonomous Job Search & Matching Platform",
         period: "2024",
+        tech: "FastAPI, LangGraph, Gemini 3 Pro, Playwright, Supabase (pgvector), Next.js, Tailwind/shadcn-ui",
         location: "Remote",
-        description: "Engineered an intelligent career discovery suite. Built concurrent multi-source job scrapers using asyncio, PDF resume parsing with Gemini, 3-layer deduplication with pgvector (0.92 cosine threshold), LangGraph orchestration, and a Kanban application tracker."
+        description: "Built an autonomous agent that scrapes LinkedIn job postings via Playwright and bypasses basic bot detection to extract raw listings. Orchestrated a LangGraph pipeline feeding job descriptions to Gemini 3 Pro, generating a 0–100 match score, skill-gap analysis, and reasoning against the user’s resume. Implemented semantic deduplication using sentence-transformers embeddings and Supabase pgvector to automatically skip near-duplicate postings."
       },
       {
-        role: "AI & Backend Engineer",
-        company: "Lexifyd Tamil (FastAPI, Google Gemini, TypeScript, Vite)",
+        role: "AI & Systems Engineer",
+        company: "Role-Based Internal Chatbot with RBAC and RAG",
         period: "2023 — 2024",
+        tech: "Python, FastAPI, Streamlit, FAISS, Sentence Transformers, Groq LLM",
         location: "Remote",
-        description: "Developed an educational language prototype tackling Tamil polysemy. Designed structured prompt chains with Google Gemini to synthesize distinct contextual sentences and plausible distractors for interactive drag-and-drop learning."
+        description: "Developed an internal chatbot tailored for enterprise-grade RBAC, enhancing secure access to departmental data. Enabled role-specific responses from internal documents using RAG, FAISS vector search, and Groq LLM. Built using FastAPI for secure login, integrated with Streamlit UI for live interaction."
       },
       {
-        role: "AI & Document Systems Developer",
-        company: "Multi-Role RAG Chatbot (FastAPI, FAISS, Groq API, Streamlit)",
+        role: "AI & Full-Stack Engineer",
+        company: "Lexifyd Tamil — Context-Aware Tamil Vocabulary Learning",
         period: "2023 — 2024",
+        tech: "Python, FastAPI, Google Gemini, Vite, TypeScript, PostgreSQL, Redis",
         location: "Remote",
-        description: "Implemented a document-grounded RAG prototype with departmental document partitioning. Built overlapping chunking, Sentence Transformers (all-MiniLM-L6-v2) embeddings, sub-15ms FAISS vector retrieval, and citation-backed Q&A responses via Groq."
+        description: "Developed a context-aware Tamil vocabulary-learning prototype designed to resolve polysemy using AI-assisted sense generation, dynamic sentence synthesis, and plausible distractor design. Won 2nd Place at National-Level Hackathon, Sairam Engineering College."
       }
     ],
     skills: [
       {
-        category: "Frontend Development",
-        items: ["React", "Next.js 14", "TypeScript", "JavaScript", "Vite", "Tailwind CSS", "Streamlit", "HTML5/CSS3"]
+        category: "Programming Languages",
+        items: ["Python", "C++", "Java", "C", "JavaScript"]
       },
       {
-        category: "Backend & Systems",
-        items: ["Python", "FastAPI", "Node.js", "Express", "REST APIs", "JWT", "Pydantic", "SQLAlchemy", "Async Tasks"]
+        category: "AI / ML & Agents",
+        items: ["RAG", "LangGraph", "LangChain", "Gemini 3 Pro", "Groq LLM", "LLaMA3", "PyTorch", "TensorFlow", "Sentence Transformers"]
       },
       {
-        category: "Applied AI & Retrieval",
-        items: ["Google Gemini 1.5/2.0", "LangGraph", "Retrieval-Augmented Generation (RAG)", "FAISS", "Sentence Transformers", "TensorFlow.js", "NSFWJS", "Groq API"]
+        category: "Web & API Engineering",
+        items: ["FastAPI", "Streamlit", "Next.js", "React.js", "Node.js", "Express", "Expo / React Native", "Tailwind CSS / shadcn-ui"]
       },
       {
-        category: "Databases & Storage",
-        items: ["PostgreSQL", "pgvector", "Supabase", "Firebase Firestore", "Firebase Auth", "Redis", "SQLite"]
+        category: "Data & Infrastructure",
+        items: ["Firebase", "Supabase (pgvector)", "PostgreSQL", "Redis", "FAISS", "Docker"]
       },
       {
-        category: "Mobile & Automation",
-        items: ["Expo", "React Native", "AsyncStorage", "Playwright", "APScheduler", "asyncio", "GitHub Actions"]
+        category: "Computer Vision & Tools",
+        items: ["OpenCV", "NumPy", "Playwright", "YOLO (via PyTorch)", "TensorFlow.js", "NSFWJS"]
       }
     ]
   },
@@ -809,14 +830,15 @@ export const portfolioData = {
 
   contact: {
     title: "GET IN TOUCH",
-    subtitle: "Have an interesting problem? Let's connect and build something meaningful.",
-    email: "pravin.dev@example.com",
+    subtitle: "Have an interesting engineering problem or opportunity? Let's connect and build something meaningful.",
+    email: "pravin98651@gmail.com",
     github: "https://github.com/Pravin98651",
-    location: "India / Remote",
+    linkedin: "https://linkedin.com/in/pravin-g-",
+    location: "Vellore, India",
     availability: "Open to Software Engineering & AI Opportunities",
     socials: [
       { name: "GitHub", url: "https://github.com/Pravin98651", handle: "github.com/Pravin98651" },
-      { name: "LinkedIn", url: "https://linkedin.com", handle: "Pravin" },
+      { name: "LinkedIn", url: "https://linkedin.com/in/pravin-g-", handle: "linkedin.com/in/pravin-g-" },
       { name: "KidTube Live", url: "https://kidtube-dun.vercel.app/", handle: "kidtube-dun.vercel.app" }
     ]
   }

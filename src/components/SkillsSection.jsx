@@ -7,6 +7,11 @@ export default function SkillsSection() {
   const { skills } = portfolioData.resume;
 
   const categoryIcons = {
+    "Programming Languages": Code2,
+    "AI / ML & Agents": BrainCircuit,
+    "Web & API Engineering": Server,
+    "Data & Infrastructure": Database,
+    "Computer Vision & Tools": Wrench,
     "Frontend Development": Code2,
     "Backend & Systems": Server,
     "Applied AI & Retrieval": BrainCircuit,

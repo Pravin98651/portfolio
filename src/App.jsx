@@ -4,6 +4,7 @@ import Zipper from './components/Zipper';
 import BackpackPocket from './components/BackpackPocket';
 import IdBadge from './components/IdBadge';
 import CaseStudyModal from './components/CaseStudyModal';
+import ResumeModal from './components/ResumeModal';
 import BentoGrid from './components/BentoGrid';
 import ProjectsSection from './components/ProjectsSection';
 import HackathonsSection from './components/HackathonsSection';
@@ -19,6 +20,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('portfolio');
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [zipperProgress, setZipperProgress] = useState(0);
   const [isUnzipped, setIsUnzipped] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -143,8 +145,8 @@ export default function App() {
 
   const handleOpenResume = () => {
     sound.playClick();
+    setIsResumeOpen(true);
     setActiveTab('resume');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleToggleMute = () => {
@@ -644,6 +646,12 @@ export default function App() {
           onClose={() => setSelectedCaseStudy(null)}
         />
       )}
+
+      {/* Official Résumé & Dossier Modal Dialog */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
 
     </div>
   );
