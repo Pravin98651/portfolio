@@ -729,7 +729,7 @@ export default function App() {
                 onClick={() => scrollToSection('projects')}
                 className="px-4 py-2 bg-brand-orange hover:bg-orange-600 text-white rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
               >
-                PROJECTS (4) ↓
+                PROJECTS ({portfolioData.projects.length}) ↓
               </button>
               <button
                 type="button"

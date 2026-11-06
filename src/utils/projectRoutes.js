@@ -41,11 +41,12 @@ const SLUG_ALIASES = {
   'projects/ar-shopping': 'krxgen-hackathon',
   'projects/krxgen': 'krxgen-hackathon',
 
-  // Hackathon Project 3: Sona College AI Trip Planner
-  'ai-trip-planner': 'sona-2025',
-  'trip-planner': 'sona-2025',
-  'sona-2025': 'sona-2025',
-  'projects/trip-planner': 'sona-2025',
+  // Flagship Project 5: AI Trip Planner (Sona National Winner)
+  'ai-trip-planner': 'ai-trip-planner',
+  'trip-planner': 'ai-trip-planner',
+  'sona-2025': 'ai-trip-planner',
+  'projects/ai-trip-planner': 'ai-trip-planner',
+  'projects/trip-planner': 'ai-trip-planner',
 
   // Hackathon Project 4: Sairam Lexifyd
   'sairam-2025': 'sairam-2025',
@@ -58,6 +59,7 @@ const CANONICAL_SLUGS = {
   'job-hunt-ai': '/job-hunt-ai',
   'lexifyd-tamil': '/lexifyd',
   'rag-chatbot': '/rag-chatbot',
+  'ai-trip-planner': '/ai-trip-planner',
   'danfoss-2026': '/danfoss-rpm',
   'krxgen-hackathon': '/ar-shopping',
   'sona-2025': '/ai-trip-planner',
@@ -469,14 +471,6 @@ export function getAdjacentProjects(currentId) {
       canonicalUrl: '/ar-shopping',
       flag: '🏆',
       category: 'WebXR & Vision'
-    },
-    {
-      id: 'sona-2025',
-      title: 'AI Trip Planner',
-      subtitle: 'Constraint-Satisfaction Travel Optimizer',
-      canonicalUrl: '/ai-trip-planner',
-      flag: '🏆',
-      category: 'Applied AI'
     }
   ];
 
@@ -502,7 +496,7 @@ export const ALL_PROJECT_ROUTES = [
   { slug: 'kidtube', id: 'kidtube', title: 'KidTube', category: 'Full-Stack & Mobile' },
   { slug: 'job-hunt-ai', id: 'job-hunt-ai', title: 'Job Hunt AI', category: 'Agents & LangGraph' },
   { slug: 'rag-chatbot', id: 'rag-chatbot', title: 'Multi-Role RAG', category: 'RAG & FAISS' },
+  { slug: 'ai-trip-planner', id: 'ai-trip-planner', title: 'AI Trip Planner', category: 'Applied AI' },
   { slug: 'danfoss-rpm', id: 'danfoss-2026', title: 'Robust RPM', category: 'Industrial IoT' },
   { slug: 'ar-shopping', id: 'krxgen-hackathon', title: 'AI & AR Shopping', category: 'WebXR & Vision' },
-  { slug: 'ai-trip-planner', id: 'sona-2025', title: 'AI Trip Planner', category: 'Applied AI' },
 ];

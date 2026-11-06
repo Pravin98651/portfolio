@@ -30,16 +30,16 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
 
   const categories = [
     { id: 'ALL', label: 'All Projects', count: projects.length },
-    { id: 'FLAGSHIP', label: 'Flagship Systems', count: 2 },
-    { id: 'AI', label: 'Applied AI & Retrieval', count: 3 },
-    { id: 'FULLSTACK', label: 'Full-Stack & Mobile', count: 1 },
+    { id: 'FLAGSHIP', label: 'Flagship & Winners', count: projects.filter(p => p.id === 'kidtube' || p.id === 'job-hunt-ai' || p.id === 'ai-trip-planner').length },
+    { id: 'AI', label: 'Applied AI & Optimization', count: projects.filter(p => p.tags.some(t => t.includes('AI') || t.includes('GEMINI') || t.includes('RAG') || t.includes('FAISS') || t.includes('OPTIMIZATION'))).length },
+    { id: 'FULLSTACK', label: 'Full-Stack & Mobile', count: projects.filter(p => p.tags.some(t => t.includes('FULL') || t.includes('MOBILE') || t.includes('NEXT') || t.includes('REACT'))).length },
   ];
 
   const filteredProjects = projects.filter((p) => {
     if (selectedCategory === 'ALL') return true;
-    if (selectedCategory === 'FLAGSHIP') return p.id === 'kidtube' || p.id === 'job-hunt-ai';
-    if (selectedCategory === 'AI') return p.tags.some(t => t.includes('AI') || t.includes('GEMINI') || t.includes('RAG') || t.includes('FAISS'));
-    if (selectedCategory === 'FULLSTACK') return p.tags.some(t => t.includes('FULL') || t.includes('MOBILE') || t.includes('NEXT'));
+    if (selectedCategory === 'FLAGSHIP') return p.id === 'kidtube' || p.id === 'job-hunt-ai' || p.id === 'ai-trip-planner';
+    if (selectedCategory === 'AI') return p.tags.some(t => t.includes('AI') || t.includes('GEMINI') || t.includes('RAG') || t.includes('FAISS') || t.includes('OPTIMIZATION'));
+    if (selectedCategory === 'FULLSTACK') return p.tags.some(t => t.includes('FULL') || t.includes('MOBILE') || t.includes('NEXT') || t.includes('REACT'));
     return true;
   });
 

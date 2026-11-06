@@ -588,6 +588,114 @@ export const portfolioData = {
           }
         ]
       }
+    },
+    {
+      id: "ai-trip-planner",
+      title: "AI Trip Planner",
+      subtitle: "Constraint-Satisfaction Travel Scheduling & Itinerary Optimization",
+      tagline: "An AI-powered travel planning and itinerary synthesis platform developed for a national-level hackathon.",
+      category: "Applied AI · Travel Optimization · Itinerary Synthesis · Constraint Satisfaction",
+      country: "National 1st Place",
+      flag: "✈️",
+      rating: "4.95",
+      ratingSource: "National Hackathon 1st Place 🏆",
+      stars: 5,
+      tags: ["APPLIED AI", "OPTIMIZATION", "FASTAPI", "REACT", "HEURISTICS", "PYTHON"],
+      cover: "/assets/hackathons/sona-group.jpg",
+      images: [
+        "/assets/hackathons/sona-group.jpg",
+        "/assets/hackathons/sona-lab.jpg"
+      ],
+      imageCaptions: [
+        "National Hackathon 1st Place Felicitation on stage at Sona College of Technology",
+        "Pravin G and team building and testing the AI Trip Planner prototype during the competition"
+      ],
+      client: "Maadhyamik Technologies (National Hackathon 1st Place)",
+      role: "Core Algorithm Architect & Full-Stack Developer",
+      timeline: "National Hackathon Winner",
+      liveUrl: "#",
+      githubUrl: "https://github.com/Pravin98651",
+      summary: "An AI-powered travel planning system that synthesizes customized, day-by-day itineraries by reconciling destination choices, user budget constraints, time availability, transit buffers, and optimal activity sequences.",
+      stats: [
+        { label: "Award", value: "1st Place 🏆" },
+        { label: "Optimization", value: "Multi-Factor" },
+        { label: "Schedule", value: "Day-by-Day" },
+        { label: "Pacing", value: "Adaptive" }
+      ],
+      caseStudy: {
+        problem: "Travel planning requires balancing conflicting constraints: rigid budgets, operating hours, transit durations, group member fatigue, and personal dining preferences. Manual trip planning takes hours of cross-referencing maps, reviews, and booking sites, often leading to overscheduled, exhausting itineraries.",
+        solution: "Built an algorithmic itinerary synthesizer that reconciles user budgets, travel dates, pacing styles, and activity priorities into structured, day-by-day plans with realistic transit windows and rest breaks using geographic clustering and heuristic constraint satisfaction.",
+        workflowSteps: [
+          {
+            step: 1,
+            title: "Preference & Constraint Intake",
+            desc: "User inputs budget tier, travel dates, companion types (family, solo, friends), preferred travel pacing, and priority interests."
+          },
+          {
+            step: 2,
+            title: "POI Clustering & Geocoding",
+            desc: "Attractions and venues are grouped geographically via K-Means spatial clustering to minimize inter-city transit time and eliminate back-and-forth travel."
+          },
+          {
+            step: 3,
+            title: "Temporal Constraint Solver",
+            desc: "Schedules venues respecting operating hours, optimal daylight intervals, meal windows, and realistic road transit buffers."
+          },
+          {
+            step: 4,
+            title: "Budget Allocation & Pacing",
+            desc: "Distributes overall spending evenly across admissions, dining, and transit allowances, preventing budget exhaustion on early trip days."
+          },
+          {
+            step: 5,
+            title: "Adaptive Fatigue Modeling",
+            desc: "Evaluates walking intensity and inserts resting intervals or low-intensity stops between physically demanding excursions."
+          },
+          {
+            step: 6,
+            title: "Interactive Timeline & Export",
+            desc: "Delivers an interactive day-by-day timeline view with Google Maps transit routes, alternate activity suggestions, and exportable summary dossiers."
+          }
+        ],
+        keyFeatures: [
+          "Dynamic multi-constraint synthesis: Reconciles time, money, location, and pacing simultaneously.",
+          "Geographic attraction clustering: Prevents criss-crossing transit across town using spatial K-Means.",
+          "Adaptive fatigue modeling: Inserts meals and rest intervals between intense excursions.",
+          "Budget-paced spending distribution: Allocates admission, food, and transit funds evenly across days.",
+          "Interactive day-by-day timeline: Responsive card-based schedule with map links and offline export."
+        ],
+        techStackTable: [
+          { component: "Backend API", tech: "Python, FastAPI, Pydantic" },
+          { component: "Optimization Engine", tech: "Heuristic Genetic Algorithms & Constraint Satisfaction" },
+          { component: "Frontend Interface", tech: "React, Tailwind CSS, Lucide Icons" },
+          { component: "Spatial & Mapping", tech: "OpenStreetMap / Geocoding APIs, K-Means Clustering" },
+          { component: "Data Storage", tech: "SQLite / PostgreSQL for venue catalogs and user itineraries" }
+        ],
+        dataEntities: [
+          { entity: "Trip Itinerary", purpose: "Parent schedule containing days, total budget, destination, and user preferences." },
+          { entity: "Itinerary Day", purpose: "Specific date with sequential time-slot activities and transit buffers." },
+          { entity: "POI Activity", purpose: "Venue name, geographic coordinates, cost, duration, and operating hours." },
+          { entity: "User Preference", purpose: "Pacing profile, budget cap, dietary choices, and activity interests." }
+        ],
+        engineeringDecisions: [
+          "Geographic clustering before scheduling: Scheduling attractions that are close together dramatically reduces travel fatigue and transit overhead.",
+          "Strict constraint bounds: Enforcing hard limits on daily walking distance ensures realistic, enjoyable travel plans.",
+          "Decoupled solver from UI: Clean JSON schema output lets the frontend render rich interactive timelines while the optimization engine runs asynchronously."
+        ],
+        myContribution: "Architected the algorithmic itinerary generator, preference input modeling, spatial attraction clustering logic, and frontend journey display.",
+        whatILearned: "Formulating multi-factor constraint-satisfaction heuristics, balancing competing objective functions, and delivering award-winning prototypes under high-pressure competitive hackathons.",
+        accuracyNote: "Proven and honored with 1st Place National Award at Sona College of Technology / Maadhyamik Technologies Hackathon.",
+        interviewQA: [
+          {
+            q: "How does the trip planner avoid impossible travel times between attractions?",
+            a: "The engine uses K-Means geographic clustering on latitude/longitude coordinates to group nearby activities into distinct daily zones, then calculates realistic transit buffers using road distance matrices before locking in time slots."
+          },
+          {
+            q: "How does the solver handle conflicting preferences (e.g. low budget vs luxury dining)?",
+            a: "The algorithm uses weighted multi-objective scoring. Constraints like total budget are hard boundaries, while preference tags (e.g. fine dining vs casual) are soft weights that penalize candidate schedules when violated, yielding the best Pareto-optimal compromise."
+          }
+        ]
+      }
     }
   ],
 
