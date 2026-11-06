@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../portfolioData';
-import { Download, ExternalLink, Star, ChevronLeft, ChevronRight, Mail, Check, Copy, Send, Sparkles, Globe, Eye } from 'lucide-react';
+import { Download, ExternalLink, Star, ChevronLeft, ChevronRight, Mail, Check, Copy, Send, Sparkles, Globe, Eye, Activity, Cpu } from 'lucide-react';
 import { sound } from '../utils/soundEffects';
 
 export default function BackpackPocket({
@@ -50,87 +50,116 @@ export default function BackpackPocket({
   return (
     <div className="relative w-full max-w-[480px] sm:max-w-[540px] flex flex-col select-none">
       
-      {/* ================= POCKET TABS HEADER ================= */}
-      <div className="relative flex items-end justify-between px-4 z-10 -mb-[2px]">
-        {/* Tab 1: RÉSUMÉ (Yellow) */}
+      {/* ================= MODULAR CONSOLE TABS ================= */}
+      <div className="relative flex items-end justify-between px-3 z-10 -mb-[2px]">
+        {/* Tab 1: RÉSUMÉ */}
         <button
           type="button"
           onClick={() => {
             sound.playClick();
             onSelectTab('resume');
           }}
-          className={`relative group px-4 sm:px-6 py-2.5 font-black text-sm sm:text-base uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 ${
+          className={`relative group px-4 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'resume'
               ? 'bg-brand-yellow text-black -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
               : 'bg-[#ffde59] text-gray-800 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>RÉSUMÉ</span>
+          <span>📄 RÉSUMÉ</span>
         </button>
 
-        {/* Tab 2: PORTFOLIO (Blue) */}
+        {/* Tab 2: SYSTEMS */}
         <button
           type="button"
           onClick={() => {
             sound.playClick();
             onSelectTab('portfolio');
           }}
-          className={`relative group px-4 sm:px-6 py-2.5 font-black text-sm sm:text-base uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 ${
+          className={`relative group px-4 sm:px-6 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'portfolio'
               ? 'bg-brand-blue text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
               : 'bg-[#3b5beb] text-white/90 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>PROJECTS</span>
-          <span className="block text-[9px] font-mono tracking-widest text-brand-yellow -mt-0.5">
-            CHOOSE ({currentProjectIndex + 1}/{projects.length})
-          </span>
+          <span>💾 SYSTEMS ({currentProjectIndex + 1}/{projects.length})</span>
         </button>
 
-        {/* Tab 3: CONTACT (Red) */}
+        {/* Tab 3: DISPATCH */}
         <button
           type="button"
           onClick={() => {
             sound.playClick();
             onSelectTab('contact');
           }}
-          className={`relative group px-4 sm:px-6 py-2.5 font-black text-sm sm:text-base uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 ${
+          className={`relative group px-4 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'contact'
               ? 'bg-brand-red text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
               : 'bg-[#c91823] text-white/90 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>CONTACT</span>
+          <span>📡 DISPATCH</span>
         </button>
       </div>
 
-      {/* ================= BACKPACK POCKET POUCH CONTAINER ================= */}
-      <div className="relative w-full rounded-2xl border-[3px] border-black bg-pocket-red shadow-[10px_10px_0px_#000000] overflow-hidden">
+      {/* ================= MODULAR CONSOLE CHASSIS ================= */}
+      <div className="relative w-full rounded-2xl border-[3px] border-black bg-console-chassis shadow-[10px_10px_0px_#000000] overflow-hidden">
         
-        {/* Dashed Sewing Stitches around Pocket Border */}
-        <div className="absolute inset-2 border-2 border-dashed border-red-300/40 rounded-xl pointer-events-none z-10" />
+        {/* Four Corner Hex Rivets */}
+        <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
+        <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
+        <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
+        <div className="absolute bottom-3 right-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
 
-        {/* Peeking Background Creative Studio Illustration */}
-        <div className="relative w-full h-28 sm:h-32 bg-[#422c54] border-b-[3px] border-black overflow-hidden flex items-center justify-center">
-          <img
-            src="/assets/behinder.png"
-            alt="Creative Studio Backdrop"
-            className="w-full h-full object-cover object-center pointer-events-none opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+        {/* Original Oscilloscope & Telemetry Visualizer Banner */}
+        <div className="relative w-full h-24 sm:h-28 bg-[#0c0d12] border-b-[3px] border-black overflow-hidden flex flex-col justify-between p-3">
+          {/* Header Row */}
+          <div className="flex items-center justify-between z-10 text-[10px] font-mono">
+            <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span>SYSTEM BUS // TELEMETRY OK</span>
+            </div>
+            <div className="text-gray-400 font-bold">
+              PORT 3000 · 115200 BAUD
+            </div>
+          </div>
+
+          {/* Animated SVG Oscilloscope Waveform */}
+          <div className="w-full h-12 relative flex items-center justify-center overflow-hidden">
+            <svg className="w-full h-full text-emerald-500/70" viewBox="0 0 400 60" preserveAspectRatio="none">
+              <path
+                d="M0 30 Q 50 10, 100 30 T 200 30 T 300 30 T 400 30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+              <path
+                d="M0 30 Q 30 50, 70 30 T 140 10 T 210 50 T 280 20 T 350 40 T 400 30"
+                fill="none"
+                stroke="#ffd31e"
+                strokeWidth="1.5"
+                strokeDasharray="4 2"
+              />
+            </svg>
+          </div>
+
+          {/* Status readout */}
+          <div className="flex items-center justify-between text-[9px] font-mono text-gray-500 z-10">
+            <span>CH-01: LANGGRAPH</span>
+            <span>CH-02: FAISS DENSE</span>
+            <span>CH-03: JWT AUTH</span>
+          </div>
         </div>
 
         {/* ================= CARD PULL-OUT CONTENT ================= */}
-        <div className="p-4 sm:p-6 z-20 relative min-h-[410px] flex flex-col justify-between">
+        <div className="p-4 sm:p-5 z-20 relative min-h-[410px] flex flex-col justify-between">
           
-          {/* -------------------- 1. PORTFOLIO / PROJECTS CARD -------------------- */}
+          {/* -------------------- 1. PORTFOLIO / SYSTEMS CARD -------------------- */}
           {activeTab === 'portfolio' && (
             <div className="bg-white border-[3px] border-black rounded-xl p-4 sm:p-5 shadow-[5px_5px_0px_#000000] flex flex-col justify-between transition-all duration-300 animate-in fade-in slide-in-from-bottom-3">
               
               {/* Top Header */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  {/* Project Brand Mark */}
                   <div className="w-10 h-10 rounded-lg bg-black text-brand-yellow flex items-center justify-center font-black text-xs tracking-tighter border-2 border-black">
                     {currentProject.title.slice(0, 4)}
                   </div>
@@ -149,24 +178,18 @@ export default function BackpackPocket({
                   </div>
                 </div>
 
-                {/* Country/Category Pill */}
-                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-black rounded-md text-xs font-bold text-gray-800 flex-shrink-0">
+                {/* Country Flag Badge */}
+                <div className="flex items-center gap-1 px-2 py-0.5 border border-black rounded bg-gray-100 text-xs font-mono font-bold">
                   <span>{currentProject.flag}</span>
-                  <span className="hidden sm:inline">{currentProject.country}</span>
+                  <span className="text-[11px] hidden sm:inline">{currentProject.country}</span>
                 </div>
               </div>
 
-              {/* Summary Description */}
-              <p className="text-xs sm:text-sm text-gray-700 font-medium my-2.5 leading-snug">
-                {currentProject.summary}
-              </p>
-
-              {/* Rating & Tags Row */}
-              <div className="flex flex-wrap items-center justify-between gap-2 py-2 border-y border-dashed border-gray-300 text-xs">
-                {/* Rating */}
-                <div className="flex items-center gap-1 font-bold text-gray-800">
+              {/* Rating & Tag Badges */}
+              <div className="flex items-center justify-between my-2 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700">
                   <div className="flex text-amber-500">
-                    {[...Array(5)].map((_, i) => (
+                    {Array.from({ length: currentProject.stars || 5 }).map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
@@ -191,7 +214,7 @@ export default function BackpackPocket({
               </div>
 
               {/* Screenshot Preview Gallery */}
-              <div className="my-2.5 space-y-1.5">
+              <div className="my-2 space-y-1.5">
                 {/* Main Preview Image */}
                 <div
                   onClick={() => {
@@ -214,25 +237,28 @@ export default function BackpackPocket({
                 {/* Screen Switcher thumbnails */}
                 {currentProject.images.length > 1 && (
                   <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 no-scrollbar">
-                    {currentProject.images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => {
-                          sound.playClick();
-                          setActiveImageIndex(idx);
-                        }}
-                        className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-all ${
-                          activeImageIndex === idx
-                            ? 'bg-brand-yellow text-black border-black shadow-sm font-extrabold'
-                            : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200'
-                        }`}
-                      >
-                        Screen {idx + 1}
-                      </button>
-                    ))}
-                    <span className="text-[10px] font-mono text-gray-400 ml-auto">
-                      {currentProject.imageCaptions ? currentProject.imageCaptions[activeImageIndex]?.slice(0, 24) + '...' : ''}
+                    {currentProject.images.map((img, idx) => {
+                      const isArch = img.includes('arch');
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            sound.playClick();
+                            setActiveImageIndex(idx);
+                          }}
+                          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-all ${
+                            activeImageIndex === idx
+                              ? 'bg-brand-yellow text-black border-black shadow-sm font-extrabold'
+                              : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200'
+                          }`}
+                        >
+                          {isArch ? '📐 Architecture' : `Screen ${idx + 1}`}
+                        </button>
+                      );
+                    })}
+                    <span className="text-[10px] font-mono text-gray-400 ml-auto truncate max-w-[140px]">
+                      {currentProject.imageCaptions ? currentProject.imageCaptions[activeImageIndex] : ''}
                     </span>
                   </div>
                 )}
@@ -268,7 +294,7 @@ export default function BackpackPocket({
                     type="button"
                     onClick={prevProject}
                     title="Previous Project"
-                    className="p-2.5 bg-gray-100 hover:bg-black hover:text-white border-2 border-black rounded-lg transition-colors"
+                    className="p-2.5 bg-gray-100 hover:bg-black hover:text-white border-2 border-black rounded-lg transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -276,7 +302,7 @@ export default function BackpackPocket({
                     type="button"
                     onClick={nextProject}
                     title="Next Project"
-                    className="p-2.5 bg-gray-100 hover:bg-black hover:text-white border-2 border-black rounded-lg transition-colors"
+                    className="p-2.5 bg-gray-100 hover:bg-black hover:text-white border-2 border-black rounded-lg transition-colors cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -290,7 +316,7 @@ export default function BackpackPocket({
                     rel="noopener noreferrer"
                     onClick={() => sound.playClick()}
                     title="GitHub Repository"
-                    className="p-2.5 bg-black hover:bg-gray-800 text-white border-2 border-black rounded-lg transition-colors flex items-center justify-center"
+                    className="p-2.5 bg-black hover:bg-gray-800 text-white border-2 border-black rounded-lg transition-colors flex items-center justify-center cursor-pointer"
                   >
                     <img src="/assets/icon-github.svg" alt="GitHub" className="w-4 h-4 invert" />
                   </a>
@@ -304,7 +330,7 @@ export default function BackpackPocket({
                     rel="noopener noreferrer"
                     onClick={() => sound.playClick()}
                     title="Live Demo"
-                    className="p-2.5 bg-[#10b981] hover:bg-emerald-600 text-white border-2 border-black rounded-lg transition-colors flex items-center justify-center"
+                    className="p-2.5 bg-[#10b981] hover:bg-emerald-600 text-white border-2 border-black rounded-lg transition-colors flex items-center justify-center cursor-pointer"
                   >
                     <Globe className="w-4 h-4" />
                   </a>
@@ -317,7 +343,7 @@ export default function BackpackPocket({
                     sound.playClick();
                     onOpenCaseStudy(currentProject);
                   }}
-                  className="flex-1 py-2.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>CASE STUDY</span>
                   <ExternalLink className="w-4 h-4" />
@@ -346,7 +372,7 @@ export default function BackpackPocket({
                     href="/assets/Pravin_Resume.pdf"
                     download="Pravin_Resume.pdf"
                     onClick={() => sound.playSuccess()}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-extrabold text-[11px] uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-extrabold text-[11px] uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>DOWNLOAD CV</span>
@@ -390,98 +416,70 @@ export default function BackpackPocket({
 
               {/* Categorized Skills Breakdown */}
               <div className="pt-2 border-t border-dashed border-gray-300 space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                <div className="text-[10px] font-mono font-bold uppercase text-gray-500">
-                  Grouped Technical Capabilities:
-                </div>
-                {resume.skills.map((group, gIdx) => (
-                  <div key={gIdx} className="space-y-0.5">
-                    <span className="text-[9px] font-mono font-bold text-brand-orange uppercase">
-                      {group.category}:
+                <span className="text-[10px] font-mono font-bold uppercase text-gray-500">
+                  Technical Matrix
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {resume.skills.flatMap(s => s.items).slice(0, 16).map((item, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 bg-gray-100 rounded border border-gray-300 text-[10px] font-mono text-gray-800"
+                    >
+                      {item}
                     </span>
-                    <div className="flex flex-wrap gap-1 text-[9px] font-bold">
-                      {group.items.map((item, idx) => (
-                        <span key={idx} className="px-1.5 py-0.2 bg-gray-100 rounded border border-gray-300">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}
 
           {/* -------------------- 3. CONTACT CARD -------------------- */}
           {activeTab === 'contact' && (
-            <div className="bg-[#fffdf2] border-[3px] border-black rounded-xl p-4 sm:p-5 shadow-[5px_5px_0px_#000000] flex flex-col justify-between transition-all duration-300 animate-in fade-in slide-in-from-bottom-3 relative">
-              
-              {/* Postage Stamp Header Bar */}
-              <div className="flex items-center justify-between pb-3 border-b-2 border-black">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-brand-red text-white rounded-md flex items-center justify-center font-bold text-xs border border-black">
-                    ✉
-                  </div>
+            <div className="bg-white border-[3px] border-black rounded-xl p-4 sm:p-5 shadow-[5px_5px_0px_#000000] flex flex-col justify-between transition-all duration-300 animate-in fade-in slide-in-from-bottom-3">
+              <div>
+                <div className="flex items-center justify-between pb-3 border-b-2 border-black">
                   <div>
                     <h3 className="font-black text-xl text-black leading-none uppercase">
-                      {contact.title}
+                      DISPATCH BEACON
                     </h3>
-                    <p className="text-[11px] font-semibold text-green-700 flex items-center gap-1 mt-0.5">
-                      <span className="w-2 h-2 rounded-full bg-green-500 animate-ping inline-block" />
+                    <p className="text-xs font-semibold text-gray-500 mt-0.5 font-mono">
                       {contact.availability}
                     </p>
                   </div>
+
+                  <span className="text-2xl">📡</span>
                 </div>
 
-                {/* Email Direct Copy Button */}
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-black hover:text-white text-black font-mono text-xs font-bold rounded-md border-2 border-black shadow-[1px_1px_0px_#000] transition-colors"
-                >
-                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copiedEmail ? 'COPIED!' : 'COPY EMAIL'}</span>
-                </button>
-              </div>
+                {/* Email Direct Card */}
+                <div className="my-3 p-3 bg-gray-50 rounded-lg border-2 border-black flex items-center justify-between gap-2">
+                  <div className="truncate">
+                    <span className="text-[10px] font-mono text-gray-500 uppercase block font-bold">
+                      Direct Email
+                    </span>
+                    <span className="font-mono text-xs font-bold text-black select-all">
+                      {contact.email}
+                    </span>
+                  </div>
 
-              {/* Subtitle */}
-              <p className="text-xs text-gray-700 font-medium my-2.5 leading-snug">
-                {contact.subtitle}
-              </p>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="px-3 py-1.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-extrabold text-xs uppercase tracking-wider rounded border border-black shadow-[1px_1px_0px_#000] flex items-center gap-1 transition-all cursor-pointer"
+                  >
+                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedEmail ? 'COPIED' : 'COPY'}</span>
+                  </button>
+                </div>
 
-              {/* Direct Links Bar */}
-              <div className="grid grid-cols-2 gap-2 my-1">
-                <a
-                  href={contact.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => sound.playClick()}
-                  className="flex items-center justify-center gap-2 py-2 bg-black text-white text-xs font-bold rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-gray-800 transition-colors"
-                >
-                  <img src="/assets/icon-github.svg" alt="GitHub" className="w-3.5 h-3.5 invert" />
-                  <span>GitHub Profile</span>
-                </a>
-                <a
-                  href="https://kidtube-dun.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => sound.playClick()}
-                  className="flex items-center justify-center gap-2 py-2 bg-brand-blue text-white text-xs font-bold rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-blue-700 transition-colors"
-                >
-                  <Globe className="w-3.5 h-3.5" />
-                  <span>KidTube Live</span>
-                </a>
-              </div>
-
-              {/* Quick Interactive Contact Form */}
-              <form onSubmit={handleContactSubmit} className="space-y-2 my-1">
-                <div className="grid grid-cols-2 gap-2">
+                {/* Quick Message Form */}
+                <form onSubmit={handleContactSubmit} className="space-y-2 mt-2">
                   <input
                     type="text"
                     required
                     placeholder="Your Name"
                     value={contactForm.name}
                     onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                    className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border-2 border-black rounded-md focus:ring-2 focus:ring-brand-yellow outline-none"
+                    className="w-full px-3 py-1.5 border-2 border-black rounded-lg text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   />
                   <input
                     type="email"
@@ -489,41 +487,42 @@ export default function BackpackPocket({
                     placeholder="Your Email"
                     value={contactForm.email}
                     onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                    className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border-2 border-black rounded-md focus:ring-2 focus:ring-brand-yellow outline-none"
+                    className="w-full px-3 py-1.5 border-2 border-black rounded-lg text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   />
-                </div>
-                <textarea
-                  required
-                  rows={2}
-                  placeholder="Share details about your role, product, or idea..."
-                  value={contactForm.message}
-                  onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                  className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border-2 border-black rounded-md focus:ring-2 focus:ring-brand-yellow outline-none resize-none"
-                />
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder="Tell me about your role or project scope..."
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    className="w-full px-3 py-1.5 border-2 border-black rounded-lg text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-yellow resize-none"
+                  />
 
-                <button
-                  type="submit"
-                  disabled={contactSent}
-                  className="w-full py-2 bg-brand-red hover:bg-red-700 text-white font-black text-xs uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                >
-                  {contactSent ? (
-                    <>
-                      <Check className="w-4 h-4" />
-                      <span>MESSAGE SENT!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-3.5 h-3.5" />
-                      <span>SEND MESSAGE</span>
-                    </>
+                  <button
+                    type="submit"
+                    className="w-full py-2 bg-brand-red hover:bg-red-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>SEND MESSAGE VIA CLIENT</span>
+                  </button>
+
+                  {contactSent && (
+                    <div className="p-2 bg-emerald-100 border border-emerald-400 rounded text-emerald-800 text-[11px] font-mono font-bold text-center animate-in fade-in">
+                      ✓ Note dispatched! Opening mail client.
+                    </div>
                   )}
-                </button>
-              </form>
+                </form>
+              </div>
 
-              {/* Direct channels */}
-              <div className="mt-1 pt-2 border-t border-dashed border-gray-300 flex items-center justify-between text-[11px] font-mono text-gray-600">
-                <span>{contact.email}</span>
+              {/* Bottom links */}
+              <div className="pt-2 border-t border-gray-200 flex items-center justify-between text-[11px] font-mono text-gray-600">
                 <span>{contact.location}</span>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="font-bold text-black underline hover:text-brand-orange"
+                >
+                  Direct Mailto ↗
+                </a>
               </div>
             </div>
           )}

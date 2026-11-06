@@ -1,27 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { sound } from '../utils/soundEffects';
+import { ChevronDown, Zap } from 'lucide-react';
 
 export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpen }) {
   const [isDragging, setIsDragging] = useState(false);
-  const zipperRef = useRef(null);
+  const trackRef = useRef(null);
   const lastSoundProgress = useRef(0);
 
-  // Trigger tactile zipper sound when progress moves significantly
-  const maybePlayZipperSound = (newProg) => {
+  // Trigger tactile mechanical ratchet sound when progress moves
+  const maybePlaySound = (newProg) => {
     if (Math.abs(newProg - lastSoundProgress.current) > 0.08) {
       sound.playZipper();
       lastSoundProgress.current = newProg;
     }
   };
 
-  // Synchronize zipper progress with window scroll position
+  // Synchronize throttle carriage with window scroll position
   useEffect(() => {
     const handleScroll = () => {
       if (isDragging) return;
-      const scrollThreshold = 420; // pixels to full unzip
+      const scrollThreshold = 420;
       const currentScroll = window.scrollY || window.pageYOffset || 0;
       const prog = Math.min(1, Math.max(0, currentScroll / scrollThreshold));
-      maybePlayZipperSound(prog);
+      maybePlaySound(prog);
       onProgressChange(prog);
       if (prog > 0.35 && !isOpen) {
         onToggleOpen(true);
@@ -34,7 +35,7 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isDragging, isOpen, onProgressChange, onToggleOpen]);
 
-  // Handle pointer down on slider
+  // Handle pointer down on throttle handle
   const handlePointerDown = (e) => {
     sound.playClick();
     setIsDragging(true);
@@ -43,14 +44,14 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
 
   // Handle pointer move during drag
   const handlePointerMove = (e) => {
-    if (!isDragging || !zipperRef.current) return;
-    const rect = zipperRef.current.getBoundingClientRect();
+    if (!isDragging || !trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
     const offsetY = e.clientY - rect.top;
-    const maxDrag = Math.max(100, rect.height - 90);
+    const maxDrag = Math.max(100, rect.height - 100);
     const clampedY = Math.max(0, Math.min(maxDrag, offsetY));
     const newProgress = clampedY / maxDrag;
 
-    maybePlayZipperSound(newProgress);
+    maybePlaySound(newProgress);
     onProgressChange(newProgress);
 
     // Scroll window smoothly in sync
@@ -71,7 +72,7 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
 
       if (progress > 0.35) {
         onToggleOpen(true);
-        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' });
       } else {
         onToggleOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -79,81 +80,94 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
     }
   };
 
-  // Click on the slider or scroll pull tab
-  const handlePullTabClick = (e) => {
+  // Click on the throttle slider triggers scroll down
+  const handleThrottleClick = (e) => {
     e.stopPropagation();
     sound.playZipper();
-    const target = document.getElementById('projects');
+    const target = document.getElementById('bento') || document.getElementById('projects');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Height of the track
   const trackHeight = 720;
-  const sliderPosition = progress * (trackHeight - 90);
+  const sliderPosition = progress * (trackHeight - 110);
 
   return (
     <div
-      ref={zipperRef}
-      className="relative h-[720px] w-12 sm:w-14 flex items-center justify-center select-none z-30 touch-none"
+      ref={trackRef}
+      className="relative h-[720px] w-14 sm:w-16 flex items-center justify-center select-none z-30 touch-none"
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
-      {/* Central zipper seam */}
-      <div className="absolute inset-y-0 w-8 flex items-center justify-center overflow-hidden">
-        {/* Left zipper teeth */}
-        <div
-          className="absolute left-0 top-0 w-4 h-full bg-repeat-y opacity-90 transition-transform duration-200"
-          style={{
-            backgroundImage: "url('/assets/left-zip.svg')",
-            backgroundSize: '16px auto',
-            transform: progress > 0.05 ? `translateX(-${progress * 9}px)` : 'none'
-          }}
-        />
+      {/* Precision Industrial Bus Rail Track */}
+      <div className="absolute inset-y-0 w-10 flex items-center justify-center">
+        
+        {/* Left Precision Ruler Rail */}
+        <div className="absolute left-1 top-0 bottom-0 w-2.5 bg-[#1e2028] border-x border-black/80 flex flex-col justify-between py-4 shadow-inner">
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-[1.5px] bg-[#4b5563] ${i % 5 === 0 ? 'w-full bg-brand-yellow' : 'w-1.5'}`}
+            />
+          ))}
+        </div>
 
-        {/* Right zipper teeth */}
-        <div
-          className="absolute right-0 top-0 w-4 h-full bg-repeat-y opacity-90 transition-transform duration-200"
-          style={{
-            backgroundImage: "url('/assets/right-zip.svg')",
-            backgroundSize: '16px auto',
-            transform: progress > 0.05 ? `translateX(${progress * 9}px)` : 'none'
-          }}
-        />
+        {/* Center Magnetic Core */}
+        <div className="w-2 h-full bg-[#0a0a0d] border-x border-black relative overflow-hidden">
+          {/* Active Energized Voltage Line that glows as you scroll */}
+          <div
+            className="w-full bg-gradient-to-b from-brand-yellow via-brand-orange to-emerald-400 transition-all duration-75"
+            style={{ height: `${Math.max(5, progress * 100)}%` }}
+          />
+        </div>
 
-        {/* Center metal tooth line */}
-        <div className="w-[3px] h-full bg-[#111] z-10" />
+        {/* Right Precision Ruler Rail */}
+        <div className="absolute right-1 top-0 bottom-0 w-2.5 bg-[#1e2028] border-x border-black/80 flex flex-col justify-between py-4 shadow-inner">
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-[1.5px] bg-[#4b5563] ml-auto ${i % 5 === 0 ? 'w-full bg-brand-yellow' : 'w-1.5'}`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* The Zipper Slider Puller */}
+      {/* Kinetic Throttle Carriage (Draggable Slider) */}
       <div
         className="absolute top-0 flex flex-col items-center cursor-grab active:cursor-grabbing transition-transform duration-75 group"
         style={{
           transform: `translateY(${sliderPosition}px)`,
         }}
         onPointerDown={handlePointerDown}
-        onClick={handlePullTabClick}
-        title="Drag or click to scroll down to projects"
+        onClick={handleThrottleClick}
+        title="Drag or click to engage system modules"
       >
-        {/* Upper Slider Head (Gold metal clasp) */}
-        <div className="w-10 h-10 drop-shadow-[2px_3px_0px_rgba(0,0,0,0.6)] z-20">
-          <img
-            src="/assets/logo-upper.svg"
-            alt="Zipper Head"
-            className="w-full h-full object-contain pointer-events-none group-hover:scale-105 transition-transform"
-          />
+        {/* Main Anodized Metal Carriage */}
+        <div className="w-14 h-16 bg-[#ffd31e] border-[3px] border-black rounded-xl shadow-[4px_4px_0px_#000] flex flex-col items-center justify-between p-1.5 hover:scale-105 transition-transform group-hover:bg-[#ffde59]">
+          
+          {/* Knurled Grip Top */}
+          <div className="w-full flex items-center justify-center gap-1">
+            <div className="w-1.5 h-1 bg-black/60 rounded-full" />
+            <div className="w-1.5 h-1 bg-black/60 rounded-full" />
+            <div className="w-1.5 h-1 bg-black/60 rounded-full" />
+          </div>
+
+          {/* Center Power Diodes */}
+          <div className="flex flex-col items-center">
+            <Zap className="w-4 h-4 text-black fill-current animate-pulse" />
+            <span className="font-mono font-black text-[9px] uppercase tracking-tighter text-black leading-none mt-0.5">
+              ENGAGE
+            </span>
+          </div>
+
+          {/* Directional Chevron */}
+          <ChevronDown className="w-4 h-4 text-black group-hover:translate-y-0.5 transition-transform" />
         </div>
 
-        {/* Lower Puller Tag (Badge with 'scroll' and chevrons) */}
-        <div className="w-14 h-12 -mt-1 drop-shadow-[2px_4px_0px_rgba(0,0,0,0.7)] z-20">
-          <img
-            src="/assets/logo-badge.svg"
-            alt="Scroll Pull Tab"
-            className={`w-full h-full object-contain pointer-events-none group-hover:translate-y-1 transition-transform ${
-              progress < 0.15 ? 'animate-bounce' : ''
-            }`}
-          />
+        {/* Lower Callsign Flag */}
+        <div className="mt-1 px-2 py-0.5 bg-black border border-black rounded text-[8.5px] font-mono font-bold text-white shadow-[2px_2px_0px_#ffd31e] whitespace-nowrap">
+          {progress > 0.05 ? `${Math.round(progress * 100)}% RUN` : 'SCROLL ↓'}
         </div>
       </div>
     </div>

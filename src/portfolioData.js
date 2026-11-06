@@ -40,24 +40,24 @@ export const portfolioData = {
     stickers: [
       {
         id: "sticker1",
-        image: "/assets/sticker1.webp",
-        alt: "This is not a phase, it's a lifestyle",
+        image: "/assets/sticker-ai-clean.svg",
+        alt: "Zero Hallucinations // Verified Data",
         className: "absolute -top-6 -right-6 w-24 h-24 hover:scale-110 transition-transform duration-200 z-10 drop-shadow-md cursor-pointer",
-        tooltip: "This is not a phase, it's a lifestyle!"
+        tooltip: "Zero Hallucinations // 100% Verified Pipeline"
       },
       {
         id: "sticker2",
-        image: "/assets/sticker2.webp",
-        alt: "Build, like you give a damn",
+        image: "/assets/sticker-langgraph.svg",
+        alt: "LangGraph State Machine Inside",
         className: "absolute -bottom-8 -left-6 w-24 h-24 hover:scale-110 transition-transform duration-200 z-10 drop-shadow-md cursor-pointer",
-        tooltip: "Build, like you give a damn."
+        tooltip: "LangGraph Multi-Agent Architecture"
       },
       {
         id: "sticker3",
-        image: "/assets/sticker3.webp",
-        alt: "Trust me I tested it!",
+        image: "/assets/sticker-trust-data.svg",
+        alt: "Trust The Data // 0% Synthetic Claims",
         className: "absolute -bottom-7 right-12 w-24 h-24 hover:scale-110 transition-transform duration-200 z-10 drop-shadow-md cursor-pointer",
-        tooltip: "Trust me, I tested it!"
+        tooltip: "Verified Audit // Trust The Data"
       }
     ]
   },

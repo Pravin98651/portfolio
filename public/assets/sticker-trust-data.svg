@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
+  <!-- Rotated Neo-Brutalist Stamp -->
+  <rect x="12" y="24" width="136" height="112" rx="10" fill="#fff" stroke="#000" stroke-width="4"/>
+  <rect x="18" y="30" width="124" height="100" rx="6" fill="#111" stroke="#ef4444" stroke-width="2"/>
+  
+  <!-- Header Bar -->
+  <rect x="18" y="30" width="124" height="24" rx="4" fill="#ef4444"/>
+  <text x="80" y="46" text-anchor="middle" font-family="monospace" font-weight="900" font-size="9" fill="#fff" letter-spacing="1.5">VERIFIED AUDIT</text>
+  
+  <!-- Check Shield -->
+  <g transform="translate(80, 75)">
+    <path d="M-12 -12 L12 -12 L12 0 C12 10 0 16 0 16 C0 16 -12 10 -12 0 Z" fill="#ffd31e" stroke="#fff" stroke-width="1.5"/>
+    <path d="M-5 0 L-2 4 L6 -4" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- Slogan -->
+  <text x="80" y="106" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="10.5" fill="#fff" letter-spacing="0.5">TRUST THE DATA</text>
+  <text x="80" y="120" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="8" fill="#9ca3af">0% SYNTHETIC CLAIMS</text>
+</svg>

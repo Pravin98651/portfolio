@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
+  <!-- Circular Agentic Workflow Seal -->
+  <circle cx="80" cy="80" r="70" fill="#06b6d4" stroke="#000" stroke-width="4"/>
+  <circle cx="80" cy="80" r="63" fill="#0891b2" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 3"/>
+  
+  <!-- Outer Arch Text -->
+  <path id="curve" d="M 30,80 A 50,50 0 1,1 130,80" fill="none"/>
+  
+  <!-- Center Multi-Node Graph Graphic -->
+  <g transform="translate(80, 72)">
+    <!-- Node A -->
+    <circle cx="-25" cy="-10" r="12" fill="#fff" stroke="#000" stroke-width="2.5"/>
+    <text x="-25" y="-6" text-anchor="middle" font-family="monospace" font-weight="900" font-size="8" fill="#000">SCRP</text>
+    
+    <!-- Node B -->
+    <circle cx="25" cy="-10" r="12" fill="#fff" stroke="#000" stroke-width="2.5"/>
+    <text x="25" y="-6" text-anchor="middle" font-family="monospace" font-weight="900" font-size="8" fill="#000">EVAL</text>
+    
+    <!-- Node C -->
+    <circle cx="0" cy="22" r="12" fill="#ffd31e" stroke="#000" stroke-width="2.5"/>
+    <text x="0" y="26" text-anchor="middle" font-family="monospace" font-weight="900" font-size="8" fill="#000">DEDP</text>
+    
+    <!-- Connecting Edges with Arrows -->
+    <line x1="-13" y1="-10" x2="13" y2="-10" stroke="#000" stroke-width="2.5"/>
+    <line x1="-18" y1="-1" x2="-6" y2="15" stroke="#000" stroke-width="2.5"/>
+    <line x1="18" y1="-1" x2="6" y2="15" stroke="#000" stroke-width="2.5"/>
+  </g>
+  
+  <!-- Label -->
+  <rect x="25" y="112" width="110" height="24" rx="4" fill="#000"/>
+  <text x="80" y="128" text-anchor="middle" font-family="monospace" font-weight="900" font-size="9.5" fill="#fff" letter-spacing="1">LANGGRAPH</text>
+</svg>

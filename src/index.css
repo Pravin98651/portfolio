@@ -22,52 +22,51 @@ button, a, [role="button"], input, select, textarea {
   cursor: url('/assets/cursor-hover.png'), pointer;
 }
 
-/* Background corduroy orange stripes */
-.bg-orange-ribbed {
-  background-color: #f3670e;
-  background-image: repeating-linear-gradient(
-    90deg,
-    #f3670e 0px,
-    #f3670e 12px,
-    #e85c07 12px,
-    #e85c07 16px
-  );
+/* Modern Engineered Technical Blueprint Grid (Day Mode) */
+.bg-orange-ribbed,
+.bg-workspace-grid {
+  background-color: #f6f7f9;
+  background-image: 
+    radial-gradient(#cbd5e1 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px, 48px 48px;
   transition: background-color 0.3s ease;
 }
 
-/* Dark mode stealth corduroy */
-.dark .bg-orange-ribbed {
-  background-color: #121316;
+/* Dark Tactical Cybernetic Workstation (Night Mode) */
+.dark .bg-orange-ribbed,
+.dark .bg-workspace-grid {
+  background-color: #0b0c10;
+  background-image: 
+    radial-gradient(#262a38 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px, 48px 48px;
+}
+
+/* Modular Engineering Console Chassis */
+.bg-pocket-red,
+.bg-console-chassis {
+  background-color: #1a1c23;
   background-image: repeating-linear-gradient(
-    90deg,
-    #121316 0px,
-    #121316 12px,
-    #1c1d22 12px,
-    #1c1d22 16px
+    45deg,
+    #181a22 0px,
+    #181a22 8px,
+    #13141a 8px,
+    #13141a 16px
   );
 }
 
-/* Red backpack pocket ribbed texture */
-.bg-pocket-red {
-  background-color: #cb1c25;
-  background-image: repeating-linear-gradient(
-    90deg,
-    #cb1c25 0px,
-    #cb1c25 10px,
-    #b3141c 10px,
-    #b3141c 13px
-  );
-}
-
-/* Yellow badge stripes */
+/* Tactical Yellow Clearance Badge Pattern */
 .bg-badge-stripes {
   background-color: #ffd31e;
   background-image: repeating-linear-gradient(
-    90deg,
+    45deg,
     #ffd31e 0px,
-    #ffd31e 16px,
-    #ffe269 16px,
-    #ffe269 22px
+    #ffd31e 14px,
+    #fbbf24 14px,
+    #fbbf24 20px
   );
 }
 
