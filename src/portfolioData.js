@@ -644,6 +644,157 @@ export const portfolioData = {
     ]
   },
 
+  hackathons: {
+    title: "AWARDS & HACKATHONS",
+    tagline: "// 02. COMPETITIVE ENGINEERING & MERIT",
+    intro: "I value opportunities that challenge me to turn technical ideas into practical solutions. Through national-level hackathons, innovation competitions, and academic recognition, I have explored problems across artificial intelligence, software engineering, and industrial technology. These experiences have strengthened my ability to work through real constraints, build working prototypes under pressure, and present technical solutions to industry evaluators.",
+    stats: [
+      { label: "National 1st Place", value: "Winner 🏆", subtext: "Maadhyamik Hackathon" },
+      { label: "Danfoss Innovator", value: "2nd Place 🥈", subtext: "₹50,000 Cash Prize" },
+      { label: "VIT Merit", value: "Achiever", subtext: "Academic Year 2025–26" },
+      { label: "National Podiums", value: "4+ Events", subtext: "Verified Competitions" }
+    ],
+    items: [
+      {
+        id: "danfoss-2026",
+        badge: "2nd Place — National",
+        badgeColor: "bg-amber-400 text-black",
+        title: "Robust RPM — Vibration-Based Speed Estimation",
+        event: "Danfoss Innovator Award 2026",
+        organizer: "Danfoss Industries Pvt. Ltd., Chennai",
+        date: "27 February 2026",
+        team: "Team Foresight",
+        prize: "₹50,000 Cash Prize",
+        category: "Industrial IoT · Signal Processing · Anomaly Detection",
+        summary: "A software-based approach to estimating industrial pump operating speed from vibration signals, eliminating reliance on fragile physical tachometers. The pipeline analyzes vibration frequency patterns, validates candidate RPMs with cepstrum analysis, checks signal abnormalities with an unsupervised autoencoder, and stabilizes measurements with time-series memory.",
+        pipeline: [
+          { step: "01", name: "Signal Ingestion & Preprocessing", desc: "Detrends raw vibration recordings to eliminate DC offsets, with a 50 Hz IIR notch filter to suppress grid interference." },
+          { step: "02", name: "FFT Harmonic Peak Detection", desc: "Real Fast Fourier Transform converts time-domain signals to spectra, assessing 9x and 16x harmonic bands with noise profile filtering." },
+          { step: "03", name: "Cepstrum Cross-Validation", desc: "Inverse transform of log spectrum detects periodic harmonic spacing, cross-verifying FFT estimates within a strict 3% agreement tolerance." },
+          { step: "04", name: "Autoencoder Anomaly Detection", desc: "Unsupervised neural reconstruction error identifies abnormal signals deviating from healthy operational patterns, gating unreliable RPMs." },
+          { step: "05", name: "Time-Series Tracking (EMA)", desc: "Establishes a 50-sample statistical baseline, rejecting 3σ outliers and tracking speed shifts with an exponential moving average (α = 0.05)." }
+        ],
+        metrics: [
+          { label: "Reported Error", value: "1.32%" },
+          { label: "Mean Absolute Error", value: "17.48 RPM" },
+          { label: "High-Confidence Acc.", value: "100% within 2%" },
+          { label: "Team Prize Awarded", value: "₹50,000" }
+        ],
+        contribution: "As a member of Team Foresight, contributed to the development and evaluation of the vibration-based pump-speed estimation system combining FFT analysis, cepstrum validation, anomaly detection, and time-series tracking.",
+        images: [
+          {
+            url: "/assets/hackathons/danfoss-group.jpg",
+            title: "Team Foresight Award Ceremony",
+            caption: "Receiving the 2nd Place ₹50,000 prize cheque & trophy at Danfoss Industries Pvt. Ltd., Chennai"
+          },
+          {
+            url: "/assets/hackathons/danfoss-single.jpg",
+            title: "Danfoss Innovator Trophy",
+            caption: "Pravin G holding the Danfoss Innovator Award 2026 trophy and award certificate"
+          }
+        ]
+      },
+      {
+        id: "sona-2025",
+        badge: "1st Place Winner 🏆",
+        badgeColor: "bg-emerald-400 text-black",
+        title: "AI Trip Planner",
+        event: "National-Level Hackathon",
+        organizer: "Maadhyamik Technologies",
+        venue: "Sona College of Technology",
+        category: "Applied AI · Travel Optimization · Itinerary Synthesis",
+        summary: "An AI-powered travel planning system developed for a national-level hackathon organized by Maadhyamik Technologies at Sona College. Synthesizes customized, day-by-day itineraries by reconciling destination choices, user budget constraints, time availability, and optimal activity sequences.",
+        highlights: [
+          "Dynamic constraint-satisfaction itinerary synthesis based on travel group & budget",
+          "Multi-factor preference balancing (pacing, dining, exploration, and rest intervals)",
+          "Structured day-by-day activity generation with transit estimates",
+          "Clean web-based interface for rapid customization and plan export"
+        ],
+        contribution: "Architected the algorithmic itinerary generator, preference input modeling, and frontend journey display.",
+        images: [
+          {
+            url: "/assets/hackathons/sona-group.jpg",
+            title: "National Hackathon 1st Place Felicitation",
+            caption: "Receiving the 1st Place National Hackathon certificates on stage at Sona College"
+          },
+          {
+            url: "/assets/hackathons/sona-lab.jpg",
+            title: "Active Hackathon Engineering Session",
+            caption: "Building and testing the AI Trip Planner prototype during the hackathon session"
+          }
+        ]
+      },
+      {
+        id: "sairam-2025",
+        badge: "2nd Place 🥈",
+        badgeColor: "bg-amber-400 text-black",
+        title: "Lexifyd Tamil — Context-Aware Lexical Engine",
+        event: "National-Level Hackathon",
+        organizer: "Sairam Engineering College",
+        team: "Pravin G & Mohammed Kaif K",
+        category: "Natural Language Processing · Tamil Polysemy · Gamified EdTech",
+        summary: "A context-aware Tamil vocabulary-learning prototype designed to teach polysemy: how a single root word carries distinct meanings based on syntactic context. Combines AI sense generation, natural Tamil sentence synthesis, linguistically plausible distractors, and interactive drag-and-drop challenges.",
+        highlights: [
+          "Dynamic sense identification for ambiguous polysemous Tamil root words",
+          "Contextual sentence generation paired with authentic English semantic mappings",
+          "Plausible distractor generation that is grammatically valid but contextually incorrect",
+          "Morphological handling of Tamil suffixes, case markers, and part-of-speech shifts",
+          "Learner attempt analytics tracking confusion matrices across target senses"
+        ],
+        contribution: "Co-developed Lexifyd Tamil, focusing on the AI-assisted lexical content pipeline, sentence-based challenge logic, and the interactive quiz interface.",
+        images: [
+          {
+            url: "/assets/hackathons/sairam-group.jpg",
+            title: "2nd Place Award Presentation",
+            caption: "Receiving 2nd Place national hackathon honors and certificates at Sairam Engineering College"
+          }
+        ]
+      },
+      {
+        id: "vit-achiever",
+        badge: "Achiever Recognition 🎖️",
+        badgeColor: "bg-brand-yellow text-black",
+        title: "VIT Achiever Honor — Merit & National Accomplishment",
+        event: "Institutional Merit Award (2025–26)",
+        organizer: "Vellore Institute of Technology (VIT)",
+        detail: "Recognized and awarded as an 'Achiever' by VIT for outstanding merit and exceptional National-Level Achievement during the academic year 2025–26.",
+        credentials: "Presented by the Vice Chancellor and Chancellor of VIT (Reg. No. 23MIS0325) with official Certificate of Appreciation.",
+        category: "Academic Merit · National Recognition · Technical Leadership",
+        summary: "This prestigious institutional honor recognizes exemplary performance, innovation, and distinction while representing the Institute on national technical stages across India.",
+        images: [
+          {
+            url: "/assets/hackathons/vit-achiever-certificate.png",
+            title: "Official VIT Certificate of Appreciation",
+            caption: "Awarded to Mr. PRAVIN G (Reg. No. 23MIS0325) for National-Level Achievement by VIT Chancellor & Vice Chancellor"
+          }
+        ]
+      },
+      {
+        id: "trichy-2025",
+        badge: "National Merit Certificate 🏅",
+        badgeColor: "bg-blue-400 text-black",
+        title: "AUTOMECH National Symposium & Technical Challenge",
+        event: "National Technical Challenge",
+        organizer: "K. Ramakrishnan College of Engineering, Trichy",
+        venue: "Department of Mechanical Engineering, Trichy",
+        category: "Applied Engineering · Hardware & Systems Prototype",
+        summary: "Participated and honored with Certificates of Appreciation at the national technical symposium, presenting technical solutions to engineering faculty and evaluators.",
+        images: [
+          {
+            url: "/assets/hackathons/trichy-stage.jpg",
+            title: "Trichy National Symposium Stage Felicitation",
+            caption: "Stage certificate ceremony at K. Ramakrishnan College of Engineering, Trichy"
+          },
+          {
+            url: "/assets/hackathons/trichy-team.jpg",
+            title: "Certificate of Appreciation Display",
+            caption: "Team members displaying official Certificates of Appreciation at K. Ramakrishnan College"
+          }
+        ]
+      }
+    ]
+  },
+
   contact: {
     title: "GET IN TOUCH",
     subtitle: "Have an interesting problem? Let's connect and build something meaningful.",

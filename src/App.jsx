@@ -6,6 +6,7 @@ import IdBadge from './components/IdBadge';
 import CaseStudyModal from './components/CaseStudyModal';
 import BentoGrid from './components/BentoGrid';
 import ProjectsSection from './components/ProjectsSection';
+import HackathonsSection from './components/HackathonsSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
@@ -73,7 +74,7 @@ export default function App() {
       }
 
       // Determine active section for nav highlight
-      const sections = ['contact', 'skills', 'about', 'projects', 'bento'];
+      const sections = ['contact', 'skills', 'about', 'hackathons', 'projects', 'bento'];
       let current = 'hero';
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -264,6 +265,17 @@ export default function App() {
               }`}
             >
               PROJECTS
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('hackathons')}
+              className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                activeSection === 'hackathons'
+                  ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'
+                  : 'border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black'
+              }`}
+            >
+              HACKATHONS
             </button>
             <button
               type="button"
@@ -537,7 +549,14 @@ export default function App() {
                 onClick={() => scrollToSection('projects')}
                 className="px-4 py-2 bg-brand-orange hover:bg-orange-600 text-white rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
               >
-                VIEW PROJECTS (4) ↓
+                PROJECTS (4) ↓
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('hackathons')}
+                className="px-4 py-2 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
+              >
+                HACKATHONS 🏆 ↓
               </button>
             </div>
 
@@ -565,7 +584,10 @@ export default function App() {
       {/* ================= 2. PROJECTS & CASE STUDIES SECTION ================= */}
       <ProjectsSection onOpenCaseStudy={setSelectedCaseStudy} />
 
-      {/* ================= 3. ABOUT & PHILOSOPHY SECTION ================= */}
+      {/* ================= 3. AWARDS, HACKATHONS & RECOGNITION ================= */}
+      <HackathonsSection />
+
+      {/* ================= 4. ABOUT & PHILOSOPHY SECTION ================= */}
       <AboutSection />
 
       {/* ================= 4. SKILLS & TECHNOLOGY MATRIX ================= */}

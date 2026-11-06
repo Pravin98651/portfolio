@@ -44,6 +44,7 @@ export default function DeveloperTerminal({ isOpen, onClose, onOpenCaseStudy, on
           text: `AVAILABLE COMMANDS:
   projects         List all 4 verified technical case studies
   project <name>   Open case study for kidtube, jobhunt, lexifyd, or rag
+  hackathons       Display national hackathon wins, Danfoss 2026, and awards
   skills           Print categorized full-stack & AI capabilities
   about            Print engineering philosophy and positioning
   resume           Open / download Pravin's curriculum vitae
@@ -65,6 +66,35 @@ export default function DeveloperTerminal({ isOpen, onClose, onOpenCaseStudy, on
 
 Type "project kidtube" or click the project cards to open full deep dives.`
         });
+        break;
+
+      case 'hackathons':
+      case 'awards':
+        newHistory.push({
+          type: 'output',
+          text: `COMPETITIVE HACKATHON PODIUMS & RECOGNITIONS:
+  🏆 1st Place Winner - National Hackathon (Sona College / Maadhyamik Technologies)
+      Project: AI Trip Planner
+
+  🥈 2nd Place (National) - Danfoss Innovator Award 2026 (Danfoss Chennai)
+      Team Foresight | Prize: ₹50,000 Cash Prize
+      Project: Robust RPM (Vibration-Based Pump Speed Estimation)
+
+  🥈 2nd Place - National Hackathon (Sairam Engineering College)
+      Team: Pravin G & Mohammed Kaif K
+      Project: Lexifyd Tamil (Contextual Polysemy Engine)
+
+  🎖️ Achiever Recognition - Vellore Institute of Technology (VIT, 2025–26)
+      Official Certificate of Appreciation from Vice Chancellor & Chancellor
+
+  🏅 National Merit Certificate - AUTOMECH Symposium (K. Ramakrishnan College, Trichy)
+
+Scrolling to Hackathons & Awards Section...`
+        });
+        setTimeout(() => {
+          const el = document.getElementById('hackathons');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
         break;
 
       case 'project':

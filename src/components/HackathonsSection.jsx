@@ -1,0 +1,392 @@
+import React, { useState } from 'react';
+import { portfolioData } from '../portfolioData';
+import { sound } from '../utils/soundEffects';
+import {
+  Trophy,
+  Award,
+  Medal,
+  Sparkles,
+  ExternalLink,
+  CheckCircle,
+  Eye,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  X,
+  Cpu,
+  Layers,
+  Calendar,
+  MapPin,
+  Users,
+  ShieldCheck,
+  TrendingUp,
+  FileCheck
+} from 'lucide-react';
+
+export default function HackathonsSection() {
+  const { hackathons } = portfolioData;
+  const [activeItemId, setActiveItemId] = useState('danfoss-2026');
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  const [lightboxImage, setLightboxImage] = useState(null); // { url, title, caption }
+
+  const currentItem = hackathons.items.find(it => it.id === activeItemId) || hackathons.items[0];
+
+  const handleSelectTab = (id) => {
+    sound.playClick();
+    setActiveItemId(id);
+    setSelectedPhotoIndex(0);
+  };
+
+  const handleOpenLightbox = (imageObj) => {
+    sound.playClick();
+    setLightboxImage(imageObj);
+  };
+
+  const handleCloseLightbox = () => {
+    sound.playClick();
+    setLightboxImage(null);
+  };
+
+  return (
+    <section id="hackathons" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20">
+      
+      {/* ================= SECTION HEADER PLAQUE ================= */}
+      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
+        {/* Four Screws */}
+        <div className="absolute top-3.5 left-3.5 plaque-screw" />
+        <div className="absolute top-3.5 right-3.5 plaque-screw" />
+        <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+        <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+              <Trophy className="w-3.5 h-3.5 text-black" />
+              <span>{hackathons.tagline}</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
+              AWARDS, HACKATHONS & <span className="text-brand-orange">RECOGNITION</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-gray-700 font-medium max-w-3xl leading-relaxed">
+              {hackathons.intro}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold text-gray-600 bg-gray-100 p-2 rounded-xl border border-gray-300 self-start md:self-end">
+            <span className="flex items-center gap-1.5 text-black font-extrabold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>OFFICIAL EVIDENCE ATTACHED</span>
+            </span>
+          </div>
+        </div>
+
+        {/* 4 Telemetry Stats Badges */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t-2 border-dashed border-gray-300">
+          {hackathons.stats.map((st, sIdx) => (
+            <div key={sIdx} className="p-3 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
+              <div className="text-[10px] font-mono font-bold uppercase text-gray-500">
+                {st.label}
+              </div>
+              <div className="text-base sm:text-lg font-black text-black mt-0.5 flex items-center gap-1">
+                {st.value}
+              </div>
+              <div className="text-[10px] font-mono text-brand-orange-dark font-bold mt-0.5 truncate">
+                {st.subtext}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= AWARDS AT A GLANCE (QUICK MATRIX PILLS) ================= */}
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 mb-8">
+        {hackathons.items.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => handleSelectTab(item.id)}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono text-xs font-bold border-2 transition-all whitespace-nowrap cursor-pointer shadow-[3px_3px_0px_#000] ${
+              activeItemId === item.id
+                ? 'bg-black text-white border-black ring-2 ring-brand-yellow -translate-y-0.5'
+                : 'bg-white text-gray-800 border-black hover:bg-brand-yellow hover:text-black'
+            }`}
+          >
+            <span>{item.badge}</span>
+            <span className="text-gray-400 font-normal">|</span>
+            <span className="font-sans font-black">{item.title.split('—')[0].trim()}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* ================= FEATURED SHOWCASE STAGE ================= */}
+      <div className="relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all scroll-reveal">
+        
+        {/* Top Header Badge Ribbon */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b-2 border-gray-200">
+          <div className="flex items-center gap-2.5">
+            <span className={`px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_#000] ${currentItem.badgeColor}`}>
+              {currentItem.badge}
+            </span>
+            <span className="font-mono text-xs font-bold text-gray-500 uppercase">
+              {currentItem.event}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold text-gray-600">
+            {currentItem.date && (
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                <span>{currentItem.date}</span>
+              </span>
+            )}
+            {currentItem.venue && (
+              <span className="flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                <span>{currentItem.venue}</span>
+              </span>
+            )}
+            {currentItem.prize && (
+              <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded font-black">
+                {currentItem.prize}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
+          
+          {/* Left Column: Real Verification Photo Gallery */}
+          <div className="lg:col-span-6 space-y-4">
+            
+            {/* Main Interactive Photo Viewer */}
+            {currentItem.images && currentItem.images.length > 0 && (
+              <div className="space-y-3">
+                <div
+                  onClick={() => handleOpenLightbox(currentItem.images[selectedPhotoIndex] || currentItem.images[0])}
+                  className="relative w-full h-64 sm:h-80 rounded-xl border-[3px] border-black overflow-hidden bg-black flex items-center justify-center cursor-pointer group shadow-[4px_4px_0px_#000]"
+                >
+                  <img
+                    src={currentItem.images[selectedPhotoIndex]?.url || currentItem.images[0]?.url}
+                    alt={currentItem.images[selectedPhotoIndex]?.title || currentItem.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+
+                  {/* Hover Inspect Overlay */}
+                  <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 text-white font-black text-xs uppercase tracking-wider backdrop-blur-[2px]">
+                    <div className="p-3 bg-brand-yellow text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
+                      <Maximize2 className="w-5 h-5" />
+                    </div>
+                    <span>Click to Inspect High-Resolution Photo / Certificate</span>
+                  </div>
+
+                  {/* Bottom Verification Label */}
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/85 backdrop-blur-md rounded border border-white/20 p-2 text-white flex items-center justify-between text-[11px] font-mono">
+                    <span className="font-bold truncate">
+                      {currentItem.images[selectedPhotoIndex]?.title || 'Ceremony & Certificate'}
+                    </span>
+                    <span className="px-2 py-0.5 bg-brand-yellow text-black rounded text-[10px] font-black shrink-0 ml-2">
+                      VERIFIED PROOF
+                    </span>
+                  </div>
+                </div>
+
+                {/* Photo Switchers if multiple images exist */}
+                {currentItem.images.length > 1 && (
+                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+                    {currentItem.images.map((img, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => {
+                          sound.playClick();
+                          setSelectedPhotoIndex(i);
+                        }}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-bold border-2 transition-all cursor-pointer whitespace-nowrap ${
+                          selectedPhotoIndex === i
+                            ? 'bg-brand-yellow text-black border-black shadow-[2px_2px_0px_#000] font-black'
+                            : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+                        }`}
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Photo {i + 1}: {img.title.split(' ')[0]}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Caption description */}
+                <p className="text-xs text-gray-600 font-mono italic leading-relaxed">
+                  "{currentItem.images[selectedPhotoIndex]?.caption || ''}"
+                </p>
+              </div>
+            )}
+
+            {/* Performance Metrics if Available (e.g. Robust RPM) */}
+            {currentItem.metrics && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+                {currentItem.metrics.map((m, mIdx) => (
+                  <div key={mIdx} className="p-2.5 bg-gray-50 border-2 border-black rounded-xl text-center">
+                    <div className="font-mono text-[10px] text-gray-500 uppercase font-bold truncate">
+                      {m.label}
+                    </div>
+                    <div className="font-black text-xs sm:text-sm text-black truncate mt-0.5">
+                      {m.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+          </div>
+
+          {/* Right Column: Project Context, Architecture & Contribution */}
+          <div className="lg:col-span-6 space-y-5">
+            
+            <div>
+              <div className="font-mono text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">
+                {currentItem.category}
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase leading-tight">
+                {currentItem.title}
+              </h3>
+              {currentItem.team && (
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-gray-100 border border-gray-300 rounded font-mono text-xs font-bold text-gray-700 mt-2">
+                  <Users className="w-3.5 h-3.5 text-black" />
+                  <span>{currentItem.team}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Summary */}
+            <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
+              {currentItem.summary}
+            </p>
+
+            {/* Signal Processing / Pipeline Steps if applicable */}
+            {currentItem.pipeline && (
+              <div className="p-4 bg-[#fdfdfd] border-2 border-black rounded-xl space-y-2.5">
+                <div className="text-[11px] font-mono font-extrabold uppercase text-gray-600 tracking-wider flex items-center gap-1.5">
+                  <Cpu className="w-3.5 h-3.5 text-black" />
+                  <span>Signal Processing & Multi-Stage Validation Pipeline</span>
+                </div>
+                <div className="space-y-2 text-xs">
+                  {currentItem.pipeline.map((step, pIdx) => (
+                    <div key={pIdx} className="flex items-start gap-2.5 leading-snug">
+                      <span className="font-mono font-black text-[10px] px-1.5 py-0.5 bg-brand-yellow border border-black rounded">
+                        {step.step}
+                      </span>
+                      <div>
+                        <span className="font-bold text-black">{step.name}: </span>
+                        <span className="text-gray-700">{step.desc}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Technical Highlights if applicable */}
+            {currentItem.highlights && (
+              <div className="p-4 bg-[#fdfdfd] border-2 border-black rounded-xl space-y-2.5">
+                <div className="text-[11px] font-mono font-extrabold uppercase text-gray-600 tracking-wider flex items-center gap-1.5">
+                  <Layers className="w-3.5 h-3.5 text-black" />
+                  <span>Key Innovation & Engineering Highlights</span>
+                </div>
+                <ul className="space-y-1.5 text-xs text-gray-800">
+                  {currentItem.highlights.map((h, hIdx) => (
+                    <li key={hIdx} className="flex items-start gap-2 leading-snug">
+                      <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Institutional Credentials / Detail if applicable */}
+            {currentItem.credentials && (
+              <div className="p-4 bg-amber-50/70 border-2 border-amber-300 rounded-xl space-y-1.5 font-mono text-xs">
+                <div className="font-extrabold text-amber-900 flex items-center gap-1.5">
+                  <FileCheck className="w-4 h-4 text-amber-700" />
+                  <span>Institutional Accreditation</span>
+                </div>
+                <p className="text-amber-800 leading-relaxed">
+                  {currentItem.credentials}
+                </p>
+              </div>
+            )}
+
+            {/* Personal Contribution Box */}
+            {currentItem.contribution && (
+              <div className="p-3.5 bg-gray-50 border-l-4 border-black rounded-r-xl space-y-1">
+                <div className="text-[10px] font-mono font-black uppercase text-gray-500 tracking-widest">
+                  MY PERSONAL CONTRIBUTION
+                </div>
+                <p className="text-xs text-gray-800 font-medium leading-relaxed">
+                  "{currentItem.contribution}"
+                </p>
+              </div>
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ================= LIGHTBOX MODAL FOR HIGH-RES PHOTOS ================= */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+          onClick={handleCloseLightbox}
+        >
+          <div
+            className="relative max-w-4xl w-full bg-white border-[3px] border-black rounded-2xl shadow-[12px_12px_0px_#000] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 bg-gray-50 border-b-2 border-black">
+              <div className="flex items-center gap-2">
+                <Trophy className="w-4 h-4 text-brand-orange-dark" />
+                <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                  {lightboxImage.title || 'Official Award / Certificate'}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={handleCloseLightbox}
+                className="p-1.5 bg-black hover:bg-gray-800 text-white rounded-lg transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Main Modal Image */}
+            <div className="p-3 bg-black flex items-center justify-center max-h-[70vh] overflow-hidden">
+              <img
+                src={lightboxImage.url}
+                alt={lightboxImage.title || 'Official Evidence'}
+                className="max-h-[68vh] w-auto object-contain rounded-lg shadow-lg"
+              />
+            </div>
+
+            {/* Modal Footer Caption */}
+            <div className="p-4 bg-white border-t-2 border-black flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs">
+              <p className="text-gray-700 font-medium">
+                {lightboxImage.caption}
+              </p>
+              <button
+                type="button"
+                onClick={handleCloseLightbox}
+                className="px-4 py-2 bg-brand-yellow hover:bg-[#ffde59] text-black font-black uppercase rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer whitespace-nowrap self-end sm:self-auto"
+              >
+                CLOSE [ESC]
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </section>
+  );
+}
