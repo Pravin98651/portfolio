@@ -55,8 +55,49 @@ export default function ProjectDetailPage({
   const [showScrollTop, setShowScrollTop] = useState(false);
   const contentRef = useRef(null);
 
+  const stepPillRefs = useRef({});
+  const navTabRefs = useRef({});
+  const imageThumbRefs = useRef({});
+  const workflowStageRef = useRef(null);
+
   const adjacent = getAdjacentProjects(project.id);
   const cloneCommand = project.githubUrl && project.githubUrl !== '#' ? `git clone ${project.githubUrl}.git` : '';
+
+  // Auto-scroll the active workflow step pill horizontally into view
+  useEffect(() => {
+    const el = stepPillRefs.current[activeWorkflowStep];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [activeWorkflowStep]);
+
+  // Auto-scroll the active nav tab in sticky bar horizontally into view
+  useEffect(() => {
+    const el = navTabRefs.current[activeTab];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [activeTab]);
+
+  // Auto-scroll image thumbnail into view
+  useEffect(() => {
+    const el = imageThumbRefs.current[selectedImageIndex];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [selectedImageIndex]);
 
   // Calculate reading progress on scroll
   useEffect(() => {
@@ -463,7 +504,7 @@ export default function ProjectDetailPage({
 
             {/* Interactive Screen Switcher Tabs */}
             {project.images.length > 1 && (
-              <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar pt-1">
+              <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar pt-1 scroll-smooth">
                 {project.images.map((img, i) => {
                   const isArch = img.includes('arch');
                   const label = isArch 
@@ -475,6 +516,7 @@ export default function ProjectDetailPage({
                   return (
                     <button
                       key={i}
+                      ref={(el) => (imageThumbRefs.current[i] = el)}
                       type="button"
                       onClick={() => {
                         sound.playClick();
@@ -497,10 +539,11 @@ export default function ProjectDetailPage({
         )}
 
         {/* ================= 3. STICKY SUB-NAV TAB BAR ================= */}
-        <div className="sticky top-[60px] z-30 flex items-center gap-1.5 p-2 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-md rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000] overflow-x-auto no-scrollbar select-none">
+        <div className="sticky top-[60px] z-30 flex items-center gap-1.5 p-2 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-md rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000] overflow-x-auto no-scrollbar select-none scroll-smooth">
           {navTabs.map((tab) => (
             <button
               key={tab.id}
+              ref={(el) => (navTabRefs.current[tab.id] = el)}
               type="button"
               onClick={() => scrollToTab(tab.id)}
               className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
@@ -580,6 +623,7 @@ export default function ProjectDetailPage({
                   onClick={() => {
                     sound.playFlip();
                     setActiveWorkflowStep(prev => Math.max(0, prev - 1));
+                    workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }}
                   disabled={activeWorkflowStep === 0}
                   className="px-3 py-1 bg-gray-100 dark:bg-gray-800 disabled:opacity-40 border-2 border-black rounded-lg font-mono text-xs font-bold transition-all cursor-pointer"
@@ -594,6 +638,7 @@ export default function ProjectDetailPage({
                   onClick={() => {
                     sound.playFlip();
                     setActiveWorkflowStep(prev => Math.min(project.caseStudy.workflowSteps.length - 1, prev + 1));
+                    workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }}
                   disabled={activeWorkflowStep === project.caseStudy.workflowSteps.length - 1}
                   className="px-3 py-1 bg-brand-yellow text-black disabled:opacity-40 border-2 border-black rounded-lg font-mono text-xs font-bold transition-all cursor-pointer"
@@ -604,12 +649,13 @@ export default function ProjectDetailPage({
             </div>
 
             {/* Step Selector Horizontal Ribbon */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
               {project.caseStudy.workflowSteps.map((st, idx) => {
                 const isActive = activeWorkflowStep === idx;
                 return (
                   <button
                     key={idx}
+                    ref={(el) => (stepPillRefs.current[idx] = el)}
                     type="button"
                     onClick={() => {
                       sound.playClick();
@@ -634,7 +680,10 @@ export default function ProjectDetailPage({
 
             {/* Active Step Feature Box */}
             {project.caseStudy.workflowSteps[activeWorkflowStep] && (
-              <div className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-[#1a1c28] dark:to-[#171922] border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 animate-in fade-in duration-200">
+              <div 
+                ref={workflowStageRef}
+                className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-[#1a1c28] dark:to-[#171922] border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 animate-in fade-in duration-200"
+              >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-extrabold uppercase px-2.5 py-1 bg-black text-brand-yellow rounded border border-black shadow-xs">
                     STAGE 0{project.caseStudy.workflowSteps[activeWorkflowStep].step || activeWorkflowStep + 1} IN DETAIL

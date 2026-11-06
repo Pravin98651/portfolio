@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '../portfolioData';
 import { sound } from '../utils/soundEffects';
 import { getProjectUrl } from '../utils/projectRoutes';
@@ -28,6 +28,10 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
   const [slideDirection, setSlideDirection] = useState('right');
   const [activeImageMap, setActiveImageMap] = useState({});
 
+  const projectPillRefs = useRef({});
+  const projectStageRef = useRef(null);
+  const thumbRefs = useRef({});
+
   const categories = [
     { id: 'ALL', label: 'All Projects', count: projects.length },
     { id: 'FLAGSHIP', label: 'Flagship & Winners', count: projects.filter(p => p.id === 'kidtube' || p.id === 'job-hunt-ai' || p.id === 'ai-trip-planner').length },
@@ -43,28 +47,52 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
     return true;
   });
 
-  const handleSelectImage = (projectId, imgIndex) => {
+  // Auto-scroll the active project pill horizontally into view whenever currentIndex changes
+  useEffect(() => {
+    const el = projectPillRefs.current[currentIndex];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [currentIndex]);
+
+  const handleSelectImage = (projectId, imgIndex, e) => {
     sound.playClick();
     setActiveImageMap(prev => ({ ...prev, [projectId]: imgIndex }));
+    if (e && e.currentTarget) {
+      e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
   };
 
-  const nextProject = () => {
+  const nextProject = (scrollStage = false) => {
     sound.playFlip();
     setSlideDirection('right');
     setCurrentIndex((prev) => (prev + 1) % projects.length);
+    if (scrollStage && projectStageRef.current) {
+      projectStageRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
-  const prevProject = () => {
+  const prevProject = (scrollStage = false) => {
     sound.playFlip();
     setSlideDirection('left');
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    if (scrollStage && projectStageRef.current) {
+      projectStageRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
-  const selectProject = (idx) => {
+  const selectProject = (idx, scrollStage = false) => {
     if (idx === currentIndex) return;
     sound.playFlip();
     setSlideDirection(idx > currentIndex ? 'right' : 'left');
     setCurrentIndex(idx);
+    if (scrollStage && projectStageRef.current) {
+      projectStageRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
   // Keyboard navigation for theater page showcase
@@ -72,9 +100,9 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
     const handleKeyDown = (e) => {
       if (viewMode !== 'theater') return;
       if (e.key === 'ArrowRight') {
-        nextProject();
+        nextProject(false);
       } else if (e.key === 'ArrowLeft') {
-        prevProject();
+        prevProject(false);
       }
     };
 
@@ -151,17 +179,20 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
 
         {/* Filter Category Tabs (Visible in Grid Mode) */}
         {viewMode === 'grid' && (
-          <div className="mt-6 pt-5 border-t-2 border-gray-200 flex items-center gap-2 overflow-x-auto no-scrollbar animate-in fade-in duration-200">
+          <div className="mt-6 pt-5 border-t-2 border-gray-200 flex items-center gap-2 overflow-x-auto no-scrollbar animate-in fade-in duration-200 scroll-smooth">
             <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
                   sound.playClick();
                   setSelectedCategory(cat.id);
+                  if (e.currentTarget) {
+                    e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                  }
                 }}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono border-2 transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono border-2 transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                   selectedCategory === cat.id
                     ? 'bg-black text-white border-black shadow-[2px_2px_0px_#ffd31e]'
                     : 'bg-white text-gray-700 border-black hover:bg-gray-100 shadow-[1px_1px_0px_#000]'
@@ -187,16 +218,17 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
           <div className="bg-white border-[3px] border-black rounded-2xl p-3 sm:p-4 shadow-[6px_6px_0px_#000] flex flex-col md:flex-row items-center justify-between gap-3">
             
             {/* Project Index Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto no-scrollbar py-0.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto no-scrollbar py-0.5 scroll-smooth">
               {projects.map((p, idx) => (
                 <button
                   key={p.id}
+                  ref={(el) => (projectPillRefs.current[idx] = el)}
                   type="button"
-                  onClick={() => selectProject(idx)}
+                  onClick={() => selectProject(idx, false)}
                   className={`px-3 py-1.5 rounded-xl border-2 font-mono text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2 cursor-pointer ${
                     currentIndex === idx
                       ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] font-black -translate-y-0.5'
-                      : 'bg-gray-50 text-gray-700 border-black/80 hover:bg-gray-100'
+                      : 'bg-gray-50 text-gray-700 border-black/80 hover:bg-gray-100 shadow-[2px_2px_0px_#000]'
                   }`}
                 >
                   <span className="w-4 h-4 rounded-full bg-brand-yellow text-black text-[10px] font-black flex items-center justify-center">
@@ -215,7 +247,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
               </span>
               <button
                 type="button"
-                onClick={prevProject}
+                onClick={() => prevProject(false)}
                 title="Previous Project (Left Arrow)"
                 className="p-2 bg-white hover:bg-black hover:text-white rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
               >
@@ -223,7 +255,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
               </button>
               <button
                 type="button"
-                onClick={nextProject}
+                onClick={() => nextProject(false)}
                 title="Next Project (Right Arrow)"
                 className="p-2 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
               >
@@ -235,6 +267,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
 
           {/* Active Project Stage Container */}
           <div
+            ref={projectStageRef}
             key={currentProject.id}
             className={`relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all ${
               slideDirection === 'right' ? 'animate-project-in-right' : 'animate-project-in-left'
@@ -288,7 +321,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
 
                 {/* Smart Screen & Architecture View Switchers */}
                 {currentProject.images.length > 1 && (
-                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth">
                     {currentProject.images.map((img, i) => {
                       const caption = currentProject.imageCaptions ? currentProject.imageCaptions[i] || '' : '';
                       let label = `View ${i + 1}`;
@@ -308,7 +341,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                         <button
                           key={i}
                           type="button"
-                          onClick={() => handleSelectImage(currentProject.id, i)}
+                          onClick={(e) => handleSelectImage(currentProject.id, i, e)}
                           className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-bold border-2 transition-all whitespace-nowrap cursor-pointer ${
                             currentImageIdx === i
                               ? isArch 
@@ -456,6 +489,31 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                     </a>
                   )}
 
+                </div>
+
+                {/* Quick Next / Prev Project Switcher Bottom Toolbar */}
+                <div className="pt-3 border-t-2 border-dashed border-gray-200 flex items-center justify-between gap-3 font-mono">
+                  <button
+                    type="button"
+                    onClick={() => prevProject(true)}
+                    className="py-2 px-3 bg-white hover:bg-black hover:text-white text-black font-bold text-xs uppercase rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>PREV PROJECT</span>
+                  </button>
+
+                  <span className="text-xs font-black text-gray-500 hidden sm:inline">
+                    PROJECT {currentIndex + 1} OF {projects.length}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => nextProject(true)}
+                    className="py-2 px-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>NEXT PROJECT</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
 
               </div>

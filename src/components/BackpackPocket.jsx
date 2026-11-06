@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { portfolioData } from '../portfolioData';
 import { Download, ExternalLink, Star, ChevronLeft, ChevronRight, Mail, Check, Copy, Send, Sparkles, Globe, Eye, Activity, Cpu } from 'lucide-react';
 import { sound } from '../utils/soundEffects';
@@ -19,6 +19,21 @@ export default function BackpackPocket({
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [contactSent, setContactSent] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+
+  const chipRefs = useRef({});
+  const thumbRefs = useRef({});
+
+  // Auto-scroll the active project chip horizontally into view in Backpack
+  useEffect(() => {
+    const el = chipRefs.current[currentProjectIndex];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [currentProjectIndex]);
 
   const handleCopyEmail = () => {
     sound.playSuccess();
@@ -238,16 +253,20 @@ export default function BackpackPocket({
 
                 {/* Screen Switcher thumbnails */}
                 {currentProject.images.length > 1 && (
-                  <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 no-scrollbar">
+                  <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 no-scrollbar scroll-smooth">
                     {currentProject.images.map((img, idx) => {
                       const isArch = img.includes('arch');
                       return (
                         <button
                           key={idx}
+                          ref={(el) => (thumbRefs.current[idx] = el)}
                           type="button"
-                          onClick={() => {
+                          onClick={(e) => {
                             sound.playClick();
                             setActiveImageIndex(idx);
+                            if (e.currentTarget) {
+                              e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                            }
                           }}
                           className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border transition-all ${
                             activeImageIndex === idx
@@ -266,17 +285,18 @@ export default function BackpackPocket({
                 )}
 
                 {/* Project Selector Pills */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pt-1 border-t border-gray-100 no-scrollbar">
+                <div className="flex items-center gap-1.5 overflow-x-auto pt-1 border-t border-gray-100 no-scrollbar scroll-smooth">
                   {projects.map((p, idx) => (
                     <button
                       key={p.id}
+                      ref={(el) => (chipRefs.current[idx] = el)}
                       type="button"
                       onClick={() => {
                         sound.playClick();
                         setActiveImageIndex(0);
                         onSelectProjectIndex(idx);
                       }}
-                      className={`px-2.5 py-1 rounded text-[11px] font-bold border transition-all whitespace-nowrap ${
+                      className={`px-2.5 py-1 rounded text-[11px] font-bold border transition-all whitespace-nowrap cursor-pointer ${
                         currentProjectIndex === idx
                           ? 'bg-black text-white border-black shadow-[1px_1px_0px_#000]'
                           : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'

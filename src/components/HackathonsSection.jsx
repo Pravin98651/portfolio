@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { portfolioData } from '../portfolioData';
 import { sound } from '../utils/soundEffects';
 import {
@@ -29,12 +29,66 @@ export default function HackathonsSection({ onNavigateToProject }) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null); // { url, title, caption }
 
-  const currentItem = hackathons.items.find(it => it.id === activeItemId) || hackathons.items[0];
+  const pillRefs = useRef({});
+  const photoRefs = useRef({});
+  const showcaseRef = useRef(null);
 
-  const handleSelectTab = (id) => {
+  const currentIndex = Math.max(0, hackathons.items.findIndex(it => it.id === activeItemId));
+  const currentItem = hackathons.items[currentIndex] || hackathons.items[0];
+
+  // Auto-scroll the active pill horizontally into view whenever active item changes
+  useEffect(() => {
+    const el = pillRefs.current[activeItemId];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [activeItemId]);
+
+  // Auto-scroll photo thumbnail into view whenever photo changes
+  useEffect(() => {
+    const el = photoRefs.current[selectedPhotoIndex];
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest'
+      });
+    }
+  }, [selectedPhotoIndex]);
+
+  const handleSelectTab = (id, scrollShowcase = false) => {
     sound.playClick();
     setActiveItemId(id);
     setSelectedPhotoIndex(0);
+    if (scrollShowcase && showcaseRef.current) {
+      showcaseRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
+  const handleNextItem = (scrollShowcase = true) => {
+    sound.playFlip();
+    const nextIdx = (currentIndex + 1) % hackathons.items.length;
+    const nextItem = hackathons.items[nextIdx];
+    setActiveItemId(nextItem.id);
+    setSelectedPhotoIndex(0);
+    if (scrollShowcase && showcaseRef.current) {
+      showcaseRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
+  const handlePrevItem = (scrollShowcase = true) => {
+    sound.playFlip();
+    const prevIdx = (currentIndex - 1 + hackathons.items.length) % hackathons.items.length;
+    const prevItem = hackathons.items[prevIdx];
+    setActiveItemId(prevItem.id);
+    setSelectedPhotoIndex(0);
+    if (scrollShowcase && showcaseRef.current) {
+      showcaseRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
   const handleOpenLightbox = (imageObj) => {
@@ -98,28 +152,66 @@ export default function HackathonsSection({ onNavigateToProject }) {
         </div>
       </div>
 
-      {/* ================= AWARDS AT A GLANCE (QUICK MATRIX PILLS) ================= */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 mb-8">
-        {hackathons.items.map((item) => (
+      {/* ================= AWARDS AT A GLANCE (QUICK MATRIX PILLS + AUTO-SCROLLING CONTROLS) ================= */}
+      <div className="bg-white border-[3px] border-black rounded-2xl p-3 sm:p-4 shadow-[6px_6px_0px_#000] mb-8 flex flex-col md:flex-row items-center justify-between gap-3 scroll-reveal">
+        {/* Horizontal scroll ribbon with pills */}
+        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto no-scrollbar py-1 scroll-smooth">
+          {hackathons.items.map((item, idx) => {
+            const isActive = activeItemId === item.id;
+            return (
+              <button
+                key={item.id}
+                ref={(el) => (pillRefs.current[item.id] = el)}
+                type="button"
+                onClick={() => handleSelectTab(item.id, false)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono text-xs font-bold border-2 transition-all whitespace-nowrap cursor-pointer shadow-[3px_3px_0px_#000] ${
+                  isActive
+                    ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] font-black -translate-y-0.5'
+                    : 'bg-white text-gray-800 border-black hover:bg-brand-yellow hover:text-black'
+                }`}
+              >
+                <span className="w-4 h-4 rounded-full bg-brand-yellow text-black text-[10px] font-black flex items-center justify-center shrink-0">
+                  {idx + 1}
+                </span>
+                <span>{item.badge}</span>
+                <span className="text-gray-400 font-normal">|</span>
+                <span className="font-sans font-black">{item.shortTitle || item.title.split('—')[0].trim()}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Paging Prev/Next Controls */}
+        <div className="flex items-center gap-2 self-end md:self-center font-mono shrink-0">
+          <span className="text-xs font-bold text-gray-500 mr-1 uppercase hidden sm:inline">
+            AWARD {currentIndex + 1} OF {hackathons.items.length}
+          </span>
           <button
-            key={item.id}
             type="button"
-            onClick={() => handleSelectTab(item.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono text-xs font-bold border-2 transition-all whitespace-nowrap cursor-pointer shadow-[3px_3px_0px_#000] ${
-              activeItemId === item.id
-                ? 'bg-black text-white border-black ring-2 ring-brand-yellow -translate-y-0.5'
-                : 'bg-white text-gray-800 border-black hover:bg-brand-yellow hover:text-black'
-            }`}
+            onClick={() => handlePrevItem(false)}
+            title="Previous Award"
+            className="p-2 sm:px-3 sm:py-2 bg-white hover:bg-black hover:text-white rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1 text-xs font-bold cursor-pointer"
           >
-            <span>{item.badge}</span>
-            <span className="text-gray-400 font-normal">|</span>
-            <span className="font-sans font-black">{item.shortTitle || item.title.split('—')[0].trim()}</span>
+            <ChevronLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">PREV</span>
           </button>
-        ))}
+          <button
+            type="button"
+            onClick={() => handleNextItem(false)}
+            title="Next Award"
+            className="p-2 sm:px-3 sm:py-2 bg-brand-yellow hover:bg-[#ffd31e] text-black rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1 text-xs font-black cursor-pointer"
+          >
+            <span className="hidden sm:inline">NEXT</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* ================= FEATURED SHOWCASE STAGE ================= */}
-      <div className="relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all scroll-reveal">
+      <div 
+        ref={showcaseRef}
+        className="relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all scroll-reveal"
+      >
         
         {/* Top Header Badge Ribbon */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b-2 border-gray-200">
@@ -192,10 +284,11 @@ export default function HackathonsSection({ onNavigateToProject }) {
 
                 {/* Photo Switchers if multiple images exist */}
                 {currentItem.images.length > 1 && (
-                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth">
                     {currentItem.images.map((img, i) => (
                       <button
                         key={i}
+                        ref={(el) => (photoRefs.current[i] = el)}
                         type="button"
                         onClick={() => {
                           sound.playClick();
@@ -331,6 +424,31 @@ export default function HackathonsSection({ onNavigateToProject }) {
                 </button>
               </div>
             )}
+
+            {/* Quick Next / Prev Award Switcher Bottom Toolbar */}
+            <div className="pt-3 border-t-2 border-dashed border-gray-200 flex items-center justify-between gap-3 font-mono">
+              <button
+                type="button"
+                onClick={() => handlePrevItem(true)}
+                className="py-2 px-3 bg-white hover:bg-black hover:text-white text-black font-bold text-xs uppercase rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>PREV AWARD</span>
+              </button>
+
+              <span className="text-xs font-black text-gray-500 hidden sm:inline">
+                {currentIndex + 1} OF {hackathons.items.length}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => handleNextItem(true)}
+                className="py-2 px-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>NEXT AWARD</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
 
           </div>
 

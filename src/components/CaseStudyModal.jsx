@@ -85,14 +85,15 @@ export default function CaseStudyModal({ project, onClose }) {
         </div>
 
         {/* Navigation Tabs Bar */}
-        <div className="flex items-center gap-1.5 px-3 sm:px-6 pt-2.5 bg-gray-100 border-b-2 border-black overflow-x-auto select-none no-scrollbar relative z-10">
+        <div className="flex items-center gap-1.5 px-3 sm:px-6 pt-2.5 bg-gray-100 border-b-2 border-black overflow-x-auto select-none no-scrollbar relative z-10 scroll-smooth">
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
               sound.playClick();
               setActiveTab('overview');
+              if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeTab === 'overview'
                 ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
                 : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
@@ -105,14 +106,15 @@ export default function CaseStudyModal({ project, onClose }) {
           {project?.caseStudy?.workflowSteps && (
             <button
               type="button"
-              onClick={() => {
+              onClick={(e) => {
                 sound.playClick();
                 setActiveTab('workflow');
+                if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
               }}
-              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
                 activeTab === 'workflow'
                   ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
-                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
               }`}
             >
               <GitMerge className="w-3.5 h-3.5" />
@@ -122,11 +124,12 @@ export default function CaseStudyModal({ project, onClose }) {
 
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
               sound.playClick();
               setActiveTab('architecture');
+              if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeTab === 'architecture'
                 ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
                 : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
@@ -138,11 +141,12 @@ export default function CaseStudyModal({ project, onClose }) {
 
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
               sound.playClick();
               setActiveTab('features');
+              if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeTab === 'features'
                 ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
                 : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
@@ -155,11 +159,12 @@ export default function CaseStudyModal({ project, onClose }) {
           {project?.caseStudy?.interviewQA && (
             <button
               type="button"
-              onClick={() => {
+              onClick={(e) => {
                 sound.playClick();
                 setActiveTab('faq');
+                if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
               }}
-              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
                 activeTab === 'faq'
                   ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
                   : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
@@ -172,11 +177,12 @@ export default function CaseStudyModal({ project, onClose }) {
 
           <button
             type="button"
-            onClick={() => {
+            onClick={(e) => {
               sound.playClick();
               setActiveTab('learnings');
+              if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeTab === 'learnings'
                 ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
                 : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
@@ -225,16 +231,17 @@ export default function CaseStudyModal({ project, onClose }) {
 
                 {/* Thumbnail Strip */}
                 {project.images.length > 1 && (
-                  <div className="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar">
+                  <div className="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar scroll-smooth">
                     {project.images.map((img, idx) => (
                       <button
                         key={idx}
                         type="button"
-                        onClick={() => {
+                        onClick={(e) => {
                           sound.playClick();
                           setSelectedImageIndex(idx);
+                          if (e.currentTarget) e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                         }}
-                        className={`relative w-24 h-14 rounded-lg border-2 overflow-hidden flex-shrink-0 transition-transform ${
+                        className={`relative w-24 h-14 rounded-lg border-2 overflow-hidden flex-shrink-0 transition-transform cursor-pointer ${
                           selectedImageIndex === idx
                             ? 'border-black ring-2 ring-brand-yellow scale-105 shadow-sm'
                             : 'border-gray-300 opacity-60 hover:opacity-100'
