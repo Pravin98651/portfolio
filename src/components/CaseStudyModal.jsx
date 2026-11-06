@@ -92,10 +92,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('overview');
             }}
-            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'overview'
-                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -109,10 +109,10 @@ export default function CaseStudyModal({ project, onClose }) {
                 sound.playClick();
                 setActiveTab('workflow');
               }}
-              className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
                 activeTab === 'workflow'
-                  ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                  : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                  ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
               }`}
             >
               <GitMerge className="w-3.5 h-3.5" />
@@ -126,10 +126,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('architecture');
             }}
-            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'architecture'
-                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -142,10 +142,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('features');
             }}
-            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'features'
-                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
@@ -159,10 +159,10 @@ export default function CaseStudyModal({ project, onClose }) {
                 sound.playClick();
                 setActiveTab('faq');
               }}
-              className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
                 activeTab === 'faq'
-                  ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                  : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                  ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -176,10 +176,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('learnings');
             }}
-            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
+            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeTab === 'learnings'
-                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
+                ? 'bg-white text-black -mb-[2px] pb-2 border-b-white relative z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.05)]'
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-b-black mb-0'
             }`}
           >
             <Award className="w-3.5 h-3.5" />

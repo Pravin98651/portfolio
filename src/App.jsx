@@ -10,9 +10,8 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import DeveloperTerminal from './components/DeveloperTerminal';
-import ThreeDCore from './components/ThreeDCore';
 import { portfolioData } from './portfolioData';
-import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette } from 'lucide-react';
 import { sound } from './utils/soundEffects';
 
 export default function App() {
@@ -27,6 +26,25 @@ export default function App() {
   const [isDark, setIsDark] = useState(() => {
     return typeof window !== 'undefined' && localStorage.getItem('theme') === 'dark';
   });
+  const [bgPalette, setBgPalette] = useState(() => {
+    return (typeof window !== 'undefined' && localStorage.getItem('bg_palette')) || 'amber';
+  });
+
+  const bgPalettes = [
+    { id: 'amber', name: 'Warm Amber', dot: '#f3670e' },
+    { id: 'sunset', name: 'Sunset Punch', dot: '#f97316' },
+    { id: 'slate', name: 'Nordic Slate', dot: '#38bdf8' },
+    { id: 'emerald', name: 'Matrix Emerald', dot: '#10b981' },
+  ];
+
+  useEffect(() => {
+    if (bgPalette && bgPalette !== 'amber') {
+      document.documentElement.setAttribute('data-bg-theme', bgPalette);
+    } else {
+      document.documentElement.removeAttribute('data-bg-theme');
+    }
+    localStorage.setItem('bg_palette', bgPalette);
+  }, [bgPalette]);
 
   useEffect(() => {
     if (isDark) {
@@ -82,6 +100,13 @@ export default function App() {
   const handleToggleTheme = () => {
     sound.playClick();
     setIsDark(prev => !prev);
+  };
+
+  const handleCycleBgPalette = () => {
+    sound.playClick();
+    const currentIndex = bgPalettes.findIndex(p => p.id === bgPalette);
+    const nextPalette = bgPalettes[(currentIndex + 1) % bgPalettes.length];
+    setBgPalette(nextPalette.id);
   };
 
   const scrollToSection = (id) => {
@@ -181,11 +206,28 @@ export default function App() {
             <span>CLI</span>
           </button>
 
+          {/* Canvas Background Atmosphere Palette Switcher */}
+          <button
+            type="button"
+            onClick={handleCycleBgPalette}
+            title={`Current Canvas Atmosphere: ${bgPalettes.find(p => p.id === bgPalette)?.name}. Click to cycle background color palette.`}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white hover:bg-black hover:text-white text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] font-mono text-[11px] font-bold transition-all hover:scale-105"
+          >
+            <Palette className="w-3.5 h-3.5" />
+            <span
+              className="w-2.5 h-2.5 rounded-full border border-black shadow-xs inline-block"
+              style={{ backgroundColor: bgPalettes.find(p => p.id === bgPalette)?.dot }}
+            />
+            <span className="hidden xl:inline uppercase text-[10px] tracking-wider">
+              {bgPalettes.find(p => p.id === bgPalette)?.name}
+            </span>
+          </button>
+
           {/* Theme Mode Toggle Button */}
           <button
             type="button"
             onClick={handleToggleTheme}
-            title={isDark ? 'Switch to Day Corduroy Orange' : 'Switch to Night Stealth Charcoal'}
+            title={isDark ? 'Switch to Day Light Canvas' : 'Switch to Night Obsidian Tactical'}
             className="p-2 bg-white hover:bg-black hover:text-white text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] transition-colors"
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-gray-700" />}
@@ -206,11 +248,8 @@ export default function App() {
       {/* ================= HERO INTERACTIVE STAGE ================= */}
       <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 px-4 sm:px-8 py-4 sm:py-6 z-10 max-w-7xl mx-auto w-full">
         
-        {/* Tumbling 3D Cybernetic Polyhedron Core Canvas in Background */}
-        <ThreeDCore className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] opacity-40 dark:opacity-60 pointer-events-none z-0" />
-
         {/* Left Side: Screwed Signboard & Floating Stickers */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2 z-10">
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2">
           <Signboard />
         </div>
 
@@ -225,7 +264,7 @@ export default function App() {
         </div>
 
         {/* Right Side: Red Backpack Pocket + Hanging ID Badge */}
-        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2 z-10">
+        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2">
           
           {/* Backpack Pocket with 3 interactive folder tabs */}
           <div className="w-full max-w-[480px]">
