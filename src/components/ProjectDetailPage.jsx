@@ -15,7 +15,8 @@ import {
   Volume2,
   VolumeX,
   ChevronDown,
-  ArrowUp
+  ArrowUp,
+  LayoutGrid
 } from 'lucide-react';
 import { sound } from '../utils/soundEffects';
 import { getAdjacentProjects, ALL_PROJECT_ROUTES } from '../utils/projectRoutes';
@@ -29,16 +30,17 @@ export default function ProjectDetailPage({
 }) {
   if (!project) return null;
 
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'screens' | 'workflow' | 'stack' | 'features' | 'decisions' | 'faq' | 'contributions' | 'all'
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
   const [copiedClone, setCopiedClone] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState(0); // open first question by default for convenience
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const contentRef = useRef(null);
+  const tabContentRef = useRef(null);
 
   const stepPillRefs = useRef({});
   const navTabRefs = useRef({});
@@ -146,12 +148,17 @@ export default function ProjectDetailPage({
     setOpenFaqIndex(prev => prev === index ? null : index);
   };
 
-  const scrollToTab = (tabId) => {
+  const handleTabSwitch = (tabId) => {
     sound.playClick();
     setActiveTab(tabId);
-    const elem = document.getElementById(`section-${tabId}`);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (tabContentRef.current) {
+      const rect = tabContentRef.current.getBoundingClientRect();
+      if (rect.top < 70) {
+        window.scrollTo({
+          top: window.scrollY + rect.top - 80,
+          behavior: 'smooth'
+        });
+      }
     }
   };
 
@@ -160,13 +167,15 @@ export default function ProjectDetailPage({
 
   const navTabs = [
     { id: 'overview', label: 'Overview', icon: '📋' },
-    { id: 'workflow', label: 'Workflow Pipeline', icon: '⚡' },
-    { id: 'architecture', label: 'Architecture', icon: '🏗️' },
-    { id: 'stack', label: 'Tech Stack', icon: '⚙️' },
-    { id: 'features', label: 'Key Features', icon: '🎯' },
-    { id: 'decisions', label: 'Decisions & Tradeoffs', icon: '⚖️' },
-    { id: 'faq', label: 'Interview Q&A', icon: '🎙️' },
-    { id: 'contributions', label: 'Attribution', icon: '🎓' }
+    ...(project.images && project.images.length > 0 ? [{ id: 'screens', label: 'UI & Architecture', icon: '📐' }] : []),
+    ...(project.caseStudy?.workflowSteps?.length ? [{ id: 'workflow', label: 'Workflow', icon: '⚡' }] : []),
+    ...(project.caseStudy?.techStackTable?.length ? [{ id: 'stack', label: 'Tech Stack', icon: '⚙️' }] : []),
+    ...(project.caseStudy?.keyFeatures?.length ? [{ id: 'features', label: 'Key Features', icon: '🎯' }] : []),
+    ...(project.caseStudy?.engineeringDecisions?.length ? [{ id: 'decisions', label: 'Decisions', icon: '⚖️' }] : []),
+    ...(project.caseStudy?.dataEntities?.length ? [{ id: 'data', label: 'Data Entities', icon: '💾' }] : []),
+    ...(project.caseStudy?.interviewQA?.length ? [{ id: 'faq', label: 'Interview Q&A', icon: '🎙️' }] : []),
+    { id: 'contributions', label: 'Attribution', icon: '🎓' },
+    { id: 'all', label: 'View All', icon: '📑' }
   ];
 
   return (
@@ -186,7 +195,7 @@ export default function ProjectDetailPage({
       </div>
 
       {/* ================= TOP FLOATING NAVIGATION BAR ================= */}
-      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between select-none bg-white/95 backdrop-blur-md border-b-[3px] border-black shadow-[0_3px_0px_#000]">
+      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-2.5 flex items-center justify-between select-none bg-white/95 backdrop-blur-md border-b-[3px] border-black shadow-[0_3px_0px_#000]">
         
         {/* Left: Back Button & Breadcrumbs */}
         <div className="flex items-center gap-3">
@@ -289,22 +298,22 @@ export default function ProjectDetailPage({
       </header>
 
       {/* ================= MAIN CONTAINER ================= */}
-      <main ref={contentRef} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-8 w-full space-y-10">
+      <main ref={contentRef} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-6 w-full space-y-8">
         
-        {/* ================= 1. HERO SHOWCASE CARD (TACTILE MANILA DOSSIER) ================= */}
-        <section className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none transition-all">
+        {/* ================= 1. MASTER HERO SHOWCASE CARD ================= */}
+        <section className="relative manila-card border-[3.5px] border-black rounded-3xl p-5 sm:p-8 shadow-[10px_10px_0px_#000000] select-none transition-all">
           
-          {/* Four Corner Screws */}
+          {/* Four Corner Screws Strictly Fixed to Absolute Corners */}
           <div className="absolute top-3.5 left-3.5 plaque-screw" />
           <div className="absolute top-3.5 right-3.5 plaque-screw" />
           <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
           <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
           {/* Top Hazard Caution Stripe Trim */}
-          <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+          <div className="w-full h-2.5 bg-caution-stripes-sm rounded-full border border-black mb-4 shadow-xs" />
 
           {/* Top Status Badges Row */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2.5 mb-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 bg-brand-yellow text-black border-2 border-black rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-[2px_2px_0px_#000]">
                 ⚡ {project.category}
@@ -315,41 +324,41 @@ export default function ProjectDetailPage({
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs font-bold text-gray-800">
-              <span className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+              <span className="px-2.5 py-0.5 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
                 ROLE: {project.role || "Primary Developer"}
               </span>
-              <span className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+              <span className="px-2.5 py-0.5 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
                 {project.timeline || "Verified"}
               </span>
             </div>
           </div>
 
           {/* Giant Title & Highlight */}
-          <div className="space-y-2 mb-6">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-[0.95]">
-              <span className="bg-brand-yellow text-black px-3.5 py-1 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] inline-block">
+          <div className="space-y-1.5 mb-5">
+            <h1 className="text-3xl sm:text-5xl font-black text-black uppercase tracking-tight leading-[0.95]">
+              <span className="bg-brand-yellow text-black px-3 py-0.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] inline-block">
                 {project.title}
               </span>
             </h1>
-            <p className="text-sm sm:text-lg font-bold text-brand-orange-dark font-mono mt-3">
+            <p className="text-sm sm:text-base font-bold text-brand-orange-dark font-mono pt-1">
               // {project.subtitle}
             </p>
-            <p className="text-sm sm:text-base text-gray-900 font-medium leading-relaxed max-w-4xl pt-1">
+            <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed max-w-4xl pt-0.5">
               {project.summary}
             </p>
           </div>
 
           {/* 4 Verified Telemetry Specs Counter Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-4">
             {project.stats.map((st, i) => (
               <div 
                 key={i} 
-                className="p-3.5 bg-white border-2 border-black rounded-xl text-center shadow-[3px_3px_0px_#000] hover:-translate-y-0.5 transition-all"
+                className="p-3 bg-white border-2 border-black rounded-xl text-center shadow-[3px_3px_0px_#000] hover:-translate-y-0.5 transition-all"
               >
                 <div className="font-mono text-[10px] text-gray-600 uppercase font-black tracking-wider truncate">
                   {st.label}
                 </div>
-                <div className="font-black text-sm sm:text-xl text-black truncate mt-1">
+                <div className="font-black text-sm sm:text-lg text-black truncate mt-0.5">
                   {st.value}
                 </div>
               </div>
@@ -357,11 +366,11 @@ export default function ProjectDetailPage({
           </div>
 
           {/* Tag Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 mb-6">
+          <div className="flex flex-wrap items-center gap-1.5 mb-4">
             {(project.tags || []).map((t, idx) => (
               <span
                 key={idx}
-                className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-md text-[11px] font-mono font-black uppercase shadow-[2px_2px_0px_#000]"
+                className="px-2 py-0.5 bg-white text-black border-2 border-black rounded-md text-[11px] font-mono font-black uppercase shadow-[2px_2px_0px_#000]"
               >
                 #{t}
               </span>
@@ -369,7 +378,7 @@ export default function ProjectDetailPage({
           </div>
 
           {/* CLI Terminal Clone Command & Action Buttons */}
-          <div className="pt-5 border-t-2 border-dashed border-gray-400 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="pt-4 border-t-2 border-dashed border-gray-400 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             
             {/* Terminal Clone Input */}
             {cloneCommand && (
@@ -383,7 +392,7 @@ export default function ProjectDetailPage({
                 <button
                   type="button"
                   onClick={handleCopyClone}
-                  className="px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-lg font-mono text-xs font-black uppercase flex items-center gap-1 border border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
+                  className="px-3 py-1 bg-brand-yellow hover:bg-yellow-400 text-black rounded-lg font-mono text-xs font-black uppercase flex items-center gap-1 border border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                 >
                   {copiedClone ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedClone ? 'COPIED' : 'CLONE'}</span>
@@ -423,7 +432,7 @@ export default function ProjectDetailPage({
           </div>
 
           {/* Mechanical Partition Bottom Telemetry */}
-          <div className="mt-5 pt-3 border-t-2 border-dashed border-gray-400 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-700 uppercase tracking-widest">
+          <div className="mt-4 pt-2.5 border-t-2 border-dashed border-gray-400 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-700 uppercase tracking-widest">
             <span className="flex items-center gap-1.5 font-bold text-emerald-700">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               SYSTEM DOSSIER: VERIFIED & BENCHMARKED
@@ -432,571 +441,532 @@ export default function ProjectDetailPage({
           </div>
         </section>
 
-        {/* ================= 2. INTERACTIVE ARCHITECTURE & MEDIA SHOWCASE ================= */}
-        {project.images && project.images.length > 0 && (
-          <section className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-5">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                  📐
-                </span>
-                <h2 className="text-lg sm:text-2xl font-black text-black uppercase tracking-tight">
-                  System Architecture & Visual Specifications
-                </h2>
-              </div>
-
+        {/* ================= 2. INTERACTIVE DEEP-DIVE TABBED WORKSPACE ================= */}
+        <div ref={tabContentRef} className="space-y-4">
+          
+          {/* Tactical Sticky Tab Selector Bar */}
+          <div className="sticky top-[58px] z-30 flex items-center gap-1.5 p-2 bg-white/95 backdrop-blur-md rounded-2xl border-[3px] border-black shadow-[4px_4px_0px_#000] overflow-x-auto no-scrollbar select-none scroll-smooth">
+            {navTabs.map((tab) => (
               <button
+                key={tab.id}
+                ref={(el) => (navTabRefs.current[tab.id] = el)}
                 type="button"
-                onClick={() => {
-                  sound.playClick();
-                  setIsLightboxOpen(true);
-                }}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
-                title="Fullscreen Image Lightbox"
+                onClick={() => handleTabSwitch(tab.id)}
+                className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === tab.id
+                    ? 'bg-brand-yellow text-black border-2 border-black font-black shadow-[2px_2px_0px_#000] scale-102'
+                    : 'text-black hover:bg-yellow-100 font-bold border border-transparent'
+                }`}
               >
-                <Maximize2 className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">FULLSCREEN</span>
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
               </button>
-            </div>
-
-            {/* Clean White Main Screen Viewer */}
-            <div 
-              className="relative w-full rounded-2xl border-[3px] border-black overflow-hidden bg-white flex items-center justify-center min-h-[300px] sm:min-h-[460px] cursor-pointer group shadow-[4px_4px_0px_#000]"
-              onClick={() => {
-                sound.playClick();
-                setIsLightboxOpen(true);
-              }}
-            >
-              <img
-                src={currentImage}
-                alt={currentImageCaption || project.title}
-                className="w-full h-auto max-h-[560px] object-contain group-hover:scale-[1.01] transition-transform duration-300"
-              />
-
-              {/* Hover Zoom Prompt */}
-              <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-black/85 text-brand-yellow border border-black rounded-lg font-mono text-[11px] font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 pointer-events-none">
-                <Maximize2 className="w-3 h-3" />
-                <span>CLICK TO ENLARGE</span>
-              </div>
-            </div>
-
-            {/* Screenshot Caption */}
-            {currentImageCaption && (
-              <div className="mt-4 p-3.5 bg-white border-2 border-black rounded-xl flex items-center justify-between text-xs font-mono font-bold text-gray-900 shadow-[2px_2px_0px_#000]">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping" />
-                  <span className="font-black">FIGURE {selectedImageIndex + 1}: {currentImageCaption}</span>
-                </div>
-                <span className="text-gray-600 text-[10px] font-extrabold uppercase bg-gray-100 px-2 py-0.5 rounded border border-black">
-                  VERIFIED ASSET
-                </span>
-              </div>
-            )}
-
-            {/* Interactive Screen Switcher Tabs */}
-            {project.images.length > 1 && (
-              <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar pt-1 scroll-smooth">
-                {project.images.map((img, i) => {
-                  const isArch = img.includes('arch');
-                  const label = isArch 
-                    ? '📐 System Architecture' 
-                    : i === 0 
-                      ? '🖥️ Primary UI Console' 
-                      : `📱 Screen ${i + 1}`;
-
-                  return (
-                    <button
-                      key={i}
-                      ref={(el) => (imageThumbRefs.current[i] = el)}
-                      type="button"
-                      onClick={() => {
-                        sound.playClick();
-                        setSelectedImageIndex(i);
-                      }}
-                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 transition-all whitespace-nowrap cursor-pointer ${
-                        selectedImageIndex === i
-                          ? 'bg-brand-yellow text-black border-black shadow-[3px_3px_0px_#000] font-black scale-102'
-                          : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
-                      }`}
-                    >
-                      <span>{label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-          </section>
-        )}
-
-        {/* ================= 3. STICKY SUB-NAV TAB BAR ================= */}
-        <div className="sticky top-[60px] z-30 flex items-center gap-1.5 p-2 bg-white/95 backdrop-blur-md rounded-2xl border-[3px] border-black shadow-[5px_5px_0px_#000] overflow-x-auto no-scrollbar select-none scroll-smooth">
-          {navTabs.map((tab) => (
-            <button
-              key={tab.id}
-              ref={(el) => (navTabRefs.current[tab.id] = el)}
-              type="button"
-              onClick={() => scrollToTab(tab.id)}
-              className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-                activeTab === tab.id
-                  ? 'bg-brand-yellow text-black border-2 border-black font-black shadow-[2px_2px_0px_#000]'
-                  : 'text-black hover:bg-yellow-100 font-bold'
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* ================= 4. OVERVIEW SECTION (PROBLEM & SOLUTION) ================= */}
-        <section id="section-overview" className="space-y-6 scroll-mt-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* The Problem Statement */}
-            <div className="relative bg-[#fff5f5] border-[3.5px] border-black rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
-              <div className="flex items-center gap-2 text-brand-red mb-3">
-                <AlertTriangle className="w-5 h-5 fill-current" />
-                <h3 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-red-100 px-2 py-0.5 rounded border border-black shadow-xs">
-                  01 // The Engineering Challenge
-                </h3>
-              </div>
-              <h4 className="text-xl sm:text-2xl font-black text-black uppercase mb-3">
-                Problem Definition
-              </h4>
-              <p className="text-sm text-gray-900 leading-relaxed font-semibold">
-                {project.caseStudy?.problem || project.summary}
-              </p>
-            </div>
-
-            {/* The Architectural Solution */}
-            <div className="relative bg-[#f0fdf4] border-[3.5px] border-black rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
-              <div className="flex items-center gap-2 text-emerald-700 mb-3">
-                <CheckCircle2 className="w-5 h-5" />
-                <h3 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-emerald-100 px-2 py-0.5 rounded border border-black shadow-xs">
-                  02 // The Architectural Solution
-                </h3>
-              </div>
-              <h4 className="text-xl sm:text-2xl font-black text-black uppercase mb-3">
-                Implemented Strategy
-              </h4>
-              <p className="text-sm text-gray-900 leading-relaxed font-semibold">
-                {project.caseStudy?.solution || project.tagline}
-              </p>
-            </div>
-
+            ))}
           </div>
-        </section>
 
-        {/* ================= 5. INTERACTIVE WORKFLOW PIPELINE ================= */}
-        {project.caseStudy?.workflowSteps && project.caseStudy.workflowSteps.length > 0 && (
-          <section id="section-workflow" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-6 scroll-mt-28 select-none">
+          {/* Unified Dossier Workspace Panel - ZERO Empty Space */}
+          <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-5 sm:p-8 shadow-[10px_10px_0px_#000000] select-none transition-all">
             
-            {/* Screws */}
+            {/* Absolute Corner Screws */}
             <div className="absolute top-3.5 left-3.5 plaque-screw" />
             <div className="absolute top-3.5 right-3.5 plaque-screw" />
             <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
             <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-black">
-              <div>
-                <div className="flex items-center gap-2">
+            {/* TAB: OVERVIEW */}
+            {(activeTab === 'overview' || activeTab === 'all') && (
+              <div className="space-y-5 animate-in fade-in duration-200">
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                    ⚡
+                    📋
                   </span>
                   <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                    Execution Workflow Pipeline
+                    Project Overview & Problem Space
                   </h3>
                 </div>
-                <p className="text-xs font-mono font-bold text-gray-600 mt-1">
-                  // {project.caseStudy.workflowSteps.length} Verified Sequential Stages
-                </p>
-              </div>
 
-              {/* Step Navigation Controls */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    sound.playFlip();
-                    setActiveWorkflowStep(prev => Math.max(0, prev - 1));
-                    workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                  }}
-                  disabled={activeWorkflowStep === 0}
-                  className="px-3.5 py-1.5 bg-white hover:bg-gray-100 disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-bold shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
-                >
-                  ← PREV STEP
-                </button>
-                <span className="font-mono text-xs font-black px-2 bg-brand-yellow border-2 border-black rounded-lg py-1 shadow-[2px_2px_0px_#000]">
-                  {activeWorkflowStep + 1} / {project.caseStudy.workflowSteps.length}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    sound.playFlip();
-                    setActiveWorkflowStep(prev => Math.min(project.caseStudy.workflowSteps.length - 1, prev + 1));
-                    workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                  }}
-                  disabled={activeWorkflowStep === project.caseStudy.workflowSteps.length - 1}
-                  className="px-3.5 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
-                >
-                  NEXT STEP →
-                </button>
-              </div>
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* The Problem Statement */}
+                  <div className="bg-[#fff5f5] border-[3px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000]">
+                    <div className="flex items-center gap-2 text-brand-red mb-2.5">
+                      <AlertTriangle className="w-4 h-4 fill-current" />
+                      <h4 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-red-100 px-2 py-0.5 rounded border border-black shadow-xs">
+                        01 // THE CHALLENGE
+                      </h4>
+                    </div>
+                    <h5 className="text-lg font-black text-black uppercase mb-2">
+                      Problem Definition
+                    </h5>
+                    <p className="text-xs sm:text-sm text-gray-900 leading-relaxed font-semibold">
+                      {project.caseStudy?.problem || project.summary}
+                    </p>
+                  </div>
 
-            {/* Step Selector Horizontal Ribbon */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
-              {project.caseStudy.workflowSteps.map((st, idx) => {
-                const isActive = activeWorkflowStep === idx;
-                return (
+                  {/* The Architectural Solution */}
+                  <div className="bg-[#f0fdf4] border-[3px] border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000]">
+                    <div className="flex items-center gap-2 text-emerald-700 mb-2.5">
+                      <CheckCircle2 className="w-4 h-4" />
+                      <h4 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-emerald-100 px-2 py-0.5 rounded border border-black shadow-xs">
+                        02 // ARCHITECTURAL SOLUTION
+                      </h4>
+                    </div>
+                    <h5 className="text-lg font-black text-black uppercase mb-2">
+                      Implemented Strategy
+                    </h5>
+                    <p className="text-xs sm:text-sm text-gray-900 leading-relaxed font-semibold">
+                      {project.caseStudy?.solution || project.tagline}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: UI & ARCHITECTURE SCREENS */}
+            {(activeTab === 'screens' || activeTab === 'all') && project.images && project.images.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center justify-between pb-2.5 border-b-2 border-black">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                      📐
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                      System Architecture & Visual Specifications
+                    </h3>
+                  </div>
+
                   <button
-                    key={idx}
-                    ref={(el) => (stepPillRefs.current[idx] = el)}
                     type="button"
                     onClick={() => {
                       sound.playClick();
-                      setActiveWorkflowStep(idx);
+                      setIsLightboxOpen(true);
                     }}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 font-mono text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                      isActive
-                        ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] scale-102 font-black'
-                        : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
-                    }`}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
+                    title="Fullscreen Image Lightbox"
                   >
-                    <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black text-[10px] ${
-                      isActive ? 'bg-brand-yellow text-black' : 'bg-gray-200 text-black'
-                    }`}>
-                      {st.step || idx + 1}
-                    </span>
-                    <span>{st.title}</span>
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">FULLSCREEN</span>
                   </button>
-                );
-              })}
-            </div>
-
-            {/* Active Step Feature Box */}
-            {project.caseStudy.workflowSteps[activeWorkflowStep] && (
-              <div 
-                ref={workflowStageRef}
-                className="p-6 bg-[#fffbeb] border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 animate-in fade-in duration-200"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-extrabold uppercase px-2.5 py-1 bg-black text-brand-yellow rounded border border-black shadow-xs">
-                    STAGE 0{project.caseStudy.workflowSteps[activeWorkflowStep].step || activeWorkflowStep + 1} IN DETAIL
-                  </span>
-                  <span className="font-mono text-xs text-gray-700 font-bold">
-                    // EXECUTION PROTOCOL
-                  </span>
                 </div>
-                <h4 className="text-xl sm:text-2xl font-black text-black uppercase">
-                  {project.caseStudy.workflowSteps[activeWorkflowStep].title}
-                </h4>
-                <p className="text-sm sm:text-base text-gray-900 font-medium leading-relaxed">
-                  {project.caseStudy.workflowSteps[activeWorkflowStep].desc}
-                </p>
+
+                {/* Clean White Main Screen Viewer */}
+                <div 
+                  className="relative w-full rounded-2xl border-[3px] border-black overflow-hidden bg-white flex items-center justify-center min-h-[280px] sm:min-h-[440px] cursor-pointer group shadow-[4px_4px_0px_#000]"
+                  onClick={() => {
+                    sound.playClick();
+                    setIsLightboxOpen(true);
+                  }}
+                >
+                  <img
+                    src={currentImage}
+                    alt={currentImageCaption || project.title}
+                    className="w-full h-auto max-h-[520px] object-contain group-hover:scale-[1.01] transition-transform duration-300"
+                  />
+
+                  {/* Hover Zoom Prompt */}
+                  <div className="absolute bottom-3 right-3 px-3 py-1.5 bg-black/85 text-brand-yellow border border-black rounded-lg font-mono text-[11px] font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 pointer-events-none">
+                    <Maximize2 className="w-3 h-3" />
+                    <span>CLICK TO ENLARGE</span>
+                  </div>
+                </div>
+
+                {/* Screenshot Caption */}
+                {currentImageCaption && (
+                  <div className="p-3 bg-white border-2 border-black rounded-xl flex items-center justify-between text-xs font-mono font-bold text-gray-900 shadow-[2px_2px_0px_#000]">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping" />
+                      <span className="font-black">FIGURE {selectedImageIndex + 1}: {currentImageCaption}</span>
+                    </div>
+                    <span className="text-gray-600 text-[10px] font-extrabold uppercase bg-gray-100 px-2 py-0.5 rounded border border-black">
+                      VERIFIED ASSET
+                    </span>
+                  </div>
+                )}
+
+                {/* Interactive Screen Switcher Tabs */}
+                {project.images.length > 1 && (
+                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1 scroll-smooth">
+                    {project.images.map((img, i) => {
+                      const isArch = img.includes('arch');
+                      const label = isArch 
+                        ? '📐 Architecture Spec' 
+                        : i === 0 
+                          ? '🖥️ Primary UI' 
+                          : `📱 Screen ${i + 1}`;
+
+                      return (
+                        <button
+                          key={i}
+                          ref={(el) => (imageThumbRefs.current[i] = el)}
+                          type="button"
+                          onClick={() => {
+                            sound.playClick();
+                            setSelectedImageIndex(i);
+                          }}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold border-2 transition-all whitespace-nowrap cursor-pointer ${
+                            selectedImageIndex === i
+                              ? 'bg-brand-yellow text-black border-black shadow-[3px_3px_0px_#000] font-black scale-102'
+                              : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
+                          }`}
+                        >
+                          <span>{label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
 
-          </section>
-        )}
-
-        {/* ================= 6. TECH STACK & ARCHITECTURE TABLE ================= */}
-        {project.caseStudy?.techStackTable && project.caseStudy.techStackTable.length > 0 && (
-          <section id="section-stack" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-emerald-400 border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                ⚙️
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                Technical Stack & Component Breakdown
-              </h3>
-            </div>
-
-            <div className="overflow-x-auto border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
-              <table className="w-full text-left font-mono text-xs">
-                <thead className="bg-black text-brand-yellow border-b-2 border-black font-black uppercase tracking-wider">
-                  <tr>
-                    <th className="p-3.5 sm:p-4">Subsystem / Component</th>
-                    <th className="p-3.5 sm:p-4">Technologies & Libraries</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y-2 divide-black/10 font-medium">
-                  {project.caseStudy.techStackTable.map((row, rIdx) => (
-                    <tr 
-                      key={rIdx} 
-                      className={rIdx % 2 === 0 ? 'bg-white' : 'bg-yellow-50/50'}
-                    >
-                      <td className="p-3.5 sm:p-4 font-black text-black">
-                        {row.component}
-                      </td>
-                      <td className="p-3.5 sm:p-4 text-brand-orange-dark font-black">
-                        {row.tech}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-          </section>
-        )}
-
-        {/* ================= 7. KEY FEATURES GRID ================= */}
-        {project.caseStudy?.keyFeatures && project.caseStudy.keyFeatures.length > 0 && (
-          <section id="section-features" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                🎯
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                Key Engineering Features & Capabilities
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-              {project.caseStudy.keyFeatures.map((feat, fIdx) => (
-                <div 
-                  key={fIdx}
-                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
-                >
-                  <div className="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5 border border-black shadow-xs">
-                    ✓
+            {/* TAB: WORKFLOW PIPELINE */}
+            {(activeTab === 'workflow' || activeTab === 'all') && project.caseStudy?.workflowSteps && project.caseStudy.workflowSteps.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b-2 border-black">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                      ⚡
+                    </span>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                        Execution Workflow Pipeline
+                      </h3>
+                      <p className="text-xs font-mono font-bold text-gray-600">
+                        // {project.caseStudy.workflowSteps.length} Sequential Execution Stages
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-900 font-bold leading-relaxed">
-                    {feat}
-                  </div>
-                </div>
-              ))}
-            </div>
 
-          </section>
-        )}
-
-        {/* ================= 8. ARCHITECTURAL DECISIONS & TRADEOFFS ================= */}
-        {project.caseStudy?.engineeringDecisions && project.caseStudy.engineeringDecisions.length > 0 && (
-          <section id="section-decisions" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                ⚖️
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                Architectural Tradeoffs & Engineering Decisions
-              </h3>
-            </div>
-
-            <div className="space-y-3">
-              {project.caseStudy.engineeringDecisions.map((dec, dIdx) => (
-                <div 
-                  key={dIdx} 
-                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
-                >
-                  <span className="font-mono font-black text-xs px-2.5 py-0.5 bg-black text-brand-yellow rounded border border-black shadow-xs flex-shrink-0 mt-0.5">
-                    DECISION {dIdx + 1}
-                  </span>
-                  <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed">
-                    {dec}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-          </section>
-        )}
-
-        {/* ================= 9. DATA SCHEMAS & ENTITIES ================= */}
-        {project.caseStudy?.dataEntities && project.caseStudy.dataEntities.length > 0 && (
-          <section id="section-architecture" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                💾
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                Data Entities & Schema Models
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {project.caseStudy.dataEntities.map((ent, eIdx) => (
-                <div 
-                  key={eIdx}
-                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]"
-                >
-                  <div className="font-mono text-xs font-black uppercase text-brand-orange-dark mb-1 flex items-center gap-1.5">
-                    <Database className="w-3.5 h-3.5 text-black" />
-                    <span>{ent.entity}</span>
-                  </div>
-                  <p className="text-xs text-gray-800 font-medium leading-snug">
-                    {ent.purpose}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-          </section>
-        )}
-
-        {/* ================= 10. TECHNICAL INTERVIEW Q&A ACCORDION ================= */}
-        {project.caseStudy?.interviewQA && project.caseStudy.interviewQA.length > 0 && (
-          <section id="section-faq" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
-            
-            {/* Screws */}
-            <div className="absolute top-3.5 left-3.5 plaque-screw" />
-            <div className="absolute top-3.5 right-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
-
-            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-                  🎙️
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                  Technical Interview Q&A Deep Dive
-                </h3>
-              </div>
-              <span className="font-mono text-xs text-gray-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-black shadow-xs">
-                {project.caseStudy.interviewQA.length} QUESTIONS
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              {project.caseStudy.interviewQA.map((qa, qIdx) => {
-                const isOpen = openFaqIndex === qIdx;
-                return (
-                  <div
-                    key={qIdx}
-                    className="border-2 border-black rounded-xl overflow-hidden shadow-[3px_3px_0px_#000] transition-all bg-white"
-                  >
+                  {/* Step Navigation Controls */}
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => toggleFaq(qIdx)}
-                      className="w-full p-4 bg-white hover:bg-yellow-50 text-left font-black text-xs sm:text-sm text-black uppercase flex items-center justify-between gap-3 cursor-pointer transition-colors"
+                      onClick={() => {
+                        sound.playFlip();
+                        setActiveWorkflowStep(prev => Math.max(0, prev - 1));
+                        workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                      }}
+                      disabled={activeWorkflowStep === 0}
+                      className="px-3 py-1 bg-white hover:bg-gray-100 disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-bold shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-xs px-2.5 py-0.5 bg-black text-brand-yellow rounded font-black border border-black shadow-xs">
-                          Q{qIdx + 1}
-                        </span>
-                        <span>{qa.q}</span>
-                      </div>
-                      <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                      ← PREV
                     </button>
-
-                    {isOpen && (
-                      <div className="p-4 sm:p-5 bg-yellow-50/70 border-t-2 border-black text-xs sm:text-sm text-gray-900 leading-relaxed font-semibold animate-in fade-in duration-150">
-                        <div className="flex items-start gap-2.5">
-                          <span className="font-mono font-black text-xs text-emerald-700 mt-0.5">
-                            ANSWER //
-                          </span>
-                          <p className="flex-1">{qa.a}</p>
-                        </div>
-                      </div>
-                    )}
+                    <span className="font-mono text-xs font-black px-2.5 bg-brand-yellow border-2 border-black rounded-lg py-1 shadow-[2px_2px_0px_#000]">
+                      {activeWorkflowStep + 1} / {project.caseStudy.workflowSteps.length}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sound.playFlip();
+                        setActiveWorkflowStep(prev => Math.min(project.caseStudy.workflowSteps.length - 1, prev + 1));
+                        workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                      }}
+                      disabled={activeWorkflowStep === project.caseStudy.workflowSteps.length - 1}
+                      className="px-3 py-1 bg-brand-yellow hover:bg-yellow-400 text-black disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
+                    >
+                      NEXT →
+                    </button>
                   </div>
-                );
-              })}
-            </div>
+                </div>
 
-          </section>
-        )}
+                {/* Step Selector Horizontal Ribbon */}
+                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
+                  {project.caseStudy.workflowSteps.map((st, idx) => {
+                    const isActive = activeWorkflowStep === idx;
+                    return (
+                      <button
+                        key={idx}
+                        ref={(el) => (stepPillRefs.current[idx] = el)}
+                        type="button"
+                        onClick={() => {
+                          sound.playClick();
+                          setActiveWorkflowStep(idx);
+                        }}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 font-mono text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                          isActive
+                            ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] scale-102 font-black'
+                            : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
+                        }`}
+                      >
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black text-[10px] ${
+                          isActive ? 'bg-brand-yellow text-black' : 'bg-gray-200 text-black'
+                        }`}>
+                          {st.step || idx + 1}
+                        </span>
+                        <span>{st.title}</span>
+                      </button>
+                    );
+                  })}
+                </div>
 
-        {/* ================= 11. PERSONAL CONTRIBUTION & LEARNINGS ================= */}
-        <section id="section-contributions" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-6 scroll-mt-28 select-none">
-          
-          {/* Screws */}
-          <div className="absolute top-3.5 left-3.5 plaque-screw" />
-          <div className="absolute top-3.5 right-3.5 plaque-screw" />
-          <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
-          <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+                {/* Active Step Feature Box */}
+                {project.caseStudy.workflowSteps[activeWorkflowStep] && (
+                  <div 
+                    ref={workflowStageRef}
+                    className="p-5 bg-[#fffbeb] border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] space-y-2 animate-in fade-in duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-extrabold uppercase px-2 py-0.5 bg-black text-brand-yellow rounded border border-black shadow-xs">
+                        STAGE 0{project.caseStudy.workflowSteps[activeWorkflowStep].step || activeWorkflowStep + 1} IN DETAIL
+                      </span>
+                      <span className="font-mono text-xs text-gray-700 font-bold">
+                        // EXECUTION PROTOCOL
+                      </span>
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-black text-black uppercase">
+                      {project.caseStudy.workflowSteps[activeWorkflowStep].title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed">
+                      {project.caseStudy.workflowSteps[activeWorkflowStep].desc}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
-          <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-            <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
-              🎓
-            </span>
-            <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-              Developer Attribution & Lessons Learned
-            </h3>
+            {/* TAB: TECH STACK */}
+            {(activeTab === 'stack' || activeTab === 'all') && project.caseStudy?.techStackTable && project.caseStudy.techStackTable.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
+                  <span className="p-1.5 bg-emerald-400 border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                    ⚙️
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                    Technical Stack & Component Breakdown
+                  </h3>
+                </div>
+
+                <div className="overflow-x-auto border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
+                  <table className="w-full text-left font-mono text-xs">
+                    <thead className="bg-black text-brand-yellow border-b-2 border-black font-black uppercase tracking-wider">
+                      <tr>
+                        <th className="p-3 sm:p-3.5">Subsystem / Component</th>
+                        <th className="p-3 sm:p-3.5">Technologies & Libraries</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y-2 divide-black/10 font-medium">
+                      {project.caseStudy.techStackTable.map((row, rIdx) => (
+                        <tr 
+                          key={rIdx} 
+                          className={rIdx % 2 === 0 ? 'bg-white' : 'bg-yellow-50/50'}
+                        >
+                          <td className="p-3 sm:p-3.5 font-black text-black">
+                            {row.component}
+                          </td>
+                          <td className="p-3 sm:p-3.5 text-brand-orange-dark font-black">
+                            {row.tech}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* TAB: KEY FEATURES */}
+            {(activeTab === 'features' || activeTab === 'all') && project.caseStudy?.keyFeatures && project.caseStudy.keyFeatures.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
+                  <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                    🎯
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                    Key Engineering Features & Capabilities
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {project.caseStudy.keyFeatures.map((feat, fIdx) => (
+                    <div 
+                      key={fIdx}
+                      className="p-3.5 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-2.5"
+                    >
+                      <div className="w-5 h-5 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5 border border-black shadow-xs">
+                        ✓
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-900 font-bold leading-relaxed">
+                        {feat}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: ARCHITECTURAL DECISIONS */}
+            {(activeTab === 'decisions' || activeTab === 'all') && project.caseStudy?.engineeringDecisions && project.caseStudy.engineeringDecisions.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
+                  <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                    ⚖️
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                    Architectural Decisions & Tradeoffs
+                  </h3>
+                </div>
+
+                <div className="space-y-2.5">
+                  {project.caseStudy.engineeringDecisions.map((dec, dIdx) => (
+                    <div 
+                      key={dIdx} 
+                      className="p-3.5 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-2.5"
+                    >
+                      <span className="font-mono font-black text-xs px-2 py-0.5 bg-black text-brand-yellow rounded border border-black shadow-xs flex-shrink-0 mt-0.5">
+                        DECISION {dIdx + 1}
+                      </span>
+                      <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed">
+                        {dec}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: DATA ENTITIES */}
+            {(activeTab === 'data' || activeTab === 'all') && project.caseStudy?.dataEntities && project.caseStudy.dataEntities.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
+                  <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                    💾
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                    Data Entities & Schema Models
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {project.caseStudy.dataEntities.map((ent, eIdx) => (
+                    <div 
+                      key={eIdx}
+                      className="p-3.5 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]"
+                    >
+                      <div className="font-mono text-xs font-black uppercase text-brand-orange-dark mb-1 flex items-center gap-1.5">
+                        <Database className="w-3.5 h-3.5 text-black" />
+                        <span>{ent.entity}</span>
+                      </div>
+                      <p className="text-xs text-gray-800 font-medium leading-snug">
+                        {ent.purpose}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: INTERVIEW Q&A ACCORDION */}
+            {(activeTab === 'faq' || activeTab === 'all') && project.caseStudy?.interviewQA && project.caseStudy.interviewQA.length > 0 && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center justify-between pb-2.5 border-b-2 border-black">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                      🎙️
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                      Technical Interview Q&A Deep Dive
+                    </h3>
+                  </div>
+                  <span className="font-mono text-xs text-gray-700 font-bold bg-white px-2.5 py-0.5 rounded-lg border border-black shadow-xs">
+                    {project.caseStudy.interviewQA.length} QUESTIONS
+                  </span>
+                </div>
+
+                <div className="space-y-2.5">
+                  {project.caseStudy.interviewQA.map((qa, qIdx) => {
+                    const isOpen = openFaqIndex === qIdx;
+                    return (
+                      <div
+                        key={qIdx}
+                        className="border-2 border-black rounded-xl overflow-hidden shadow-[3px_3px_0px_#000] transition-all bg-white"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleFaq(qIdx)}
+                          className="w-full p-3.5 bg-white hover:bg-yellow-50 text-left font-black text-xs sm:text-sm text-black uppercase flex items-center justify-between gap-3 cursor-pointer transition-colors"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <span className="font-mono text-xs px-2 py-0.5 bg-black text-brand-yellow rounded font-black border border-black shadow-xs">
+                              Q{qIdx + 1}
+                            </span>
+                            <span>{qa.q}</span>
+                          </div>
+                          <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {isOpen && (
+                          <div className="p-4 bg-yellow-50/70 border-t-2 border-black text-xs sm:text-sm text-gray-900 leading-relaxed font-semibold animate-in fade-in duration-150">
+                            <div className="flex items-start gap-2.5">
+                              <span className="font-mono font-black text-xs text-emerald-700 mt-0.5">
+                                ANSWER //
+                              </span>
+                              <p className="flex-1">{qa.a}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* TAB: ATTRIBUTION & LEARNINGS */}
+            {(activeTab === 'contributions' || activeTab === 'all') && (
+              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
+                  <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
+                    🎓
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                    Developer Attribution & Lessons Learned
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* My Contribution */}
+                  <div className="p-4 bg-white border-2 border-black rounded-xl space-y-1.5 shadow-[3px_3px_0px_#000]">
+                    <span className="font-mono text-[11px] font-black text-brand-orange-dark uppercase tracking-wider block">
+                      ENGINEERING RESPONSIBILITIES
+                    </span>
+                    <h4 className="text-sm sm:text-base font-black text-black uppercase">
+                      My Primary Contributions
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
+                      {project.caseStudy?.myContribution || project.summary}
+                    </p>
+                  </div>
+
+                  {/* What I Learned */}
+                  <div className="p-4 bg-white border-2 border-black rounded-xl space-y-1.5 shadow-[3px_3px_0px_#000]">
+                    <span className="font-mono text-[11px] font-black text-brand-orange-dark uppercase tracking-wider block">
+                      SYSTEM DESIGN INSIGHTS
+                    </span>
+                    <h4 className="text-sm sm:text-base font-black text-black uppercase">
+                      Key Technical Takeaways
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
+                      {project.caseStudy?.whatILearned || "Hands-on experience delivering verified architectures under strict real-world constraints."}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Accuracy & Audit Notice */}
+                {project.caseStudy?.accuracyNote && (
+                  <div className="p-3 bg-amber-100 border-2 border-black rounded-xl flex items-start gap-2.5 text-xs font-mono font-bold text-amber-950 shadow-[2px_2px_0px_#000]">
+                    <ShieldCheck className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
+                    <span>
+                      <strong>VERIFIED AUDIT NOTICE:</strong> {project.caseStudy.accuracyNote}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* My Contribution */}
-            <div className="p-5 bg-white border-2 border-black rounded-xl space-y-2 shadow-[3px_3px_0px_#000]">
-              <span className="font-mono text-xs font-black text-brand-orange-dark uppercase tracking-wider block">
-                ENGINEERING RESPONSIBILITIES
-              </span>
-              <h4 className="text-base font-black text-black uppercase">
-                My Primary Contributions
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
-                {project.caseStudy?.myContribution || project.summary}
-              </p>
-            </div>
+        </div>
 
-            {/* What I Learned */}
-            <div className="p-5 bg-white border-2 border-black rounded-xl space-y-2 shadow-[3px_3px_0px_#000]">
-              <span className="font-mono text-xs font-black text-brand-orange-dark uppercase tracking-wider block">
-                SYSTEM DESIGN INSIGHTS
-              </span>
-              <h4 className="text-base font-black text-black uppercase">
-                Key Technical Takeaways
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
-                {project.caseStudy?.whatILearned || "Hands-on experience delivering verified architectures under strict real-world constraints."}
-              </p>
-            </div>
-
-          </div>
-
-          {/* Accuracy & Audit Notice */}
-          {project.caseStudy?.accuracyNote && (
-            <div className="p-3.5 bg-amber-100 border-2 border-black rounded-xl flex items-start gap-2.5 text-xs font-mono font-bold text-amber-950 shadow-[2px_2px_0px_#000]">
-              <ShieldCheck className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
-              <span>
-                <strong>VERIFIED AUDIT NOTICE:</strong> {project.caseStudy.accuracyNote}
-              </span>
-            </div>
-          )}
-
-        </section>
-
-        {/* ================= 12. BOTTOM ADJACENT PROJECT NAVIGATION ================= */}
-        <section className="pt-6 border-t-2 border-dashed border-black/30">
+        {/* ================= 3. BOTTOM ADJACENT PROJECT NAVIGATION ================= */}
+        <section className="pt-4 border-t-2 border-dashed border-black/30">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
             {/* Previous Project Card */}
@@ -1007,20 +977,20 @@ export default function ProjectDetailPage({
                   sound.playFlip();
                   onNavigate(adjacent.prev.canonicalUrl);
                 }}
-                className="p-5 bg-white hover:bg-yellow-50 border-[3.5px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-left flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer"
+                className="p-4 bg-white hover:bg-yellow-50 border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] text-left flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer"
               >
                 <div>
                   <span className="font-mono text-[10px] text-gray-600 uppercase font-black block">
                     ← PREVIOUS PROJECT
                   </span>
-                  <span className="text-base sm:text-lg font-black text-black uppercase group-hover:text-brand-orange-dark">
+                  <span className="text-base font-black text-black uppercase group-hover:text-brand-orange-dark">
                     {adjacent.prev.title}
                   </span>
                   <span className="text-xs text-gray-600 font-mono block line-clamp-1">
                     {adjacent.prev.subtitle}
                   </span>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 ml-3 shadow-[2px_2px_0px_#000]">
+                <div className="w-9 h-9 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-xs border-2 border-black flex-shrink-0 ml-3 shadow-[2px_2px_0px_#000]">
                   {adjacent.prev.flag || '←'}
                 </div>
               </button>
@@ -1034,20 +1004,20 @@ export default function ProjectDetailPage({
                   sound.playFlip();
                   onNavigate(adjacent.next.canonicalUrl);
                 }}
-                className="p-5 bg-brand-yellow hover:bg-[#ffde59] text-black border-[3.5px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-right flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer sm:flex-row-reverse"
+                className="p-4 bg-brand-yellow hover:bg-[#ffde59] text-black border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] text-right flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer sm:flex-row-reverse"
               >
                 <div>
                   <span className="font-mono text-[10px] text-black/70 uppercase font-black block">
                     NEXT PROJECT →
                   </span>
-                  <span className="text-base sm:text-lg font-black text-black uppercase">
+                  <span className="text-base font-black text-black uppercase">
                     {adjacent.next.title}
                   </span>
                   <span className="text-xs text-gray-800 font-mono block line-clamp-1">
                     {adjacent.next.subtitle}
                   </span>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 mr-3 sm:mr-0 sm:ml-3 shadow-[2px_2px_0px_#000]">
+                <div className="w-9 h-9 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-xs border-2 border-black flex-shrink-0 mr-3 sm:mr-0 sm:ml-3 shadow-[2px_2px_0px_#000]">
                   {adjacent.next.flag || '→'}
                 </div>
               </button>
@@ -1056,14 +1026,14 @@ export default function ProjectDetailPage({
           </div>
 
           {/* Centered Return to Portfolio Button */}
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-5">
             <button
               type="button"
               onClick={() => {
                 sound.playClick();
                 onBack();
               }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-orange hover:bg-orange-600 text-white rounded-full border-2 border-black font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:scale-105 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange hover:bg-orange-600 text-white rounded-full border-2 border-black font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:scale-105 transition-all cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>RETURN TO COMPLETE PORTFOLIO DOSSIER</span>
