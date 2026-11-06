@@ -12,11 +12,23 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import DeveloperTerminal from './components/DeveloperTerminal';
+import ProjectDetailPage from './components/ProjectDetailPage';
 import { portfolioData } from './portfolioData';
-import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette, Zap } from 'lucide-react';
+import { getProjectBySlug, getProjectUrl, ALL_PROJECT_ROUTES } from './utils/projectRoutes';
+import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette, Zap, ArrowLeft, ExternalLink } from 'lucide-react';
 import { sound } from './utils/soundEffects';
 
 export default function App() {
+  const [currentRoute, setCurrentRoute] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const hash = window.location.hash.replace(/^#/, '');
+      if (path && path !== '/' && path !== '') return path;
+      if (hash && hash !== '' && hash !== '/' && !hash.startsWith('/#')) return '/' + hash.replace(/^\//, '');
+    }
+    return '/';
+  });
+
   const [activeTab, setActiveTab] = useState('portfolio');
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
@@ -58,6 +70,49 @@ export default function App() {
       localStorage.setItem('theme', 'light');
     }
   }, [isDark]);
+
+  const isHome = currentRoute === '/' || currentRoute === '' || currentRoute === '/#hero';
+  const matchedProject = !isHome ? getProjectBySlug(currentRoute) : null;
+
+  const navigateTo = useCallback((targetPath) => {
+    sound.playClick();
+    if (typeof window !== 'undefined') {
+      let cleanPath = targetPath || '/';
+      if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+      window.history.pushState({}, '', cleanPath);
+      setCurrentRoute(cleanPath);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, []);
+
+  // Listen to popstate and hashchange events for browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      const hash = window.location.hash.replace(/^#/, '');
+      const route = (path && path !== '' && path !== '/') ? path : (hash ? '/' + hash.replace(/^\//, '') : '/');
+      setCurrentRoute(route);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
+
+  // Update browser document.title dynamically based on route
+  useEffect(() => {
+    if (matchedProject) {
+      document.title = `${matchedProject.title} — Pravin G Engineering Case Study`;
+    } else if (!isHome) {
+      document.title = `404: Specification Not Found — Pravin G Portfolio`;
+    } else {
+      document.title = `${portfolioData.personal.fullName} · Software Developer & AI Engineer Portfolio`;
+    }
+  }, [matchedProject, isHome]);
 
   const [scrollPercent, setScrollPercent] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
@@ -261,6 +316,69 @@ export default function App() {
     lastSoundProgress.current = 0;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // If the user navigated to a dedicated project page (e.g. /lexifyd, /kidtube, /rag-chatbot)
+  if (!isHome && matchedProject) {
+    return (
+      <ProjectDetailPage
+        project={matchedProject}
+        onBack={() => navigateTo('/')}
+        onNavigate={(path) => navigateTo(path)}
+        isDark={isDark}
+        onToggleTheme={handleToggleTheme}
+        isMuted={isMuted}
+        onToggleMute={handleToggleMute}
+      />
+    );
+  }
+
+  // If the user navigated to an unrecognized sub-page, show a neo-brutalist 404
+  if (!isHome && !matchedProject) {
+    return (
+      <div className="min-h-screen w-full bg-orange-ribbed text-black dark:text-white flex flex-col justify-between p-6 sm:p-12 select-none">
+        <div className="max-w-2xl mx-auto my-auto bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-8 sm:p-12 shadow-[10px_10px_0px_#000] text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-brand-red border border-black rounded-full font-mono text-xs font-black">
+            <span>⚠️ ERROR 404</span>
+            <span>// SPECIFICATION NOT FOUND</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
+            Project Dossier Relocated
+          </h1>
+          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium leading-relaxed font-mono">
+            No system specification was found at route <code className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-brand-orange-dark font-black">{currentRoute}</code>.
+          </p>
+          
+          <div className="p-4 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl text-left space-y-2">
+            <span className="font-mono text-[11px] font-bold text-gray-500 uppercase block">
+              AVAILABLE PROJECT DOSSIERS:
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {ALL_PROJECT_ROUTES.map((r) => (
+                <button
+                  key={r.slug}
+                  type="button"
+                  onClick={() => navigateTo(`/${r.slug}`)}
+                  className="px-3 py-2 bg-white dark:bg-gray-800 hover:bg-brand-yellow hover:text-black border border-black rounded-lg text-xs font-mono font-bold text-left flex items-center justify-between transition-colors cursor-pointer"
+                >
+                  <span>/{r.slug}</span>
+                  <span className="text-[10px] text-gray-500">→</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => navigateTo('/')}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:scale-105 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>RETURN TO COMPLETE PORTFOLIO DOSSIER</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-orange-ribbed flex flex-col justify-between overflow-x-hidden relative selection:bg-brand-yellow selection:text-black transition-colors duration-300">
@@ -543,6 +661,7 @@ export default function App() {
               activeTab={activeTab}
               onSelectTab={setActiveTab}
               onOpenCaseStudy={setSelectedCaseStudy}
+              onNavigateToProject={navigateTo}
               currentProjectIndex={currentProjectIndex}
               onSelectProjectIndex={setCurrentProjectIndex}
             />
@@ -638,15 +757,19 @@ export default function App() {
       {/* ================= 1. BENTO GRID CAPABILITIES & LIVE METRICS ================= */}
       <BentoGrid
         onOpenCaseStudy={setSelectedCaseStudy}
+        onNavigateToProject={navigateTo}
         onOpenTerminal={() => setIsTerminalOpen(true)}
         onOpenResume={handleOpenResume}
       />
 
       {/* ================= 2. PROJECTS & CASE STUDIES SECTION ================= */}
-      <ProjectsSection onOpenCaseStudy={setSelectedCaseStudy} />
+      <ProjectsSection 
+        onOpenCaseStudy={setSelectedCaseStudy}
+        onNavigateToProject={navigateTo}
+      />
 
       {/* ================= 3. AWARDS, HACKATHONS & RECOGNITION ================= */}
-      <HackathonsSection />
+      <HackathonsSection onNavigateToProject={navigateTo} />
 
       {/* ================= 4. ABOUT & PHILOSOPHY SECTION ================= */}
       <AboutSection />
@@ -693,6 +816,7 @@ export default function App() {
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
         onOpenCaseStudy={setSelectedCaseStudy}
+        onNavigateToProject={navigateTo}
         onOpenResume={handleOpenResume}
         onToggleTheme={handleToggleTheme}
         isDark={isDark}

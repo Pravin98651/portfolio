@@ -21,8 +21,9 @@ import {
   ShieldCheck,
   TrendingUp
 } from 'lucide-react';
+import { getProjectUrl } from '../utils/projectRoutes';
 
-export default function HackathonsSection() {
+export default function HackathonsSection({ onNavigateToProject }) {
   const { hackathons } = portfolioData;
   const [activeItemId, setActiveItemId] = useState('danfoss-2026');
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
@@ -311,6 +312,23 @@ export default function HackathonsSection() {
                 <p className="text-xs text-gray-800 font-medium leading-relaxed">
                   "{currentItem.contribution}"
                 </p>
+              </div>
+            )}
+
+            {/* Direct Deep-Dive Link to Dedicated Page */}
+            {onNavigateToProject && (
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    sound.playClick();
+                    onNavigateToProject(getProjectUrl(currentItem.id));
+                  }}
+                  className="w-full py-2.5 px-4 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>⚡ EXPLORE FULL SPECIFICATION ({getProjectUrl(currentItem.id)})</span>
+                  <ExternalLink className="w-4 h-4 ml-0.5" />
+                </button>
               </div>
             )}
 

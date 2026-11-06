@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '../portfolioData';
 import { sound } from '../utils/soundEffects';
+import { getProjectUrl } from '../utils/projectRoutes';
 import { Terminal, X, CornerDownLeft, Sparkles, Download, Copy, Check } from 'lucide-react';
 
-export default function DeveloperTerminal({ isOpen, onClose, onOpenCaseStudy, onOpenResume, onToggleTheme, isDark }) {
+export default function DeveloperTerminal({ isOpen, onClose, onOpenCaseStudy, onNavigateToProject, onOpenResume, onToggleTheme, isDark }) {
   const [history, setHistory] = useState([
     { type: 'system', text: 'Pravin Developer Terminal [Version 2.4.0]' },
     { type: 'system', text: 'Type "help" or click command chips below to inspect systems.' }
@@ -99,13 +100,19 @@ Scrolling to Hackathons & Awards Section...`
         break;
 
       case 'project':
+      case 'open':
         if (!arg) {
           newHistory.push({ type: 'error', text: 'Please specify project: kidtube, jobhunt, lexifyd, or rag' });
         } else {
           const match = portfolioData.projects.find(p => p.id.includes(arg) || p.title.toLowerCase().includes(arg));
           if (match) {
-            newHistory.push({ type: 'success', text: `Opening case study for ${match.title}...` });
-            if (onOpenCaseStudy) onOpenCaseStudy(match);
+            newHistory.push({ type: 'success', text: `Navigating to dedicated page for ${match.title} (${getProjectUrl(match.id)})...` });
+            if (onNavigateToProject) {
+              onNavigateToProject(getProjectUrl(match.id));
+              onClose();
+            } else if (onOpenCaseStudy) {
+              onOpenCaseStudy(match);
+            }
           } else {
             newHistory.push({ type: 'error', text: `Project "${arg}" not found. Try: kidtube, jobhunt, lexifyd, rag` });
           }

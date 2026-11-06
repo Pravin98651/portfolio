@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../portfolioData';
 import { sound } from '../utils/soundEffects';
+import { getProjectUrl } from '../utils/projectRoutes';
 import { 
   Sparkles, 
   Terminal, 
@@ -15,7 +16,7 @@ import {
   Code2
 } from 'lucide-react';
 
-export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResume }) {
+export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResume, onNavigateToProject }) {
   const { projects, personal, contact } = portfolioData;
 
   // Real-time ticking Indian Standard Time (IST) clock
@@ -107,7 +108,11 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
                   key={p.id}
                   onClick={() => {
                     sound.playClick();
-                    onOpenCaseStudy(p);
+                    if (onNavigateToProject) {
+                      onNavigateToProject(getProjectUrl(p.id));
+                    } else {
+                      onOpenCaseStudy(p);
+                    }
                   }}
                   className="p-3.5 bg-gray-50 hover:bg-brand-yellow/20 border-2 border-black rounded-xl cursor-pointer transition-all hover:-translate-y-0.5 shadow-[2px_2px_0px_#000] flex flex-col justify-between group"
                 >
@@ -124,7 +129,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
                   </div>
 
                   <div className="flex items-center justify-between pt-2 border-t border-gray-200 text-[10px] font-mono font-bold text-gray-600">
-                    <span>{p?.caseStudy?.workflowSteps?.length || 0} Steps</span>
+                    <span className="text-brand-orange-dark font-black">{getProjectUrl(p.id)}</span>
                     <span className="text-black group-hover:underline flex items-center gap-0.5">
                       Case Study <ArrowRight className="w-2.5 h-2.5" />
                     </span>

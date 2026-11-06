@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { portfolioData } from '../portfolioData';
 import { Download, ExternalLink, Star, ChevronLeft, ChevronRight, Mail, Check, Copy, Send, Sparkles, Globe, Eye, Activity, Cpu } from 'lucide-react';
 import { sound } from '../utils/soundEffects';
+import { getProjectUrl } from '../utils/projectRoutes';
 
 export default function BackpackPocket({
   activeTab,
   onSelectTab,
   onOpenCaseStudy,
+  onNavigateToProject,
   currentProjectIndex,
   onSelectProjectIndex
 }) {
@@ -341,11 +343,15 @@ export default function BackpackPocket({
                   type="button"
                   onClick={() => {
                     sound.playClick();
-                    onOpenCaseStudy(currentProject);
+                    if (onNavigateToProject) {
+                      onNavigateToProject(getProjectUrl(currentProject.id));
+                    } else {
+                      onOpenCaseStudy(currentProject);
+                    }
                   }}
                   className="flex-1 py-2.5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>CASE STUDY</span>
+                  <span>CASE STUDY ({getProjectUrl(currentProject.id)})</span>
                   <ExternalLink className="w-4 h-4" />
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../portfolioData';
 import { sound } from '../utils/soundEffects';
+import { getProjectUrl } from '../utils/projectRoutes';
 import { 
   ExternalLink, 
   Star, 
@@ -19,7 +20,7 @@ import {
   MonitorPlay
 } from 'lucide-react';
 
-export default function ProjectsSection({ onOpenCaseStudy }) {
+export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }) {
   const { projects } = portfolioData;
   const [viewMode, setViewMode] = useState('theater'); // 'theater' (Showcase Page) | 'grid' (All projects)
   const [selectedCategory, setSelectedCategory] = useState('ALL');
@@ -408,11 +409,15 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                     type="button"
                     onClick={() => {
                       sound.playClick();
-                      onOpenCaseStudy(currentProject);
+                      if (onNavigateToProject) {
+                        onNavigateToProject(getProjectUrl(currentProject.id));
+                      } else {
+                        onOpenCaseStudy(currentProject);
+                      }
                     }}
                     className="flex-1 py-3 px-5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>EXPLORE FULL CASE STUDY</span>
+                    <span>EXPLORE FULL SPECIFICATION ({getProjectUrl(currentProject.id)})</span>
                     {currentProject?.caseStudy?.workflowSteps && (
                       <span className="font-mono text-[11px] bg-black text-white px-2 py-0.5 rounded">
                         {currentProject.caseStudy.workflowSteps.length} Steps
@@ -613,11 +618,15 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                         type="button"
                         onClick={() => {
                           sound.playClick();
-                          onOpenCaseStudy(project);
+                          if (onNavigateToProject) {
+                            onNavigateToProject(getProjectUrl(project.id));
+                          } else {
+                            onOpenCaseStudy(project);
+                          }
                         }}
                         className="flex-1 py-3 px-4 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>READ FULL CASE STUDY</span>
+                        <span>VIEW FULL SPECIFICATION ({getProjectUrl(project.id)})</span>
                         <ExternalLink className="w-4 h-4 ml-0.5" />
                       </button>
 
