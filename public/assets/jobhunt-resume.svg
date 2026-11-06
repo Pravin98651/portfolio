@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#0d1117" rx="12"/>
+  <rect x="0" y="0" width="800" height="50" fill="#161b22"/>
+  <text x="24" y="32" fill="white" font-family="sans-serif" font-weight="900" font-size="16">Job Hunt AI — Resume Parsing & Matching Analysis</text>
+  <rect x="630" y="12" width="145" height="26" rx="6" fill="#238636"/>
+  <text x="642" y="29" fill="white" font-family="monospace" font-size="11" font-weight="bold">PDF Extracted ✓</text>
+
+  <!-- Left: Extracted Candidate Profile -->
+  <g transform="translate(24, 70)">
+    <rect x="0" y="0" width="360" height="350" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="18" y="30" fill="#58a6ff" font-family="monospace" font-size="11" font-weight="bold">PARSED CANDIDATE SKILL MATRIX</text>
+    <text x="18" y="55" fill="white" font-family="sans-serif" font-size="16" font-weight="bold">Pravin · Full-Stack & Applied AI</text>
+    
+    <rect x="18" y="75" width="324" height="1" fill="#30363d"/>
+
+    <text x="18" y="105" fill="#8b949e" font-family="sans-serif" font-size="12">Core Technical Skills:</text>
+    <g transform="translate(18, 120)">
+      <rect x="0" y="0" width="85" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="10" y="16" fill="#58a6ff" font-family="monospace" font-size="11">Python</text>
+
+      <rect x="95" y="0" width="85" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="105" y="16" fill="#58a6ff" font-family="monospace" font-size="11">FastAPI</text>
+
+      <rect x="190" y="0" width="85" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="200" y="16" fill="#58a6ff" font-family="monospace" font-size="11">React</text>
+    </g>
+
+    <g transform="translate(18, 155)">
+      <rect x="0" y="0" width="95" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="10" y="16" fill="#58a6ff" font-family="monospace" font-size="11">LangGraph</text>
+
+      <rect x="105" y="0" width="105" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="115" y="16" fill="#58a6ff" font-family="monospace" font-size="11">PostgreSQL</text>
+
+      <rect x="220" y="0" width="85" height="24" rx="4" fill="#1f6feb" fill-opacity="0.2"/>
+      <text x="230" y="16" fill="#58a6ff" font-family="monospace" font-size="11">Docker</text>
+    </g>
+
+    <text x="18" y="215" fill="#8b949e" font-family="sans-serif" font-size="12">Experience Extraction:</text>
+    <rect x="18" y="230" width="324" height="100" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="28" y="255" fill="white" font-family="sans-serif" font-size="12" font-weight="bold">• KidTube Platform Architecture</text>
+    <text x="28" y="275" fill="#8b949e" font-family="sans-serif" font-size="11">Next.js 14, TensorFlow.js thumbnail classification</text>
+    <text x="28" y="300" fill="white" font-family="sans-serif" font-size="12" font-weight="bold">• Multi-Role RAG Vector Search</text>
+    <text x="28" y="320" fill="#8b949e" font-family="sans-serif" font-size="11">FAISS indexing, Sentence Transformers embeddings</text>
+  </g>
+
+  <!-- Right: Gemini AI Match Breakdown -->
+  <g transform="translate(410, 70)">
+    <rect x="0" y="0" width="365" height="350" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="20" y="30" fill="#bc8cff" font-family="monospace" font-size="11" font-weight="bold">GOOGLE GEMINI 1.5 PRO EVALUATION</text>
+    <text x="20" y="55" fill="white" font-family="sans-serif" font-size="16" font-weight="bold">Target: AI Systems Engineer (Scale)</text>
+
+    <rect x="20" y="75" width="325" height="1" fill="#30363d"/>
+
+    <rect x="20" y="90" width="325" height="60" rx="6" fill="#0d1117" stroke="#238636"/>
+    <text x="35" y="115" fill="#3fb950" font-family="sans-serif" font-size="14" font-weight="bold">Overall Compatibility: 94% (High Fit)</text>
+    <text x="35" y="135" fill="#8b949e" font-family="sans-serif" font-size="11">Strong alignment in LLM agent orchestration and backend APIs.</text>
+
+    <text x="20" y="175" fill="#8b949e" font-family="sans-serif" font-size="12">Tailored Cover Letter Draft:</text>
+    <rect x="20" y="190" width="325" height="140" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="30" y="215" fill="#c9d1d9" font-family="sans-serif" font-size="11">"Dear Hiring Team,</text>
+    <text x="30" y="235" fill="#8b949e" font-family="sans-serif" font-size="10">With extensive experience building LangGraph workflows, FastAPI</text>
+    <text x="30" y="250" fill="#8b949e" font-family="sans-serif" font-size="10">backends, and vector search systems, I am excited to apply for</text>
+    <text x="30" y="265" fill="#8b949e" font-family="sans-serif" font-size="10">the AI Systems Engineer role..."</text>
+    <rect x="30" y="285" width="100" height="24" rx="4" fill="#238636"/>
+    <text x="38" y="301" fill="white" font-family="sans-serif" font-size="10" font-weight="bold">COPY LETTER</text>
+  </g>
+</svg>

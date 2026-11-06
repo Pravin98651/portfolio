@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#18181b" rx="12"/>
+  <!-- App Header -->
+  <rect x="0" y="0" width="800" height="60" fill="#27272a"/>
+  <rect x="24" y="16" width="36" height="28" rx="6" fill="#ef4444"/>
+  <polygon points="38,24 38,36 48,30" fill="white"/>
+  <text x="70" y="36" fill="white" font-family="system-ui, sans-serif" font-weight="900" font-size="20">KidTube</text>
+  <rect x="160" y="18" width="90" height="24" rx="12" fill="#10b981" fill-opacity="0.2"/>
+  <text x="172" y="34" fill="#34d399" font-family="monospace" font-size="11" font-weight="bold">● PARENT MODE</text>
+  
+  <rect x="580" y="18" width="100" height="24" rx="6" fill="#3f3f46"/>
+  <text x="592" y="34" fill="#d4d4d8" font-family="monospace" font-size="11">Time Left: 45m</text>
+  
+  <rect x="690" y="18" width="86" height="24" rx="6" fill="#ffd31e"/>
+  <text x="702" y="34" fill="#000" font-family="sans-serif" font-size="11" font-weight="bold">PIN PROTECT</text>
+
+  <!-- Left Sidebar (Parent Controls) -->
+  <rect x="24" y="80" width="200" height="340" rx="8" fill="#27272a" stroke="#3f3f46"/>
+  <text x="40" y="110" fill="#a1a1aa" font-family="monospace" font-size="12" font-weight="bold">CHILD PROFILES</text>
+  
+  <rect x="40" y="125" width="168" height="36" rx="6" fill="#3f3f46"/>
+  <circle cx="58" cy="143" r="10" fill="#ffd31e"/>
+  <text x="76" y="147" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Aarav (Age 7)</text>
+  
+  <rect x="40" y="170" width="168" height="36" rx="6" fill="#18181b"/>
+  <circle cx="58" cy="188" r="10" fill="#3b82f6"/>
+  <text x="76" y="192" fill="#a1a1aa" font-family="sans-serif" font-size="13">Ananya (Age 5)</text>
+
+  <text x="40" y="240" fill="#a1a1aa" font-family="monospace" font-size="12" font-weight="bold">AI MODERATION</text>
+  <rect x="40" y="255" width="168" height="50" rx="6" fill="#18181b" stroke="#34d399"/>
+  <text x="50" y="275" fill="#34d399" font-family="monospace" font-size="11" font-weight="bold">✓ NSFWJS / TF.JS</text>
+  <text x="50" y="293" fill="#a1a1aa" font-family="sans-serif" font-size="10">Thumbnail Filter Active</text>
+
+  <rect x="40" y="320" width="168" height="40" rx="6" fill="#18181b"/>
+  <text x="50" y="344" fill="#facc15" font-family="sans-serif" font-size="11" font-weight="bold">Math Quiz: Every 3 vids</text>
+
+  <!-- Video Grid Content -->
+  <g transform="translate(244, 80)">
+    <!-- Video Card 1 -->
+    <rect x="0" y="0" width="250" height="155" rx="8" fill="#27272a" stroke="#3f3f46"/>
+    <rect x="8" y="8" width="234" height="95" rx="6" fill="#3f3f46"/>
+    <circle cx="125" cy="55" r="16" fill="#ef4444"/>
+    <polygon points="121,48 121,62 133,55" fill="white"/>
+    <rect x="180" y="80" width="55" height="18" rx="4" fill="#000" fill-opacity="0.8"/>
+    <text x="186" y="93" fill="white" font-family="monospace" font-size="10">APPROVED</text>
+    <text x="12" y="122" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Solar System Explorer</text>
+    <text x="12" y="138" fill="#a1a1aa" font-family="sans-serif" font-size="11">National Geographic Kids · 12m</text>
+
+    <!-- Video Card 2 -->
+    <rect x="270" y="0" width="250" height="155" rx="8" fill="#27272a" stroke="#3f3f46"/>
+    <rect x="278" y="8" width="234" height="95" rx="6" fill="#3f3f46"/>
+    <circle cx="395" cy="55" r="16" fill="#ef4444"/>
+    <polygon points="391,48 391,62 403,55" fill="white"/>
+    <rect x="450" y="80" width="55" height="18" rx="4" fill="#000" fill-opacity="0.8"/>
+    <text x="456" y="93" fill="white" font-family="monospace" font-size="10">APPROVED</text>
+    <text x="282" y="122" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Fun Science Chemistry</text>
+    <text x="282" y="138" fill="#a1a1aa" font-family="sans-serif" font-size="11">SciShow Kids · 8m</text>
+
+    <!-- Video Card 3 -->
+    <rect x="0" y="175" width="250" height="155" rx="8" fill="#27272a" stroke="#3f3f46"/>
+    <rect x="8" y="183" width="234" height="95" rx="6" fill="#3f3f46"/>
+    <text x="12" y="297" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Draw Animals Step by Step</text>
+    <text x="12" y="313" fill="#a1a1aa" font-family="sans-serif" font-size="11">Art for Kids Hub · 15m</text>
+
+    <!-- Video Card 4 -->
+    <rect x="270" y="175" width="250" height="155" rx="8" fill="#27272a" stroke="#3f3f46"/>
+    <rect x="278" y="183" width="234" height="95" rx="6" fill="#3f3f46"/>
+    <text x="282" y="297" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Math Magic: Fractions</text>
+    <text x="282" y="313" fill="#a1a1aa" font-family="sans-serif" font-size="11">Khan Academy Kids · 10m</text>
+  </g>
+</svg>

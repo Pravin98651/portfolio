@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary-orange: #f3670e;
+  --color-primary-orange-dark: #873807;
+  --color-brand-yellow: #ffd31e;
+  --color-brand-red: #d3222a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: url('/assets/cursor-default.png'), auto;
+}
+
+button, a, [role="button"], input, select, textarea {
+  cursor: url('/assets/cursor-hover.png'), pointer;
+}
+
+/* Background corduroy orange stripes */
+.bg-orange-ribbed {
+  background-color: #f3670e;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #f3670e 0px,
+    #f3670e 12px,
+    #e85c07 12px,
+    #e85c07 16px
+  );
+  transition: background-color 0.3s ease;
+}
+
+/* Dark mode stealth corduroy */
+.dark .bg-orange-ribbed {
+  background-color: #121316;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #121316 0px,
+    #121316 12px,
+    #1c1d22 12px,
+    #1c1d22 16px
+  );
+}
+
+/* Red backpack pocket ribbed texture */
+.bg-pocket-red {
+  background-color: #cb1c25;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #cb1c25 0px,
+    #cb1c25 10px,
+    #b3141c 10px,
+    #b3141c 13px
+  );
+}
+
+/* Yellow badge stripes */
+.bg-badge-stripes {
+  background-color: #ffd31e;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #ffd31e 0px,
+    #ffd31e 16px,
+    #ffe269 16px,
+    #ffe269 22px
+  );
+}
+
+/* 3D Flip Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Halftone dot pattern for avatar frame */
+.halftone-pink {
+  background-color: #ff3399;
+  background-image: radial-gradient(#d6006e 15%, transparent 16%), radial-gradient(#d6006e 15%, transparent 16%);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* Screws in plaque */
+.plaque-screw {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #b0b0b0 50%, #444444 100%);
+  border: 1px solid #222;
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,0.8), 1px 1px 2px rgba(0,0,0,0.4);
+  position: relative;
+}
+.plaque-screw::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 1.5px;
+  background: #333;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+}
+
+/* Refined custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

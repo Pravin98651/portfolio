@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#111827" rx="12"/>
+  <text x="30" y="38" fill="white" font-family="sans-serif" font-weight="900" font-size="18">Job Hunt AI — LangGraph Multi-Agent Architecture</text>
+  
+  <!-- Step 1: Ingestion & Scraping -->
+  <g transform="translate(30, 70)">
+    <rect x="0" y="0" width="220" height="150" rx="8" fill="#1f2937" stroke="#3b82f6" stroke-width="2"/>
+    <text x="15" y="28" fill="#60a5fa" font-family="monospace" font-size="11" font-weight="bold">NODE 1: CONCURRENT SCRAPING</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Async Job Source Pipeline</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• LinkedIn, Indeed, Glassdoor</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Wellfound, Remotive</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Playwright & asyncio.gather</text>
+    <text x="15" y="130" fill="#9ca3af" font-family="sans-serif" font-size="11">• Unified JSON schema output</text>
+  </g>
+
+  <!-- Arrow to Deduplication -->
+  <line x1="250" y1="145" x2="290" y2="145" stroke="#3b82f6" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="290,145 282,140 282,150" fill="#3b82f6"/>
+
+  <!-- Step 2: 3-Layer Deduplication -->
+  <g transform="translate(290, 70)">
+    <rect x="0" y="0" width="220" height="150" rx="8" fill="#1f2937" stroke="#10b981" stroke-width="2"/>
+    <text x="15" y="28" fill="#34d399" font-family="monospace" font-size="11" font-weight="bold">3-LAYER DEDUPLICATION</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">pgvector Semantic Match</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• Layer 1: Source ID match</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Layer 2: 0.92 cosine pgvector</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Layer 3: DB unique constraints</text>
+    <text x="15" y="130" fill="#9ca3af" font-family="sans-serif" font-size="11">• Zero duplicate job entries</text>
+  </g>
+
+  <!-- Arrow to Scoring -->
+  <line x1="510" y1="145" x2="550" y2="145" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="550,145 542,140 542,150" fill="#10b981"/>
+
+  <!-- Step 3: AI Scoring Engine -->
+  <g transform="translate(550, 70)">
+    <rect x="0" y="0" width="220" height="150" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+    <text x="15" y="28" fill="#f59e0b" font-family="monospace" font-size="11" font-weight="bold">NODE 2: GEMINI SCORING</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">5-Dimension Match Score</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• Skills Fit (40% weight)</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Title / Seniority (25%)</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Location (15%) + Salary (10%)</text>
+    <text x="15" y="130" fill="#9ca3af" font-family="sans-serif" font-size="11">• Growth (10%) + Keyword fallback</text>
+  </g>
+
+  <!-- Downward Arrow to Pipeline UI -->
+  <line x1="400" y1="220" x2="400" y2="260" stroke="#a855f7" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="400,260 395,252 405,252" fill="#a855f7"/>
+
+  <!-- Step 4: Storage & Kanban Pipeline -->
+  <g transform="translate(140, 260)">
+    <rect x="0" y="0" width="520" height="150" rx="8" fill="#1f2937" stroke="#a855f7" stroke-width="2"/>
+    <text x="20" y="28" fill="#c084fc" font-family="monospace" font-size="11" font-weight="bold">POSTGRESQL PERSISTENCE & FASTAPI APPLICATION PIPELINE</text>
+    <text x="20" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Decoupled Job Data & Candidate State Machine</text>
+    <g transform="translate(20, 68)">
+      <rect x="0" y="0" width="90" height="60" rx="4" fill="#111827" stroke="#4b5563"/>
+      <text x="10" y="24" fill="#9ca3af" font-family="sans-serif" font-size="10" font-weight="bold">BOOKMARKED</text>
+      <text x="10" y="44" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">8 Jobs</text>
+    </g>
+    <g transform="translate(120, 68)">
+      <rect x="0" y="0" width="90" height="60" rx="4" fill="#111827" stroke="#3b82f6"/>
+      <text x="10" y="24" fill="#60a5fa" font-family="sans-serif" font-size="10" font-weight="bold">APPLIED</text>
+      <text x="10" y="44" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">14 Sent</text>
+    </g>
+    <g transform="translate(220, 68)">
+      <rect x="0" y="0" width="105" height="60" rx="4" fill="#111827" stroke="#f59e0b"/>
+      <text x="10" y="24" fill="#fbbf24" font-family="sans-serif" font-size="10" font-weight="bold">INTERVIEWING</text>
+      <text x="10" y="44" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">3 Active</text>
+    </g>
+    <g transform="translate(335, 68)">
+      <rect x="0" y="0" width="80" height="60" rx="4" fill="#111827" stroke="#10b981"/>
+      <text x="10" y="24" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="bold">OFFERS</text>
+      <text x="10" y="44" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">1 Received</text>
+    </g>
+    <g transform="translate(425, 68)">
+      <rect x="0" y="0" width="75" height="60" rx="4" fill="#111827" stroke="#ef4444"/>
+      <text x="10" y="24" fill="#f87171" font-family="sans-serif" font-size="10" font-weight="bold">ARCHIVE</text>
+      <text x="10" y="44" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">2 Closed</text>
+    </g>
+  </g>
+</svg>

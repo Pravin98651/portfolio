@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#111827" rx="12"/>
+  <text x="30" y="38" fill="white" font-family="sans-serif" font-weight="900" font-size="18">Multi-Role RAG Chatbot — Retrieval & Citation Pipeline</text>
+  
+  <!-- Step 1: Ingestion & Partitioning -->
+  <g transform="translate(30, 80)">
+    <rect x="0" y="0" width="220" height="130" rx="8" fill="#1f2937" stroke="#3b82f6" stroke-width="2"/>
+    <text x="15" y="28" fill="#60a5fa" font-family="monospace" font-size="11" font-weight="bold">DOCUMENT INGESTION</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Role-Folder Partitioning</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• engineering/, finance/, hr/</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Markdown, plain text, CSV tables</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Paragraph-aware 500w/50w chunking</text>
+  </g>
+
+  <!-- Arrow -->
+  <line x1="250" y1="145" x2="290" y2="145" stroke="#3b82f6" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="290,145 282,140 282,150" fill="#3b82f6"/>
+
+  <!-- Step 2: Embedding & FAISS Index -->
+  <g transform="translate(290, 80)">
+    <rect x="0" y="0" width="220" height="130" rx="8" fill="#1f2937" stroke="#10b981" stroke-width="2"/>
+    <text x="15" y="28" fill="#34d399" font-family="monospace" font-size="11" font-weight="bold">VECTOR EMBEDDING</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">FAISS Inner-Product Search</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• all-MiniLM-L6-v2 dense vectors</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Sub-15ms IndexFlatIP query</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Source metadata tagging</text>
+  </g>
+
+  <!-- Arrow -->
+  <line x1="510" y1="145" x2="550" y2="145" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="550,145 542,140 542,150" fill="#10b981"/>
+
+  <!-- Step 3: Groq LLM Generation -->
+  <g transform="translate(550, 80)">
+    <rect x="0" y="0" width="220" height="130" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+    <text x="15" y="28" fill="#f59e0b" font-family="monospace" font-size="11" font-weight="bold">GROQ INFERENCE API</text>
+    <text x="15" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Citation-Backed Q&A</text>
+    <text x="15" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• Qwen-qwq-32b reasoning model</text>
+    <text x="15" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Strict citation grounding</text>
+    <text x="15" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Exact Pandas table lookups for HR</text>
+  </g>
+
+  <!-- Downward Arrow -->
+  <line x1="400" y1="210" x2="400" y2="260" stroke="#06b6d4" stroke-width="3" stroke-dasharray="4 4"/>
+  <polygon points="400,260 395,252 405,252" fill="#06b6d4"/>
+
+  <!-- Step 4: Streamlit & Scope Note -->
+  <g transform="translate(140, 260)">
+    <rect x="0" y="0" width="520" height="140" rx="8" fill="#1f2937" stroke="#06b6d4" stroke-width="2"/>
+    <text x="20" y="28" fill="#22d3ee" font-family="monospace" font-size="11" font-weight="bold">STREAMLIT UI & HONEST SCOPE ROADMAP</text>
+    <text x="20" y="52" fill="white" font-family="sans-serif" font-size="13" font-weight="bold">Interactive Department Query Interface</text>
+    <text x="20" y="76" fill="#9ca3af" font-family="sans-serif" font-size="11">• Current Build: Working multi-folder retrieval demonstration with sub-15ms latency</text>
+    <text x="20" y="94" fill="#9ca3af" font-family="sans-serif" font-size="11">• Transparent Roadmap: 8-step roadmap required before enterprise RBAC claims</text>
+    <text x="20" y="112" fill="#9ca3af" font-family="sans-serif" font-size="11">• Token budget optimization & citation traceability</text>
+  </g>
+</svg>

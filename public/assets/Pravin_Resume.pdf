@@ -1,0 +1,108 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Length 2851 >>
+stream
+BT
+/F1 22 Tf
+50 740 Td
+(PRAVIN) Tj
+/F2 10.5 Tf
+0 -18 Td
+(Software Developer | Full-Stack Development | Applied AI) Tj
+0 -15 Td
+(Email: pravin.dev@example.com   |   GitHub: github.com/Pravin98651   |   Location: India / Remote) Tj
+0 -22 Td
+/F1 12 Tf
+(PROFESSIONAL SUMMARY) Tj
+/F2 9.5 Tf
+0 -14 Td
+(Software developer with demonstrated expertise in building practical, full-stack systems and applied AI workflows.) Tj
+0 -12 Td
+(Experienced across the entire engineering lifecycle: system architecture, API design, relational data modeling,) Tj
+0 -12 Td
+(vector retrieval systems, responsive web dashboards, and distraction-free mobile applications.) Tj
+0 -22 Td
+/F1 12 Tf
+(FEATURED TECHNICAL PROJECTS) Tj
+0 -16 Td
+/F1 10.5 Tf
+(KidTube - Parent-Controlled Video Platform with AI Moderation) Tj
+/F2 9 Tf
+0 -13 Td
+(- Architected allowlist curation video system eliminating algorithmic rabbit holes for children.) Tj
+0 -11 Td
+(- Built Next.js 14 parent console, Expo/React Native child app with touch-blocking overlays and math quiz tollbooth.) Tj
+0 -11 Td
+(- Implemented concurrent TensorFlow.js + NSFWJS thumbnail safety screening and YouTube Data API v3 integration.) Tj
+0 -16 Td
+/F1 10.5 Tf
+(Job Hunt AI - Multi-Agent Job Discovery Platform) Tj
+/F2 9 Tf
+0 -13 Td
+(- Designed 2-node stateful workflow with LangGraph, asynchronously scraping 5 major job boards via asyncio.) Tj
+0 -11 Td
+(- Implemented 3-layer deduplication: source ID, 0.92 cosine pgvector semantic match, and DB unique constraints.) Tj
+0 -11 Td
+(- Engineered 5-dimension AI candidate-job matching via Google Gemini with robust keyword fallback.) Tj
+0 -16 Td
+/F1 10.5 Tf
+(Lexifyd Tamil - Applied AI Language Technology) Tj
+/F2 9 Tf
+0 -13 Td
+(- Engineered interactive language learning platform addressing Tamil polysemic root words.) Tj
+0 -11 Td
+(- Utilized Google Gemini prompt chains to synthesize distinct word senses, contextual sentences, and distractors.) Tj
+0 -16 Td
+/F1 10.5 Tf
+(Multi-Role RAG Chatbot - Departmental Knowledge Assistant) Tj
+/F2 9 Tf
+0 -13 Td
+(- Built document ingestion system with 500-word paragraph-aware chunking and 50-word overlap.) Tj
+0 -11 Td
+(- Embedded text via Sentence Transformers (all-MiniLM-L6-v2) with sub-15ms FAISS inner-product retrieval.) Tj
+0 -11 Td
+(- Connected Groq API (Qwen-qwq-32b) for high-throughput citation-backed response generation.) Tj
+0 -22 Td
+/F1 12 Tf
+(TECHNICAL SKILLS) Tj
+/F2 9.5 Tf
+0 -15 Td
+(Frontend: React, Next.js 14, TypeScript, JavaScript, Vite, Tailwind CSS, Streamlit) Tj
+0 -13 Td
+(Backend: Python, FastAPI, Node.js, Express, REST APIs, JWT Session Auth, Pydantic, SQLAlchemy) Tj
+0 -13 Td
+(Applied AI & Retrieval: Google Gemini, LangGraph, RAG, FAISS, pgvector, Sentence Transformers, TensorFlow.js) Tj
+0 -13 Td
+(Databases & Tools: PostgreSQL, Supabase, Firebase Firestore, Redis, SQLite, Git, Docker, Playwright) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000326 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3299
+%%EOF

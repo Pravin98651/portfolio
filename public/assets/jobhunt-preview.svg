@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#090d16" rx="12"/>
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#111827"/>
+  <circle cx="40" cy="30" r="14" fill="#3b82f6"/>
+  <text x="35" y="35" fill="white" font-family="monospace" font-weight="bold" font-size="14">⚡</text>
+  <text x="65" y="36" fill="white" font-family="system-ui, sans-serif" font-weight="900" font-size="20">Job Hunt AI</text>
+  <rect x="210" y="18" width="130" height="24" rx="12" fill="#8b5cf6" fill-opacity="0.2"/>
+  <text x="222" y="34" fill="#c084fc" font-family="monospace" font-size="11" font-weight="bold">● GEMINI 1.5 PRO</text>
+
+  <rect x="620" y="18" width="150" height="24" rx="6" fill="#1f2937"/>
+  <text x="632" y="34" fill="#93c5fd" font-family="monospace" font-size="11">Resume: pravin.pdf ✓</text>
+
+  <!-- Left Score / Analytics Column -->
+  <g transform="translate(24, 80)">
+    <rect x="0" y="0" width="230" height="340" rx="8" fill="#111827" stroke="#1f2937"/>
+    <text x="20" y="30" fill="#9ca3af" font-family="monospace" font-size="12" font-weight="bold">MATCH COMPATIBILITY</text>
+    
+    <!-- Circle match gauge -->
+    <circle cx="115" cy="100" r="48" stroke="#1f2937" stroke-width="10" fill="none"/>
+    <circle cx="115" cy="100" r="48" stroke="#3b82f6" stroke-width="10" stroke-dasharray="270" stroke-dashoffset="35" stroke-linecap="round" fill="none"/>
+    <text x="96" y="106" fill="white" font-family="sans-serif" font-weight="900" font-size="22">92%</text>
+    <text x="82" y="124" fill="#60a5fa" font-family="monospace" font-size="10">STRONG FIT</text>
+
+    <text x="20" y="185" fill="#9ca3af" font-family="monospace" font-size="11" font-weight="bold">SKILL-GAP ANALYSIS</text>
+    <rect x="20" y="200" width="85" height="22" rx="4" fill="#10b981" fill-opacity="0.2"/>
+    <text x="26" y="215" fill="#34d399" font-family="sans-serif" font-size="10">✓ Python FastAPI</text>
+
+    <rect x="115" y="200" width="95" height="22" rx="4" fill="#10b981" fill-opacity="0.2"/>
+    <text x="121" y="215" fill="#34d399" font-family="sans-serif" font-size="10">✓ React / Next.js</text>
+
+    <rect x="20" y="230" width="85" height="22" rx="4" fill="#10b981" fill-opacity="0.2"/>
+    <text x="26" y="245" fill="#34d399" font-family="sans-serif" font-size="10">✓ PostgreSQL</text>
+
+    <rect x="115" y="230" width="95" height="22" rx="4" fill="#f59e0b" fill-opacity="0.2"/>
+    <text x="121" y="245" fill="#fbbf24" font-family="sans-serif" font-size="10">▲ Kubernetes (gap)</text>
+
+    <!-- Orchestration pill -->
+    <rect x="20" y="280" width="190" height="40" rx="6" fill="#1f2937"/>
+    <text x="30" y="298" fill="#e5e7eb" font-family="monospace" font-size="10" font-weight="bold">LangGraph Pipeline</text>
+    <text x="30" y="312" fill="#9ca3af" font-family="sans-serif" font-size="10">Playwright Scraping · Scheduled</text>
+  </g>
+
+  <!-- Right Kanban Board -->
+  <g transform="translate(274, 80)">
+    <!-- Column 1: Bookmarked -->
+    <rect x="0" y="0" width="160" height="340" rx="8" fill="#111827"/>
+    <text x="14" y="26" fill="#93c5fd" font-family="sans-serif" font-size="12" font-weight="bold">Bookmarked (8)</text>
+    
+    <rect x="10" y="40" width="140" height="75" rx="6" fill="#1f2937" stroke="#374151"/>
+    <text x="18" y="58" fill="white" font-family="sans-serif" font-size="11" font-weight="bold">AI Software Eng.</text>
+    <text x="18" y="73" fill="#9ca3af" font-family="sans-serif" font-size="10">Anthropic · Remote</text>
+    <rect x="18" y="85" width="45" height="16" rx="3" fill="#3b82f6"/>
+    <text x="22" y="97" fill="white" font-family="monospace" font-size="9">96% fit</text>
+
+    <rect x="10" y="125" width="140" height="75" rx="6" fill="#1f2937" stroke="#374151"/>
+    <text x="18" y="143" fill="white" font-family="sans-serif" font-size="11" font-weight="bold">Full Stack Dev</text>
+    <text x="18" y="158" fill="#9ca3af" font-family="sans-serif" font-size="10">Stripe · SF / Remote</text>
+    <rect x="18" y="170" width="45" height="16" rx="3" fill="#3b82f6"/>
+    <text x="22" y="182" fill="white" font-family="monospace" font-size="9">91% fit</text>
+
+    <!-- Column 2: Applied -->
+    <rect x="175" y="0" width="160" height="340" rx="8" fill="#111827"/>
+    <text x="189" y="26" fill="#facc15" font-family="sans-serif" font-size="12" font-weight="bold">Applied (5)</text>
+
+    <rect x="185" y="40" width="140" height="75" rx="6" fill="#1f2937" stroke="#374151"/>
+    <text x="193" y="58" fill="white" font-family="sans-serif" font-size="11" font-weight="bold">Backend Engineer</text>
+    <text x="193" y="73" fill="#9ca3af" font-family="sans-serif" font-size="10">Linear · Remote</text>
+    <rect x="193" y="85" width="70" height="16" rx="3" fill="#f59e0b" fill-opacity="0.3"/>
+    <text x="198" y="97" fill="#fbbf24" font-family="monospace" font-size="9">Auto-Applied</text>
+
+    <!-- Column 3: Interviewing -->
+    <rect x="350" y="0" width="160" height="340" rx="8" fill="#111827"/>
+    <text x="364" y="26" fill="#34d399" font-family="sans-serif" font-size="12" font-weight="bold">Interviewing (2)</text>
+
+    <rect x="360" y="40" width="140" height="85" rx="6" fill="#1f2937" stroke="#10b981"/>
+    <text x="368" y="58" fill="white" font-family="sans-serif" font-size="11" font-weight="bold">AI Applications Dev</text>
+    <text x="368" y="73" fill="#9ca3af" font-family="sans-serif" font-size="10">Scale AI · Remote</text>
+    <text x="368" y="90" fill="#34d399" font-family="monospace" font-size="10">Round 2: Tech Brief</text>
+    <rect x="368" y="98" width="80" height="18" rx="3" fill="#10b981"/>
+    <text x="372" y="111" fill="black" font-family="sans-serif" font-size="9" font-weight="bold">Prep Generated</text>
+  </g>
+</svg>
