@@ -191,6 +191,7 @@ export default function App() {
 
   const scrollToSection = (id) => {
     sound.playClick();
+    setIsUnzipped(true);
     const elem = document.getElementById(id);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth' });
@@ -255,13 +256,7 @@ export default function App() {
             </button>
             <button
               type="button"
-              onClick={() => {
-                if (window.scrollY < 400) {
-                  triggerUnzipTransition('projects');
-                } else {
-                  scrollToSection('projects');
-                }
-              }}
+              onClick={() => scrollToSection('projects')}
               className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
                 activeSection === 'projects'
                   ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'

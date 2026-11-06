@@ -82,12 +82,12 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
   }, [viewMode, currentIndex]);
 
   const currentProject = projects[currentIndex] || projects[0];
-  const currentImageIdx = activeImageMap[currentProject.id] || 0;
-  const currentImg = currentProject.images[currentImageIdx] || currentProject.images[0];
-  const isFlagship = currentProject.id === 'kidtube' || currentProject.id === 'job-hunt-ai';
+  const currentImageIdx = activeImageMap[currentProject?.id] || 0;
+  const currentImg = currentProject?.images?.[currentImageIdx] || currentProject?.images?.[0] || '';
+  const isFlagship = currentProject?.id === 'kidtube' || currentProject?.id === 'job-hunt-ai';
 
   return (
-    <section id="projects" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
+    <section id="projects" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20">
       
       {/* Section Header Plaque */}
       <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
@@ -271,16 +271,16 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                     <div className="p-3 bg-brand-yellow text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
                       <Eye className="w-6 h-6" />
                     </div>
-                    <span>Open Technical Deep Dive ({currentProject.caseStudy.workflowSteps.length} Steps)</span>
+                    <span>Open Technical Deep Dive ({currentProject?.caseStudy?.workflowSteps?.length || 0} Steps)</span>
                   </div>
 
                   {/* Bottom Status Ribbon on Image */}
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
                     <div className="px-2.5 py-1 bg-black/85 backdrop-blur-md rounded border border-white/20 text-white text-[10px] font-mono font-bold">
-                      {currentProject.imageCaptions ? currentProject.imageCaptions[currentImageIdx] : currentProject.title}
+                      {currentProject?.imageCaptions ? currentProject.imageCaptions[currentImageIdx] : currentProject?.title}
                     </div>
                     <div className="px-2 py-0.5 bg-brand-yellow border border-black rounded text-[10px] font-black text-black">
-                      {currentProject.country} {currentProject.flag}
+                      {currentProject?.country} {currentProject?.flag}
                     </div>
                   </div>
                 </div>
@@ -375,7 +375,7 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                     <span>Verified Technical Highlights</span>
                   </div>
                   <ul className="space-y-1.5 text-xs text-gray-800">
-                    {currentProject.caseStudy.keyFeatures.slice(0, 3).map((feat, fIdx) => (
+                    {(currentProject?.caseStudy?.keyFeatures || []).slice(0, 3).map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2 leading-snug">
                         <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
                         <span>{feat}</span>
@@ -386,7 +386,7 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
 
                 {/* Technology Tags */}
                 <div className="flex flex-wrap items-center gap-1.5">
-                  {currentProject.tags.map((tag, tIdx) => (
+                  {(currentProject?.tags || []).map((tag, tIdx) => (
                     <span
                       key={tIdx}
                       className={`px-2.5 py-1 rounded-md text-[11px] font-bold border border-black uppercase font-mono ${
@@ -413,7 +413,7 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                     className="flex-1 py-3 px-5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>EXPLORE FULL CASE STUDY</span>
-                    {currentProject.caseStudy.workflowSteps && (
+                    {currentProject?.caseStudy?.workflowSteps && (
                       <span className="font-mono text-[11px] bg-black text-white px-2 py-0.5 rounded">
                         {currentProject.caseStudy.workflowSteps.length} Steps
                       </span>
@@ -584,7 +584,7 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                         <span>Verified Technical Highlights</span>
                       </div>
                       <ul className="space-y-1.5 text-xs text-gray-800">
-                        {project.caseStudy.keyFeatures.slice(0, 3).map((feat, fIdx) => (
+                        {(project?.caseStudy?.keyFeatures || []).slice(0, 3).map((feat, fIdx) => (
                           <li key={fIdx} className="flex items-start gap-2 leading-snug">
                             <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
                             <span>{feat}</span>
@@ -594,7 +594,7 @@ export default function ProjectsSection({ onOpenCaseStudy }) {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-1.5">
-                      {project.tags.map((tag, tIdx) => (
+                      {(project?.tags || []).map((tag, tIdx) => (
                         <span
                           key={tIdx}
                           className={`px-2.5 py-1 rounded-md text-[11px] font-bold border border-black uppercase font-mono ${
