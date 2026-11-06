@@ -53,10 +53,10 @@ export default function ContactSection() {
                 <Sparkles className="w-3.5 h-3.5 text-black" />
                 <span>// 04. GET IN TOUCH & COLLABORATE</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
                 LET'S BUILD <span className="text-brand-orange underline decoration-wavy decoration-black">SOMETHING</span> EXTRAORDINARY
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium leading-relaxed">
                 {contact.subtitle}
               </p>
             </div>

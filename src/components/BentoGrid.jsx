@@ -60,7 +60,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
               <Sparkles className="w-3.5 h-3.5" />
               <span>// 00. SYSTEM OVERVIEW & WORKBENCH</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight uppercase leading-none">
               ENGINEERING <span className="text-brand-orange underline decoration-wavy decoration-black">AT A GLANCE</span>
             </h2>
           </div>

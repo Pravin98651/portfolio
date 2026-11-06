@@ -39,10 +39,10 @@ export default function SkillsSection() {
               <Sparkles className="w-3.5 h-3.5 text-black" />
               <span>// 03. TECHNICAL CAPABILITIES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
               SKILLS & <span className="text-brand-orange underline decoration-wavy decoration-black">TECHNOLOGY MATRIX</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium max-w-2xl leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium max-w-2xl leading-relaxed">
               Grounded in technologies actively used across verified production projects. Grouped by engineering domain rather than arbitrary percentage bars.
             </p>
           </div>

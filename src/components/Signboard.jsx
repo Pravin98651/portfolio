@@ -113,7 +113,7 @@ export default function Signboard() {
             <Lightbulb className="w-5 h-5 text-black fill-current" />
           </div>
 
-          <h1 className="text-black dark:text-white font-black text-4xl sm:text-5xl lg:text-[54px] leading-[0.92] tracking-tight uppercase">
+          <h1 className="text-black font-black text-4xl sm:text-5xl lg:text-[54px] leading-[0.92] tracking-tight uppercase">
             {heroTitle.line1}
             <br />
             {heroTitle.line2}
@@ -129,17 +129,17 @@ export default function Signboard() {
         </div>
 
         {/* Core Message / Engineering Subtitle */}
-        <p className="mt-4 text-xs sm:text-sm text-gray-800 dark:text-gray-200 font-medium leading-relaxed border-t-2 border-black/80 pt-3">
+        <p className="mt-4 text-xs sm:text-sm text-black font-medium leading-relaxed border-t-2 border-black/80 pt-3">
           {coreMessage}
         </p>
 
         {/* Hand-Drawn Action Arrow Prompting Zipper Unzip */}
-        <div className="mt-3 flex items-center justify-between bg-amber-50 dark:bg-black/40 border-2 border-dashed border-black rounded-xl p-2.5 font-mono text-xs font-bold text-gray-900 dark:text-gray-100">
-          <div className="flex items-center gap-1.5 text-brand-orange font-black">
+        <div className="mt-3 flex items-center justify-between bg-amber-50 border-2 border-dashed border-black rounded-xl p-2.5 font-mono text-xs font-bold text-gray-900">
+          <div className="flex items-center gap-1.5 text-brand-orange-dark font-black">
             <Zap className="w-4 h-4 fill-current animate-bounce" />
             <span className="uppercase">VINTAGE MECHANICAL DOSSIER</span>
           </div>
-          <div className="flex items-center gap-1 text-black dark:text-brand-yellow font-black animate-pulse">
+          <div className="flex items-center gap-1 text-black font-black animate-pulse">
             <span>UNZIP WORKSPACE</span>
             <ArrowRight className="w-4 h-4" />
           </div>

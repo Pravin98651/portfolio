@@ -135,10 +135,10 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
               <Sparkles className="w-3.5 h-3.5 text-black" />
               <span>// 01. SELECTED WORKS & CASE STUDIES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
               FEATURED <span className="text-brand-orange underline decoration-wavy decoration-black">ENGINEERING</span> DOSSIERS
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium max-w-2xl leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium max-w-2xl leading-relaxed">
               Tactile case study folders covering autonomous multi-agent pipelines, applied LLMs, RAG systems, and robust full-stack software architectures.
             </p>
           </div>

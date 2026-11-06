@@ -49,11 +49,11 @@ export default function AboutSection() {
           
           {/* Left: Bio & Positioning */}
           <div className="lg:col-span-7 space-y-4 scroll-reveal-left delay-100">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
               ENGINEERING IDEAS INTO <span className="text-brand-orange underline decoration-wavy decoration-black">WORKING PRODUCTS</span>
             </h2>
 
-            <div className="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium space-y-3 leading-relaxed">
+            <div className="text-sm sm:text-base text-gray-900 font-medium space-y-3 leading-relaxed">
               <p>
                 {personal.aboutLong}
               </p>

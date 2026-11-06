@@ -129,8 +129,8 @@ export default function BackpackPocket({
         <div className="w-full h-2.5 bg-caution-stripes-sm border-b-2 border-black" />
 
         {/* Folder Meta Header (Editorial Case File Identity) */}
-        <div className="px-4 py-2.5 bg-amber-50 dark:bg-black/40 border-b-2 border-black flex items-center justify-between font-mono text-[11px]">
-          <div className="flex items-center gap-1.5 font-black text-black dark:text-brand-yellow uppercase">
+        <div className="px-4 py-2.5 bg-amber-50 border-b-2 border-black flex items-center justify-between font-mono text-[11px]">
+          <div className="flex items-center gap-1.5 font-black text-black uppercase">
             <Cpu className="w-3.5 h-3.5 text-brand-orange" />
             <span>PRAVIN G // ENGINEERING CASE FILE</span>
           </div>
