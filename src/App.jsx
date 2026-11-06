@@ -125,19 +125,27 @@ export default function App() {
   return (
     <div className="min-h-screen w-full bg-orange-ribbed flex flex-col justify-between overflow-x-hidden relative selection:bg-brand-yellow selection:text-black transition-colors duration-300">
       
+      {/* Ambient Atmospheric Backlight Shaders (Hardware-accelerated glow mesh) */}
+      <div className="ambient-glow-mesh" aria-hidden="true">
+        <div className="glow-orb-top" />
+        <div className="glow-orb-left" />
+        <div className="glow-orb-right" />
+        <div className="glow-orb-bottom" />
+      </div>
+
       {/* Top Header / Floating Navigation Bar */}
-      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between select-none bg-orange-ribbed/90 backdrop-blur-md border-b-2 border-black/10">
+      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between select-none bg-orange-ribbed/90 dark:bg-[#07090e]/85 backdrop-blur-md border-b-2 border-black/10 dark:border-white/10">
         
         {/* Brand identity pill */}
         <button
           type="button"
           onClick={scrollToTop}
-          className="flex items-center gap-2.5 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_#000] hover:scale-105 transition-transform"
+          className="flex items-center gap-2.5 bg-white/95 dark:bg-[#12141f]/90 dark:text-white dark:border-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#f3670e] hover:scale-105 transition-all"
         >
-          <div className="w-6 h-6 rounded-full bg-black text-brand-yellow font-black text-xs flex items-center justify-center border border-black">
+          <div className="w-6 h-6 rounded-full bg-black text-brand-yellow font-black text-xs flex items-center justify-center border border-black dark:border-white/30">
             P
           </div>
-          <span className="font-mono font-bold text-xs tracking-wider uppercase text-black">
+          <span className="font-mono font-bold text-xs tracking-wider uppercase text-black dark:text-white">
             {portfolioData.personal.fullName} · Portfolio
           </span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse ml-0.5" />
@@ -147,39 +155,39 @@ export default function App() {
         <div className="flex items-center gap-2">
           
           {/* Section Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5 font-mono text-xs font-bold bg-white/90 backdrop-blur-md p-1 rounded-full border-2 border-black shadow-[2px_2px_0px_#000]">
+          <nav className="hidden md:flex items-center gap-1.5 font-mono text-xs font-bold bg-white/90 dark:bg-[#12141f]/90 backdrop-blur-md p-1 rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#f3670e]">
             <button
               type="button"
               onClick={() => scrollToSection('bento')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
             >
               OVERVIEW
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('projects')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
             >
               PROJECTS
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('about')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
             >
               ABOUT
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('skills')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
             >
               SKILLS
             </button>
             <button
               type="button"
               onClick={handleOpenResume}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
             >
               RÉSUMÉ
             </button>
@@ -200,7 +208,7 @@ export default function App() {
               setIsTerminalOpen(true);
             }}
             title="Launch Developer Terminal (Ctrl+K)"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-black hover:bg-gray-800 text-white rounded-full border-2 border-black shadow-[2px_2px_0px_#ffd31e] font-mono text-xs font-bold transition-all hover:scale-105"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-black hover:bg-gray-800 text-white rounded-full border-2 border-black dark:border-white/30 shadow-[2px_2px_0px_#ffd31e] font-mono text-xs font-bold transition-all hover:scale-105"
           >
             <Terminal className="w-3.5 h-3.5 text-emerald-400" />
             <span>CLI</span>
@@ -211,11 +219,11 @@ export default function App() {
             type="button"
             onClick={handleCycleBgPalette}
             title={`Current Canvas Atmosphere: ${bgPalettes.find(p => p.id === bgPalette)?.name}. Click to cycle background color palette.`}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white hover:bg-black hover:text-white text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] font-mono text-[11px] font-bold transition-all hover:scale-105"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white dark:bg-[#12141f]/90 hover:bg-black hover:text-white dark:hover:bg-brand-orange dark:hover:text-black text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#f3670e] font-mono text-[11px] font-bold transition-all hover:scale-105"
           >
             <Palette className="w-3.5 h-3.5" />
             <span
-              className="w-2.5 h-2.5 rounded-full border border-black shadow-xs inline-block"
+              className="w-2.5 h-2.5 rounded-full border border-black dark:border-white shadow-xs inline-block"
               style={{ backgroundColor: bgPalettes.find(p => p.id === bgPalette)?.dot }}
             />
             <span className="hidden xl:inline uppercase text-[10px] tracking-wider">
@@ -228,7 +236,7 @@ export default function App() {
             type="button"
             onClick={handleToggleTheme}
             title={isDark ? 'Switch to Day Light Canvas' : 'Switch to Night Obsidian Tactical'}
-            className="p-2 bg-white hover:bg-black hover:text-white text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] transition-colors"
+            className="p-2 bg-white dark:bg-[#12141f]/90 hover:bg-black hover:text-white dark:hover:bg-brand-yellow dark:hover:text-black text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#ffd31e] transition-colors"
           >
             {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-gray-700" />}
           </button>
@@ -238,7 +246,7 @@ export default function App() {
             type="button"
             onClick={handleToggleMute}
             title={isMuted ? 'Unmute tactile audio' : 'Mute tactile audio'}
-            className="p-2 bg-white hover:bg-black hover:text-white text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] transition-colors"
+            className="p-2 bg-white dark:bg-[#12141f]/90 hover:bg-black hover:text-white dark:hover:bg-brand-orange dark:hover:text-black text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#f3670e] transition-colors"
           >
             {isMuted ? <VolumeX className="w-4 h-4 text-gray-400" /> : <Volume2 className="w-4 h-4" />}
           </button>

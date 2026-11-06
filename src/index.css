@@ -39,44 +39,50 @@ button, a, [role="button"], input, select, textarea {
   transition: background-color 0.4s ease, background-image 0.4s ease;
 }
 
-/* Dark Tactical Cybernetic Workstation (Night Mode) */
+/* Dark Tactical Cybernetic Workstation (Night Mode - Default Warm Amber Forge) */
 .dark .bg-orange-ribbed,
 .dark .bg-workspace-grid {
-  background-color: #090a0f;
+  background-color: #07090e;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(243, 103, 14, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(124, 58, 237, 0.16) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 45%),
-    radial-gradient(rgba(255, 255, 255, 0.13) 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px, 72px 72px, 72px 72px;
-  background-attachment: fixed, fixed, fixed, scroll, scroll, scroll;
+    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(243, 103, 14, 0.38) 0%, rgba(255, 180, 0, 0.15) 35%, transparent 72%),
+    radial-gradient(circle at 88% 22%, rgba(124, 58, 237, 0.32) 0%, rgba(99, 102, 241, 0.12) 40%, transparent 65%),
+    radial-gradient(circle at 12% 52%, rgba(243, 103, 14, 0.24) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.08) 35%, transparent 60%),
+    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(243, 103, 14, 0.26) 0%, transparent 68%),
+    radial-gradient(rgba(255, 255, 255, 0.18) 1.25px, transparent 1.25px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
 }
 
 /* Custom Background Palette Variants (Toggleable) */
-/* 1. Nordic Slate Theme */
+/* 1. Nordic Slate / Deep Ice Theme */
 [data-bg-theme="slate"] .bg-orange-ribbed,
 [data-bg-theme="slate"] .bg-workspace-grid {
   background-color: #f1f4f8;
   background-image: 
-    radial-gradient(circle at 12% 12%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 88% 18%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 12% 12%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 88% 18%, rgba(99, 102, 241, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.10) 0%, transparent 50%),
     radial-gradient(rgba(15, 23, 42, 0.11) 1.2px, transparent 1.2px),
     linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
 }
 .dark[data-bg-theme="slate"] .bg-orange-ribbed,
 .dark[data-bg-theme="slate"] .bg-workspace-grid {
-  background-color: #070d18;
+  background-color: #040914;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.20) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(59, 130, 246, 0.18) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
-    radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(14, 165, 233, 0.40) 0%, rgba(56, 189, 248, 0.16) 35%, transparent 72%),
+    radial-gradient(circle at 88% 22%, rgba(59, 130, 246, 0.35) 0%, rgba(99, 102, 241, 0.14) 40%, transparent 65%),
+    radial-gradient(circle at 12% 52%, rgba(6, 182, 212, 0.26) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(99, 102, 241, 0.24) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(14, 165, 233, 0.28) 0%, transparent 68%),
+    radial-gradient(rgba(255, 255, 255, 0.18) 1.25px, transparent 1.25px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
 }
 
 /* 2. Emerald Terminal Matrix Theme */
@@ -84,23 +90,27 @@ button, a, [role="button"], input, select, textarea {
 [data-bg-theme="emerald"] .bg-workspace-grid {
   background-color: #f0f7f3;
   background-image: 
-    radial-gradient(circle at 12% 12%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 88% 18%, rgba(234, 179, 8, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(5, 150, 105, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 12% 12%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 88% 18%, rgba(234, 179, 8, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(5, 150, 105, 0.10) 0%, transparent 50%),
     radial-gradient(rgba(6, 78, 59, 0.11) 1.2px, transparent 1.2px),
     linear-gradient(to right, rgba(6, 78, 59, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(6, 78, 59, 0.035) 1px, transparent 1px);
 }
 .dark[data-bg-theme="emerald"] .bg-orange-ribbed,
 .dark[data-bg-theme="emerald"] .bg-workspace-grid {
-  background-color: #06110a;
+  background-color: #030e06;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.20) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(52, 211, 153, 0.16) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(234, 179, 8, 0.10) 0%, transparent 45%),
-    radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(16, 185, 129, 0.42) 0%, rgba(52, 211, 153, 0.18) 35%, transparent 72%),
+    radial-gradient(circle at 88% 22%, rgba(5, 150, 105, 0.35) 0%, transparent 65%),
+    radial-gradient(circle at 12% 52%, rgba(52, 211, 153, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(234, 179, 8, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(16, 185, 129, 0.30) 0%, transparent 68%),
+    radial-gradient(rgba(255, 255, 255, 0.18) 1.25px, transparent 1.25px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
 }
 
 /* 3. Sunset Corduroy Velvet Theme */
@@ -108,23 +118,114 @@ button, a, [role="button"], input, select, textarea {
 [data-bg-theme="sunset"] .bg-workspace-grid {
   background-color: #fef4ec;
   background-image: 
-    radial-gradient(circle at 12% 12%, rgba(249, 115, 22, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 88% 18%, rgba(244, 63, 94, 0.14) 0%, transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(234, 88, 12, 0.10) 0%, transparent 50%),
+    radial-gradient(circle at 12% 12%, rgba(249, 115, 22, 0.20) 0%, transparent 45%),
+    radial-gradient(circle at 88% 18%, rgba(244, 63, 94, 0.16) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(234, 88, 12, 0.12) 0%, transparent 50%),
     radial-gradient(rgba(124, 45, 18, 0.12) 1.2px, transparent 1.2px),
     linear-gradient(to right, rgba(124, 45, 18, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(124, 45, 18, 0.035) 1px, transparent 1px);
 }
 .dark[data-bg-theme="sunset"] .bg-orange-ribbed,
 .dark[data-bg-theme="sunset"] .bg-workspace-grid {
-  background-color: #120906;
+  background-color: #120705;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(249, 115, 22, 0.22) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(244, 63, 94, 0.18) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(251, 146, 60, 0.12) 0%, transparent 45%),
-    radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(249, 115, 22, 0.44) 0%, rgba(244, 63, 94, 0.20) 35%, transparent 72%),
+    radial-gradient(circle at 88% 22%, rgba(244, 63, 94, 0.36) 0%, transparent 65%),
+    radial-gradient(circle at 12% 52%, rgba(251, 146, 60, 0.28) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(234, 88, 12, 0.24) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(249, 115, 22, 0.32) 0%, transparent 68%),
+    radial-gradient(rgba(255, 255, 255, 0.18) 1.25px, transparent 1.25px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
+}
+
+/* Ambient Atmospheric Backlight Shaders */
+.ambient-glow-mesh {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.35;
+  transition: opacity 0.5s ease;
+}
+
+.dark .ambient-glow-mesh {
+  opacity: 0.85;
+}
+
+.glow-orb-top {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(243, 103, 14, 0.40) 0%, rgba(255, 211, 30, 0.20) 35%, transparent 70%);
+  filter: blur(80px);
+}
+
+.glow-orb-left {
+  position: absolute;
+  top: 35%;
+  left: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, rgba(243, 103, 14, 0.25) 0%, rgba(211, 34, 42, 0.15) 35%, transparent 70%);
+  filter: blur(90px);
+}
+
+.glow-orb-right {
+  position: absolute;
+  top: 25%;
+  right: -150px;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.30) 0%, rgba(139, 92, 246, 0.18) 35%, transparent 70%);
+  filter: blur(95px);
+}
+
+.glow-orb-bottom {
+  position: absolute;
+  bottom: 5%;
+  left: 25%;
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.12) 35%, transparent 70%);
+  filter: blur(90px);
+}
+
+/* Palette Overrides for Glow Shaders */
+[data-bg-theme="slate"] .glow-orb-top {
+  background: radial-gradient(ellipse at center, rgba(14, 165, 233, 0.45) 0%, rgba(56, 189, 248, 0.25) 35%, transparent 70%);
+}
+[data-bg-theme="slate"] .glow-orb-right {
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.38) 0%, rgba(99, 102, 241, 0.20) 35%, transparent 70%);
+}
+[data-bg-theme="slate"] .glow-orb-left {
+  background: radial-gradient(circle at center, rgba(6, 182, 212, 0.30) 0%, transparent 70%);
+}
+
+[data-bg-theme="emerald"] .glow-orb-top {
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.45) 0%, rgba(52, 211, 153, 0.25) 35%, transparent 70%);
+}
+[data-bg-theme="emerald"] .glow-orb-right {
+  background: radial-gradient(circle at center, rgba(5, 150, 105, 0.35) 0%, transparent 70%);
+}
+[data-bg-theme="emerald"] .glow-orb-bottom {
+  background: radial-gradient(ellipse at center, rgba(234, 179, 8, 0.25) 0%, transparent 70%);
+}
+
+[data-bg-theme="sunset"] .glow-orb-top {
+  background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.48) 0%, rgba(244, 63, 94, 0.25) 35%, transparent 70%);
+}
+[data-bg-theme="sunset"] .glow-orb-right {
+  background: radial-gradient(circle at center, rgba(244, 63, 94, 0.38) 0%, transparent 70%);
+}
+[data-bg-theme="sunset"] .glow-orb-left {
+  background: radial-gradient(circle at center, rgba(251, 146, 60, 0.32) 0%, transparent 70%);
 }
 
 /* Modular Engineering Console Chassis */
