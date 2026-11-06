@@ -44,7 +44,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
     <section id="bento" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-10 z-20">
       
       {/* Plaque Header Bar */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[8px_8px_0px_#000000] mb-8 select-none">
+      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
         <div className="absolute top-3 left-3 plaque-screw" />
         <div className="absolute top-3 right-3 plaque-screw" />
         <div className="absolute bottom-3 left-3 plaque-screw" />
@@ -80,7 +80,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         
         {/* ================= 1. VERIFIED ARCHITECTURES (7 Cols) ================= */}
-        <div className="md:col-span-7 bg-white border-[3px] border-black rounded-2xl p-6 shadow-[8px_8px_0px_#000000] flex flex-col justify-between">
+        <div className="md:col-span-7 bg-white border-[3px] border-black rounded-2xl p-6 shadow-[8px_8px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-100">
           <div>
             <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-4">
               <div className="flex items-center gap-2">
@@ -143,7 +143,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
         </div>
 
         {/* ================= 2. LIVE METRICS & PERFORMANCE (5 Cols) ================= */}
-        <div className="md:col-span-5 bg-white border-[3px] border-black rounded-2xl p-6 shadow-[8px_8px_0px_#000000] flex flex-col justify-between">
+        <div className="md:col-span-5 bg-white border-[3px] border-black rounded-2xl p-6 shadow-[8px_8px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-150">
           <div>
             <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-4">
               <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
         </div>
 
         {/* ================= 3. LIVE CLOCK & AVAILABILITY (4 Cols) ================= */}
-        <div className="md:col-span-4 bg-[#fffdf0] border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] flex flex-col justify-between">
+        <div className="md:col-span-4 bg-[#fffdf0] border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-200">
           <div>
             <div className="flex items-center justify-between pb-2 border-b-2 border-black mb-3">
               <span className="font-mono text-xs font-bold uppercase text-gray-700 flex items-center gap-1.5">
@@ -236,7 +236,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
             sound.playClick();
             onOpenTerminal();
           }}
-          className="md:col-span-4 bg-[#0d0e12] border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] text-gray-200 flex flex-col justify-between cursor-pointer group hover:border-brand-yellow transition-colors"
+          className="md:col-span-4 bg-[#0d0e12] border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] text-gray-200 flex flex-col justify-between cursor-pointer group hover:border-brand-yellow transition-colors scroll-reveal scroll-reveal-scale delay-250"
         >
           <div>
             <div className="flex items-center justify-between pb-2 border-b border-gray-800 mb-3 text-xs font-mono">
@@ -266,7 +266,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
         </div>
 
         {/* ================= 5. ENGINEERING STANDARDS (4 Cols) ================= */}
-        <div className="md:col-span-4 bg-white border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] flex flex-col justify-between">
+        <div className="md:col-span-4 bg-white border-[3px] border-black rounded-2xl p-5 shadow-[8px_8px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-300">
           <div>
             <div className="flex items-center justify-between pb-2 border-b-2 border-black mb-3">
               <div className="flex items-center gap-1.5">

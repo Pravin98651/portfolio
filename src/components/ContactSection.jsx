@@ -33,7 +33,7 @@ export default function ContactSection() {
     <section id="contact" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
       
       {/* Plaque Container */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none">
+      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none scroll-reveal">
         
         {/* Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
@@ -44,7 +44,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Contact Info & Action Buttons */}
-          <div className="lg:col-span-6 space-y-5">
+          <div className="lg:col-span-6 space-y-5 scroll-reveal-left delay-100">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-black" />
@@ -133,7 +133,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right: Quick Message Dispatch Box */}
-          <div className="lg:col-span-6 bg-[#fffdf0] border-2 border-black rounded-xl p-5 sm:p-7 shadow-[6px_6px_0px_#000000]">
+          <div className="lg:col-span-6 bg-[#fffdf0] border-2 border-black rounded-xl p-5 sm:p-7 shadow-[6px_6px_0px_#000000] scroll-reveal-right delay-200">
             <h3 className="font-black text-xl text-black uppercase tracking-tight flex items-center gap-2">
               <Mail className="w-5 h-5 text-brand-orange" />
               <span>Send a Quick Dispatch</span>

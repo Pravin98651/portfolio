@@ -28,7 +28,7 @@ export default function AboutSection() {
     <section id="about" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
       
       {/* Plaque Container */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none">
+      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none scroll-reveal">
         
         {/* Four Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
@@ -45,7 +45,7 @@ export default function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Bio & Positioning */}
-          <div className="lg:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-4 scroll-reveal-left delay-100">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
               Engineering Ideas Into <span className="text-brand-orange">Working Products</span>
             </h2>
@@ -85,7 +85,7 @@ export default function AboutSection() {
           </div>
 
           {/* Right: 3 Engineering Pillars */}
-          <div className="lg:col-span-5 space-y-3">
+          <div className="lg:col-span-5 space-y-3 scroll-reveal-right delay-200">
             <div className="text-xs font-mono font-bold uppercase text-gray-500 tracking-wider mb-2">
               Core Engineering Focus
             </div>

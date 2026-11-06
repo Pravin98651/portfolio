@@ -56,13 +56,36 @@ export default function App() {
     }
   }, [isDark]);
 
+  const [scrollPercent, setScrollPercent] = useState(0);
+  const [activeSection, setActiveSection] = useState('hero');
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 380) {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollY / docHeight) * 100)) : 0;
+      setScrollPercent(pct);
+
+      if (scrollY > 380) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
       }
+
+      // Determine active section for nav highlight
+      const sections = ['contact', 'skills', 'about', 'projects', 'bento'];
+      let current = 'hero';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 250) {
+            current = id;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
     };
 
     const handleKeyDown = (e) => {
@@ -80,6 +103,38 @@ export default function App() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
+
+  // Global IntersectionObserver to trigger .is-visible on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    const observeAll = () => {
+      const targets = document.querySelectorAll(
+        '.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale'
+      );
+      targets.forEach((t) => observer.observe(t));
+    };
+
+    observeAll();
+    const timeout = setTimeout(observeAll, 450);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, [activeTab, selectedCaseStudy]);
 
   const handleToggleUnzip = (open) => {
     setIsUnzipped(open);
@@ -115,7 +170,11 @@ export default function App() {
   const triggerUnzipTransition = (targetId = 'workspace-portal') => {
     sound.playTransition();
     setIsTransitioning(true);
-    setTransitionText('INITIALIZING ARCHITECTURAL DOSSIER...');
+    if (targetId === 'projects') {
+      setTransitionText('INITIALIZING PROJECT SHOWCASE EXHIBITION...');
+    } else {
+      setTransitionText('INITIALIZING ARCHITECTURAL DOSSIER...');
+    }
     setIsUnzipped(true);
 
     setTimeout(() => {
@@ -127,7 +186,7 @@ export default function App() {
 
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 650);
+    }, 700);
   };
 
   const scrollToSection = (id) => {
@@ -146,6 +205,12 @@ export default function App() {
   return (
     <div className="min-h-screen w-full bg-orange-ribbed flex flex-col justify-between overflow-x-hidden relative selection:bg-brand-yellow selection:text-black transition-colors duration-300">
       
+      {/* Top Global Scroll Progress Bar */}
+      <div
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-orange via-brand-yellow to-emerald-400 z-50 transition-all duration-75 shadow-[0_0_12px_rgba(243,103,14,0.9)]"
+        style={{ width: `${scrollPercent}%` }}
+      />
+
       {/* Ambient Atmospheric Backlight Shaders (Hardware-accelerated glow mesh) */}
       <div className="ambient-glow-mesh" aria-hidden="true">
         <div className="glow-orb-top" />
@@ -175,47 +240,73 @@ export default function App() {
         {/* Center / Right Control Shortcuts */}
         <div className="flex items-center gap-2">
           
-          {/* Section Navigation Links */}
+          {/* Section Navigation Links with Active State Highlighting */}
           <nav className="hidden md:flex items-center gap-1.5 font-mono text-xs font-bold bg-white/90 dark:bg-[#12141f]/90 backdrop-blur-md p-1 rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#f3670e]">
             <button
               type="button"
               onClick={() => scrollToSection('bento')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
+              className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                activeSection === 'bento'
+                  ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'
+                  : 'border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black'
+              }`}
             >
               OVERVIEW
             </button>
             <button
               type="button"
-              onClick={() => scrollToSection('projects')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
+              onClick={() => {
+                if (window.scrollY < 400) {
+                  triggerUnzipTransition('projects');
+                } else {
+                  scrollToSection('projects');
+                }
+              }}
+              className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                activeSection === 'projects'
+                  ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'
+                  : 'border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black'
+              }`}
             >
               PROJECTS
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('about')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
+              className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                activeSection === 'about'
+                  ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'
+                  : 'border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black'
+              }`}
             >
               ABOUT
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('skills')}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
+              className={`px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                activeSection === 'skills'
+                  ? 'bg-brand-yellow text-black border-black font-black shadow-[1px_1px_0px_#000]'
+                  : 'border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black'
+              }`}
             >
               SKILLS
             </button>
             <button
               type="button"
               onClick={handleOpenResume}
-              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all"
+              className="px-3 py-1 rounded-full border border-transparent hover:border-black hover:bg-brand-yellow hover:text-black text-black dark:text-gray-200 dark:hover:text-black transition-all cursor-pointer"
             >
               RÉSUMÉ
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('contact')}
-              className="px-3 py-1 rounded-full bg-brand-red text-white hover:bg-red-700 border border-black shadow-sm font-extrabold transition-all"
+              className={`px-3 py-1 rounded-full border shadow-sm font-extrabold transition-all cursor-pointer ${
+                activeSection === 'contact'
+                  ? 'bg-red-700 text-white border-black ring-2 ring-brand-yellow'
+                  : 'bg-brand-red text-white hover:bg-red-700 border-black'
+              }`}
             >
               CONTACT
             </button>
