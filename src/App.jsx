@@ -10,6 +10,7 @@ import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import DeveloperTerminal from './components/DeveloperTerminal';
+import ThreeDCore from './components/ThreeDCore';
 import { portfolioData } from './portfolioData';
 import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon } from 'lucide-react';
 import { sound } from './utils/soundEffects';
@@ -205,8 +206,11 @@ export default function App() {
       {/* ================= HERO INTERACTIVE STAGE ================= */}
       <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 px-4 sm:px-8 py-4 sm:py-6 z-10 max-w-7xl mx-auto w-full">
         
+        {/* Tumbling 3D Cybernetic Polyhedron Core Canvas in Background */}
+        <ThreeDCore className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] opacity-40 dark:opacity-60 pointer-events-none z-0" />
+
         {/* Left Side: Screwed Signboard & Floating Stickers */}
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2">
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2 z-10">
           <Signboard />
         </div>
 
@@ -221,7 +225,7 @@ export default function App() {
         </div>
 
         {/* Right Side: Red Backpack Pocket + Hanging ID Badge */}
-        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2">
+        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2 z-10">
           
           {/* Backpack Pocket with 3 interactive folder tabs */}
           <div className="w-full max-w-[480px]">

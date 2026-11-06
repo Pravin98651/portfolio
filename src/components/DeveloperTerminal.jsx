@@ -236,17 +236,25 @@ Permission: Full Access to Technical Case Studies`
 
         {/* Quick Command Chips */}
         <div className="px-4 py-2 bg-[#121318] border-b border-gray-800 flex items-center gap-1.5 overflow-x-auto no-scrollbar select-none text-[11px]">
-          <span className="text-gray-500 text-[10px] uppercase font-bold flex-shrink-0">
+          <span className="text-gray-400 text-[10px] uppercase font-black flex-shrink-0">
             CHIPS:
           </span>
-          {['help', 'projects', 'skills', 'about', 'download', 'contact', 'clear'].map((chip) => (
+          {[
+            { id: 'help', color: 'hover:bg-[#ffd31e] hover:text-black hover:border-black' },
+            { id: 'projects', color: 'hover:bg-[#00f0ff] hover:text-black hover:border-black' },
+            { id: 'skills', color: 'hover:bg-[#00ff88] hover:text-black hover:border-black' },
+            { id: 'about', color: 'hover:bg-[#c084fc] hover:text-black hover:border-black' },
+            { id: 'download', color: 'hover:bg-[#ffd31e] hover:text-black hover:border-black' },
+            { id: 'contact', color: 'hover:bg-[#ff007f] hover:text-white hover:border-black' },
+            { id: 'clear', color: 'hover:bg-rose-600 hover:text-white hover:border-black' },
+          ].map((chip) => (
             <button
-              key={chip}
+              key={chip.id}
               type="button"
-              onClick={() => executeCommand(chip)}
-              className="px-2.5 py-1 bg-gray-800 hover:bg-brand-yellow hover:text-black text-gray-200 border border-gray-700 rounded transition-all whitespace-nowrap font-bold"
+              onClick={() => executeCommand(chip.id)}
+              className={`px-2.5 py-1 bg-gray-800/90 text-gray-200 border border-gray-700 rounded-md transition-all whitespace-nowrap font-black btn-tactile-3d ${chip.color}`}
             >
-              {chip}
+              {chip.id}
             </button>
           ))}
         </div>

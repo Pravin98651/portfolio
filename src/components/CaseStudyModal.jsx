@@ -85,17 +85,17 @@ export default function CaseStudyModal({ project, onClose }) {
         </div>
 
         {/* Navigation Tabs Bar */}
-        <div className="flex items-center gap-1.5 px-3 sm:px-6 pt-2.5 bg-gray-100 border-b-2 border-black overflow-x-auto select-none no-scrollbar">
+        <div className="flex items-center gap-1.5 px-3 sm:px-6 pt-2.5 bg-gray-100 border-b-2 border-black overflow-x-auto select-none no-scrollbar relative z-10">
           <button
             type="button"
             onClick={() => {
               sound.playClick();
               setActiveTab('overview');
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
               activeTab === 'overview'
-                ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -109,10 +109,10 @@ export default function CaseStudyModal({ project, onClose }) {
                 sound.playClick();
                 setActiveTab('workflow');
               }}
-              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
                 activeTab === 'workflow'
-                  ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                  ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                  : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
               }`}
             >
               <GitMerge className="w-3.5 h-3.5" />
@@ -126,10 +126,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('architecture');
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
               activeTab === 'architecture'
-                ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -142,10 +142,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('features');
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
               activeTab === 'features'
-                ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
@@ -159,10 +159,10 @@ export default function CaseStudyModal({ project, onClose }) {
                 sound.playClick();
                 setActiveTab('faq');
               }}
-              className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
                 activeTab === 'faq'
-                  ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                  ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                  : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
@@ -176,10 +176,10 @@ export default function CaseStudyModal({ project, onClose }) {
               sound.playClick();
               setActiveTab('learnings');
             }}
-            className={`px-3 py-1.5 font-bold text-xs uppercase tracking-wider rounded-t-lg border-2 border-b-0 border-black transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 font-black text-xs uppercase tracking-wider rounded-t-lg border-2 transition-all flex items-center gap-1.5 whitespace-nowrap -mb-[2px] ${
               activeTab === 'learnings'
-                ? 'bg-white text-black -translate-y-0.5 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                ? 'bg-white text-black border-black border-b-2 !border-b-white z-20 shadow-[0px_-2px_0px_rgba(0,0,0,0.1)]'
+                : 'bg-gray-200 text-gray-700 border-black/40 hover:bg-gray-300'
             }`}
           >
             <Award className="w-3.5 h-3.5" />
