@@ -2,31 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowLeft, 
   ExternalLink, 
-  Star, 
   CheckCircle2, 
   Copy, 
   Check, 
-  Cpu, 
-  Layers, 
-  GitMerge, 
-  HelpCircle, 
   AlertTriangle, 
   Database, 
-  Sparkles, 
-  ChevronRight, 
-  ChevronLeft, 
-  Code2, 
   Share2, 
-  Workflow, 
   ShieldCheck, 
-  Terminal, 
   Globe, 
   Maximize2, 
   X,
   Volume2,
   VolumeX,
-  Sun,
-  Moon,
   ChevronDown,
   ArrowUp
 } from 'lucide-react';
@@ -37,14 +24,12 @@ export default function ProjectDetailPage({
   project, 
   onBack, 
   onNavigate,
-  isDark,
-  onToggleTheme,
   isMuted,
   onToggleMute
 }) {
   if (!project) return null;
 
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'workflow' | 'architecture' | 'stack' | 'features' | 'decisions' | 'faq' | 'contributions'
+  const [activeTab, setActiveTab] = useState('overview');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
   const [copiedClone, setCopiedClone] = useState(false);
@@ -185,7 +170,7 @@ export default function ProjectDetailPage({
   ];
 
   return (
-    <div className="min-h-screen w-full bg-orange-ribbed text-black dark:text-white flex flex-col justify-between overflow-x-hidden selection:bg-brand-yellow selection:text-black transition-colors duration-300">
+    <div className="min-h-screen w-full bg-orange-ribbed text-black flex flex-col justify-between overflow-x-hidden selection:bg-brand-yellow selection:text-black">
       
       {/* Top Global Reading Scroll Progress Bar */}
       <div 
@@ -201,7 +186,7 @@ export default function ProjectDetailPage({
       </div>
 
       {/* ================= TOP FLOATING NAVIGATION BAR ================= */}
-      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between select-none bg-white/95 dark:bg-[#07090e]/90 backdrop-blur-md border-b-2 border-black/15 dark:border-white/10 shadow-xs">
+      <header className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 flex items-center justify-between select-none bg-white/95 backdrop-blur-md border-b-[3px] border-black shadow-[0_3px_0px_#000]">
         
         {/* Left: Back Button & Breadcrumbs */}
         <div className="flex items-center gap-3">
@@ -211,17 +196,17 @@ export default function ProjectDetailPage({
               sound.playClick();
               onBack();
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-full border-2 border-black font-mono text-xs font-black shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow hover:bg-[#ffde59] text-black rounded-full border-2 border-black font-mono text-xs font-black shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
             title="Return to Main Portfolio Dossier (Esc)"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">PORTFOLIO</span>
           </button>
 
-          <div className="flex items-center gap-2 font-mono text-xs font-bold text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-2 font-mono text-xs font-bold text-gray-700">
             <span className="hidden md:inline">PRAVIN G</span>
-            <span className="hidden md:inline text-gray-400 dark:text-gray-600">/</span>
-            <span className="text-black dark:text-white uppercase font-black truncate max-w-[160px] sm:max-w-[280px]">
+            <span className="hidden md:inline text-gray-400">/</span>
+            <span className="bg-brand-yellow text-black px-2 py-0.5 border border-black rounded text-xs font-black uppercase tracking-tight shadow-[1px_1px_0px_#000] truncate max-w-[160px] sm:max-w-[280px]">
               {project.title}
             </span>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse hidden sm:inline-block" />
@@ -229,7 +214,7 @@ export default function ProjectDetailPage({
         </div>
 
         {/* Center: Project Switcher Quick-Menu */}
-        <div className="hidden lg:flex items-center gap-1 bg-gray-100 dark:bg-[#12141f] p-1 rounded-full border-2 border-black dark:border-white/20 font-mono text-[11px] font-bold">
+        <div className="hidden lg:flex items-center gap-1 bg-white p-1 rounded-full border-2 border-black font-mono text-[11px] font-bold shadow-[2px_2px_0px_#000]">
           {ALL_PROJECT_ROUTES.slice(0, 5).map((route) => {
             const isCurrent = route.slug === project.slug || route.id === project.id;
             return (
@@ -243,7 +228,7 @@ export default function ProjectDetailPage({
                 className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
                   isCurrent
                     ? 'bg-brand-yellow text-black font-black border border-black shadow-[1px_1px_0px_#000]'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800'
+                    : 'text-gray-800 hover:text-black hover:bg-yellow-50'
                 }`}
               >
                 {route.title}
@@ -252,7 +237,7 @@ export default function ProjectDetailPage({
           })}
         </div>
 
-        {/* Right: Actions (GitHub, Live, Theme, Mute) */}
+        {/* Right: Actions (GitHub, Live, Share, Mute) */}
         <div className="flex items-center gap-2">
           {project.liveUrl && project.liveUrl !== '#' && (
             <a
@@ -275,7 +260,7 @@ export default function ProjectDetailPage({
               rel="noopener noreferrer"
               onClick={() => sound.playClick()}
               title="View Public Source Code on GitHub"
-              className="p-2 bg-black hover:bg-gray-800 text-white rounded-full border-2 border-black dark:border-white/30 shadow-[2px_2px_0px_#ffd31e] transition-all hover:scale-105"
+              className="p-2 bg-black hover:bg-gray-800 text-white rounded-full border-2 border-black shadow-[2px_2px_0px_#ffd31e] transition-all hover:scale-105"
             >
               <img src="/assets/icon-github.svg" alt="GitHub" className="w-4 h-4 invert" />
             </a>
@@ -285,26 +270,17 @@ export default function ProjectDetailPage({
             type="button"
             onClick={handleCopyShare}
             title="Copy Direct Link to this Project Case Study"
-            className="p-2 bg-white dark:bg-[#12141f] text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
+            className="p-2 bg-white hover:bg-yellow-100 text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
           >
-            {copiedShare ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
+            {copiedShare ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4" />}
           </button>
-
-          {onToggleTheme && (
-            <button
-              type="button"
-              onClick={onToggleTheme}
-              className="p-2 bg-white dark:bg-[#12141f] text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
-            >
-              {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-gray-700" />}
-            </button>
-          )}
 
           {onToggleMute && (
             <button
               type="button"
               onClick={onToggleMute}
-              className="p-2 bg-white dark:bg-[#12141f] text-black dark:text-white rounded-full border-2 border-black dark:border-white/20 shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
+              title={isMuted ? 'Tactile Audio Muted - Click to Unmute' : 'Tactile Audio Active - Click to Mute'}
+              className="p-2 bg-white hover:bg-yellow-100 text-black rounded-full border-2 border-black shadow-[2px_2px_0px_#000] hover:scale-105 transition-all cursor-pointer"
             >
               {isMuted ? <VolumeX className="w-4 h-4 text-gray-400" /> : <Volume2 className="w-4 h-4" />}
             </button>
@@ -315,8 +291,8 @@ export default function ProjectDetailPage({
       {/* ================= MAIN CONTAINER ================= */}
       <main ref={contentRef} className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-8 w-full space-y-10">
         
-        {/* ================= 1. HERO SHOWCASE CARD ================= */}
-        <section className="relative bg-[#fcfcfc] dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] dark:shadow-[10px_10px_0px_#f3670e] transition-all">
+        {/* ================= 1. HERO SHOWCASE CARD (TACTILE MANILA DOSSIER) ================= */}
+        <section className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none transition-all">
           
           {/* Four Corner Screws */}
           <div className="absolute top-3.5 left-3.5 plaque-screw" />
@@ -324,36 +300,41 @@ export default function ProjectDetailPage({
           <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
           <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+          {/* Top Hazard Caution Stripe Trim */}
+          <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
           {/* Top Status Badges Row */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 bg-brand-yellow text-black border-2 border-black rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-[2px_2px_0px_#000]">
                 ⚡ {project.category}
               </span>
-              <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-black rounded-full text-[11px] font-mono font-bold">
+              <span className="px-2.5 py-1 bg-emerald-100 text-emerald-900 border-2 border-black rounded-full text-[11px] font-mono font-bold shadow-[1px_1px_0px_#000]">
                 ✓ VERIFIED SYSTEM ARCHITECTURE
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-mono text-xs font-bold text-gray-600 dark:text-gray-400">
-              <span className="px-2.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-black rounded">
-                ROLE: {project.role || "Architect"}
+            <div className="flex items-center gap-2 font-mono text-xs font-bold text-gray-800">
+              <span className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+                ROLE: {project.role || "Primary Developer"}
               </span>
-              <span className="px-2.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-black rounded">
-                {project.timeline || "Complete"}
+              <span className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+                {project.timeline || "Verified"}
               </span>
             </div>
           </div>
 
           {/* Giant Title & Highlight */}
           <div className="space-y-2 mb-6">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black dark:text-white uppercase tracking-tight leading-[0.95]">
-              {project.title}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-[0.95]">
+              <span className="bg-brand-yellow text-black px-3.5 py-1 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] inline-block">
+                {project.title}
+              </span>
             </h1>
-            <p className="text-sm sm:text-lg font-bold text-brand-orange dark:text-brand-yellow font-mono">
+            <p className="text-sm sm:text-lg font-bold text-brand-orange-dark font-mono mt-3">
               // {project.subtitle}
             </p>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium leading-relaxed max-w-4xl pt-1">
+            <p className="text-sm sm:text-base text-gray-900 font-medium leading-relaxed max-w-4xl pt-1">
               {project.summary}
             </p>
           </div>
@@ -363,12 +344,12 @@ export default function ProjectDetailPage({
             {project.stats.map((st, i) => (
               <div 
                 key={i} 
-                className="p-3.5 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl text-center shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#ffd31e]"
+                className="p-3.5 bg-white border-2 border-black rounded-xl text-center shadow-[3px_3px_0px_#000] hover:-translate-y-0.5 transition-all"
               >
-                <div className="font-mono text-[10px] text-gray-500 dark:text-gray-400 uppercase font-extrabold truncate">
+                <div className="font-mono text-[10px] text-gray-600 uppercase font-black tracking-wider truncate">
                   {st.label}
                 </div>
-                <div className="font-black text-sm sm:text-lg text-black dark:text-white truncate mt-1">
+                <div className="font-black text-sm sm:text-xl text-black truncate mt-1">
                   {st.value}
                 </div>
               </div>
@@ -380,7 +361,7 @@ export default function ProjectDetailPage({
             {(project.tags || []).map((t, idx) => (
               <span
                 key={idx}
-                className="px-2.5 py-1 bg-white dark:bg-gray-800 text-black dark:text-white border border-black rounded-md text-[11px] font-mono font-bold uppercase shadow-[1px_1px_0px_#000]"
+                className="px-2.5 py-1 bg-white text-black border-2 border-black rounded-md text-[11px] font-mono font-black uppercase shadow-[2px_2px_0px_#000]"
               >
                 #{t}
               </span>
@@ -388,21 +369,21 @@ export default function ProjectDetailPage({
           </div>
 
           {/* CLI Terminal Clone Command & Action Buttons */}
-          <div className="pt-4 border-t-2 border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="pt-5 border-t-2 border-dashed border-gray-400 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             
             {/* Terminal Clone Input */}
             {cloneCommand && (
-              <div className="flex-1 flex items-center bg-black rounded-xl border-2 border-black p-1.5 shadow-[3px_3px_0px_#ffd31e]">
-                <div className="px-2 text-emerald-400 font-mono text-xs font-bold select-none">
+              <div className="flex-1 flex items-center bg-[#0d0f17] rounded-xl border-2 border-black p-1.5 shadow-[3px_3px_0px_#000]">
+                <div className="px-2 text-emerald-400 font-mono text-xs font-black select-none">
                   $
                 </div>
-                <code className="flex-1 font-mono text-xs text-gray-200 truncate select-all px-1">
+                <code className="flex-1 font-mono text-xs text-yellow-300 font-bold truncate select-all px-1">
                   {cloneCommand}
                 </code>
                 <button
                   type="button"
                   onClick={handleCopyClone}
-                  className="px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-lg font-mono text-xs font-black uppercase flex items-center gap-1 transition-all cursor-pointer"
+                  className="px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-lg font-mono text-xs font-black uppercase flex items-center gap-1 border border-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                 >
                   {copiedClone ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedClone ? 'COPIED' : 'CLONE'}</span>
@@ -440,18 +421,33 @@ export default function ProjectDetailPage({
             </div>
 
           </div>
+
+          {/* Mechanical Partition Bottom Telemetry */}
+          <div className="mt-5 pt-3 border-t-2 border-dashed border-gray-400 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-700 uppercase tracking-widest">
+            <span className="flex items-center gap-1.5 font-bold text-emerald-700">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              SYSTEM DOSSIER: VERIFIED & BENCHMARKED
+            </span>
+            <span className="font-bold">PRAVIN · APPLIED AI</span>
+          </div>
         </section>
 
         {/* ================= 2. INTERACTIVE ARCHITECTURE & MEDIA SHOWCASE ================= */}
         {project.images && project.images.length > 0 && (
-          <section className="relative bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_#f3670e]">
+          <section className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] select-none">
             
-            <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-4">
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
+            <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-5">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+                <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                   📐
                 </span>
-                <h2 className="text-lg sm:text-xl font-black text-black dark:text-white uppercase tracking-tight">
+                <h2 className="text-lg sm:text-2xl font-black text-black uppercase tracking-tight">
                   System Architecture & Visual Specifications
                 </h2>
               </div>
@@ -462,7 +458,7 @@ export default function ProjectDetailPage({
                   sound.playClick();
                   setIsLightboxOpen(true);
                 }}
-                className="flex items-center gap-1 px-2.5 py-1 bg-gray-100 hover:bg-black hover:text-white dark:bg-gray-800 dark:hover:bg-brand-yellow dark:hover:text-black rounded-lg border border-black font-mono text-[11px] font-bold transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                 title="Fullscreen Image Lightbox"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
@@ -470,9 +466,9 @@ export default function ProjectDetailPage({
               </button>
             </div>
 
-            {/* Big Main Screen Viewer */}
+            {/* Clean White Main Screen Viewer */}
             <div 
-              className="relative w-full rounded-xl border-2 border-black overflow-hidden bg-[#0a0c13] flex items-center justify-center min-h-[300px] sm:min-h-[460px] cursor-pointer group"
+              className="relative w-full rounded-2xl border-[3px] border-black overflow-hidden bg-white flex items-center justify-center min-h-[300px] sm:min-h-[460px] cursor-pointer group shadow-[4px_4px_0px_#000]"
               onClick={() => {
                 sound.playClick();
                 setIsLightboxOpen(true);
@@ -493,12 +489,14 @@ export default function ProjectDetailPage({
 
             {/* Screenshot Caption */}
             {currentImageCaption && (
-              <div className="mt-3 p-3 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl flex items-center justify-between text-xs font-mono font-bold text-gray-700 dark:text-gray-300">
+              <div className="mt-4 p-3.5 bg-white border-2 border-black rounded-xl flex items-center justify-between text-xs font-mono font-bold text-gray-900 shadow-[2px_2px_0px_#000]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping" />
-                  <span>FIGURE {selectedImageIndex + 1}: {currentImageCaption}</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange animate-ping" />
+                  <span className="font-black">FIGURE {selectedImageIndex + 1}: {currentImageCaption}</span>
                 </div>
-                <span className="text-gray-500 text-[10px]">VERIFIED ASSET</span>
+                <span className="text-gray-600 text-[10px] font-extrabold uppercase bg-gray-100 px-2 py-0.5 rounded border border-black">
+                  VERIFIED ASSET
+                </span>
               </div>
             )}
 
@@ -525,7 +523,7 @@ export default function ProjectDetailPage({
                       className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-mono font-bold border-2 transition-all whitespace-nowrap cursor-pointer ${
                         selectedImageIndex === i
                           ? 'bg-brand-yellow text-black border-black shadow-[3px_3px_0px_#000] font-black scale-102'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-black/30 hover:bg-gray-200 dark:hover:bg-gray-700'
+                          : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
                       }`}
                     >
                       <span>{label}</span>
@@ -539,7 +537,7 @@ export default function ProjectDetailPage({
         )}
 
         {/* ================= 3. STICKY SUB-NAV TAB BAR ================= */}
-        <div className="sticky top-[60px] z-30 flex items-center gap-1.5 p-2 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-md rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000] overflow-x-auto no-scrollbar select-none scroll-smooth">
+        <div className="sticky top-[60px] z-30 flex items-center gap-1.5 p-2 bg-white/95 backdrop-blur-md rounded-2xl border-[3px] border-black shadow-[5px_5px_0px_#000] overflow-x-auto no-scrollbar select-none scroll-smooth">
           {navTabs.map((tab) => (
             <button
               key={tab.id}
@@ -549,7 +547,7 @@ export default function ProjectDetailPage({
               className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 activeTab === tab.id
                   ? 'bg-brand-yellow text-black border-2 border-black font-black shadow-[2px_2px_0px_#000]'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  : 'text-black hover:bg-yellow-100 font-bold'
               }`}
             >
               <span>{tab.icon}</span>
@@ -563,33 +561,33 @@ export default function ProjectDetailPage({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* The Problem Statement */}
-            <div className="bg-red-50 dark:bg-[#201014] border-[3px] border-black rounded-2xl p-6 sm:p-7 shadow-[6px_6px_0px_#000]">
+            <div className="relative bg-[#fff5f5] border-[3.5px] border-black rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
               <div className="flex items-center gap-2 text-brand-red mb-3">
                 <AlertTriangle className="w-5 h-5 fill-current" />
-                <h3 className="font-mono font-black text-sm uppercase tracking-wider text-black dark:text-white">
+                <h3 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-red-100 px-2 py-0.5 rounded border border-black shadow-xs">
                   01 // The Engineering Challenge
                 </h3>
               </div>
-              <h4 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase mb-3">
+              <h4 className="text-xl sm:text-2xl font-black text-black uppercase mb-3">
                 Problem Definition
               </h4>
-              <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
+              <p className="text-sm text-gray-900 leading-relaxed font-semibold">
                 {project.caseStudy?.problem || project.summary}
               </p>
             </div>
 
             {/* The Architectural Solution */}
-            <div className="bg-emerald-50 dark:bg-[#0d2218] border-[3px] border-black rounded-2xl p-6 sm:p-7 shadow-[6px_6px_0px_#000]">
-              <div className="flex items-center gap-2 text-emerald-600 mb-3">
+            <div className="relative bg-[#f0fdf4] border-[3.5px] border-black rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#000]">
+              <div className="flex items-center gap-2 text-emerald-700 mb-3">
                 <CheckCircle2 className="w-5 h-5" />
-                <h3 className="font-mono font-black text-sm uppercase tracking-wider text-black dark:text-white">
+                <h3 className="font-mono font-black text-xs uppercase tracking-wider text-black bg-emerald-100 px-2 py-0.5 rounded border border-black shadow-xs">
                   02 // The Architectural Solution
                 </h3>
               </div>
-              <h4 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase mb-3">
+              <h4 className="text-xl sm:text-2xl font-black text-black uppercase mb-3">
                 Implemented Strategy
               </h4>
-              <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
+              <p className="text-sm text-gray-900 leading-relaxed font-semibold">
                 {project.caseStudy?.solution || project.tagline}
               </p>
             </div>
@@ -599,25 +597,31 @@ export default function ProjectDetailPage({
 
         {/* ================= 5. INTERACTIVE WORKFLOW PIPELINE ================= */}
         {project.caseStudy?.workflowSteps && project.caseStudy.workflowSteps.length > 0 && (
-          <section id="section-workflow" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_#ffd31e] space-y-6 scroll-mt-28">
+          <section id="section-workflow" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-6 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-black">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+                  <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     ⚡
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                     Execution Workflow Pipeline
                   </h3>
                 </div>
-                <p className="text-xs font-mono font-bold text-gray-500 mt-1">
+                <p className="text-xs font-mono font-bold text-gray-600 mt-1">
                   // {project.caseStudy.workflowSteps.length} Verified Sequential Stages
                 </p>
               </div>
 
               {/* Step Navigation Controls */}
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -626,11 +630,11 @@ export default function ProjectDetailPage({
                     workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }}
                   disabled={activeWorkflowStep === 0}
-                  className="px-3 py-1 bg-gray-100 dark:bg-gray-800 disabled:opacity-40 border-2 border-black rounded-lg font-mono text-xs font-bold transition-all cursor-pointer"
+                  className="px-3.5 py-1.5 bg-white hover:bg-gray-100 disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-bold shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                 >
                   ← PREV STEP
                 </button>
-                <span className="font-mono text-xs font-black px-2">
+                <span className="font-mono text-xs font-black px-2 bg-brand-yellow border-2 border-black rounded-lg py-1 shadow-[2px_2px_0px_#000]">
                   {activeWorkflowStep + 1} / {project.caseStudy.workflowSteps.length}
                 </span>
                 <button
@@ -641,7 +645,7 @@ export default function ProjectDetailPage({
                     workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }}
                   disabled={activeWorkflowStep === project.caseStudy.workflowSteps.length - 1}
-                  className="px-3 py-1 bg-brand-yellow text-black disabled:opacity-40 border-2 border-black rounded-lg font-mono text-xs font-bold transition-all cursor-pointer"
+                  className="px-3.5 py-1.5 bg-brand-yellow hover:bg-yellow-400 text-black disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
                 >
                   NEXT STEP →
                 </button>
@@ -663,12 +667,12 @@ export default function ProjectDetailPage({
                     }}
                     className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 font-mono text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                       isActive
-                        ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] scale-102'
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-black/20 hover:bg-gray-200'
+                        ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] scale-102 font-black'
+                        : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
                     }`}
                   >
                     <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black text-[10px] ${
-                      isActive ? 'bg-brand-yellow text-black' : 'bg-gray-300 dark:bg-gray-700 text-black dark:text-white'
+                      isActive ? 'bg-brand-yellow text-black' : 'bg-gray-200 text-black'
                     }`}>
                       {st.step || idx + 1}
                     </span>
@@ -682,20 +686,20 @@ export default function ProjectDetailPage({
             {project.caseStudy.workflowSteps[activeWorkflowStep] && (
               <div 
                 ref={workflowStageRef}
-                className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-[#1a1c28] dark:to-[#171922] border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 animate-in fade-in duration-200"
+                className="p-6 bg-[#fffbeb] border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] space-y-3 animate-in fade-in duration-200"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-extrabold uppercase px-2.5 py-1 bg-black text-brand-yellow rounded border border-black shadow-xs">
                     STAGE 0{project.caseStudy.workflowSteps[activeWorkflowStep].step || activeWorkflowStep + 1} IN DETAIL
                   </span>
-                  <span className="font-mono text-xs text-gray-500 font-bold">
+                  <span className="font-mono text-xs text-gray-700 font-bold">
                     // EXECUTION PROTOCOL
                   </span>
                 </div>
-                <h4 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase">
+                <h4 className="text-xl sm:text-2xl font-black text-black uppercase">
                   {project.caseStudy.workflowSteps[activeWorkflowStep].title}
                 </h4>
-                <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-900 font-medium leading-relaxed">
                   {project.caseStudy.workflowSteps[activeWorkflowStep].desc}
                 </p>
               </div>
@@ -706,18 +710,24 @@ export default function ProjectDetailPage({
 
         {/* ================= 6. TECH STACK & ARCHITECTURE TABLE ================= */}
         {project.caseStudy?.techStackTable && project.caseStudy.techStackTable.length > 0 && (
-          <section id="section-stack" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-5 scroll-mt-28">
+          <section id="section-stack" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-emerald-400 border border-black rounded-lg text-black font-black text-xs">
+              <span className="p-1.5 bg-emerald-400 border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                 ⚙️
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                 Technical Stack & Component Breakdown
               </h3>
             </div>
 
-            <div className="overflow-x-auto border-2 border-black rounded-xl">
+            <div className="overflow-x-auto border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
               <table className="w-full text-left font-mono text-xs">
                 <thead className="bg-black text-brand-yellow border-b-2 border-black font-black uppercase tracking-wider">
                   <tr>
@@ -725,16 +735,16 @@ export default function ProjectDetailPage({
                     <th className="p-3.5 sm:p-4">Technologies & Libraries</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y-2 divide-black/10 dark:divide-white/10 font-medium">
+                <tbody className="divide-y-2 divide-black/10 font-medium">
                   {project.caseStudy.techStackTable.map((row, rIdx) => (
                     <tr 
                       key={rIdx} 
-                      className={rIdx % 2 === 0 ? 'bg-gray-50/70 dark:bg-gray-900/40' : 'bg-white dark:bg-[#12141f]'}
+                      className={rIdx % 2 === 0 ? 'bg-white' : 'bg-yellow-50/50'}
                     >
-                      <td className="p-3.5 sm:p-4 font-black text-black dark:text-white">
+                      <td className="p-3.5 sm:p-4 font-black text-black">
                         {row.component}
                       </td>
-                      <td className="p-3.5 sm:p-4 text-brand-orange-dark dark:text-brand-yellow font-bold">
+                      <td className="p-3.5 sm:p-4 text-brand-orange-dark font-black">
                         {row.tech}
                       </td>
                     </tr>
@@ -748,13 +758,19 @@ export default function ProjectDetailPage({
 
         {/* ================= 7. KEY FEATURES GRID ================= */}
         {project.caseStudy?.keyFeatures && project.caseStudy.keyFeatures.length > 0 && (
-          <section id="section-features" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-5 scroll-mt-28">
+          <section id="section-features" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                 🎯
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                 Key Engineering Features & Capabilities
               </h3>
             </div>
@@ -763,12 +779,12 @@ export default function ProjectDetailPage({
               {project.caseStudy.keyFeatures.map((feat, fIdx) => (
                 <div 
                   key={fIdx}
-                  className="p-4 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
+                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
                 >
-                  <div className="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5 border border-black">
+                  <div className="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5 border border-black shadow-xs">
                     ✓
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-800 dark:text-gray-200 font-semibold leading-relaxed">
+                  <div className="text-xs sm:text-sm text-gray-900 font-bold leading-relaxed">
                     {feat}
                   </div>
                 </div>
@@ -780,13 +796,19 @@ export default function ProjectDetailPage({
 
         {/* ================= 8. ARCHITECTURAL DECISIONS & TRADEOFFS ================= */}
         {project.caseStudy?.engineeringDecisions && project.caseStudy.engineeringDecisions.length > 0 && (
-          <section id="section-decisions" className="bg-[#fefce8] dark:bg-[#1c1a12] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-5 scroll-mt-28">
+          <section id="section-decisions" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                 ⚖️
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                 Architectural Tradeoffs & Engineering Decisions
               </h3>
             </div>
@@ -795,12 +817,12 @@ export default function ProjectDetailPage({
               {project.caseStudy.engineeringDecisions.map((dec, dIdx) => (
                 <div 
                   key={dIdx} 
-                  className="p-4 bg-white dark:bg-[#12141f] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
+                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000] flex items-start gap-3"
                 >
-                  <span className="font-mono font-black text-xs px-2 py-0.5 bg-black text-brand-yellow rounded border border-black flex-shrink-0 mt-0.5">
+                  <span className="font-mono font-black text-xs px-2.5 py-0.5 bg-black text-brand-yellow rounded border border-black shadow-xs flex-shrink-0 mt-0.5">
                     DECISION {dIdx + 1}
                   </span>
-                  <p className="text-xs sm:text-sm text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed">
                     {dec}
                   </p>
                 </div>
@@ -812,13 +834,19 @@ export default function ProjectDetailPage({
 
         {/* ================= 9. DATA SCHEMAS & ENTITIES ================= */}
         {project.caseStudy?.dataEntities && project.caseStudy.dataEntities.length > 0 && (
-          <section id="section-architecture" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-5 scroll-mt-28">
+          <section id="section-architecture" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-              <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+              <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                 💾
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                 Data Entities & Schema Models
               </h3>
             </div>
@@ -827,13 +855,13 @@ export default function ProjectDetailPage({
               {project.caseStudy.dataEntities.map((ent, eIdx) => (
                 <div 
                   key={eIdx}
-                  className="p-4 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]"
+                  className="p-4 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]"
                 >
-                  <div className="font-mono text-xs font-black uppercase text-brand-orange-dark dark:text-brand-yellow mb-1 flex items-center gap-1.5">
-                    <Database className="w-3.5 h-3.5 text-black dark:text-white" />
+                  <div className="font-mono text-xs font-black uppercase text-brand-orange-dark mb-1 flex items-center gap-1.5">
+                    <Database className="w-3.5 h-3.5 text-black" />
                     <span>{ent.entity}</span>
                   </div>
-                  <p className="text-xs text-gray-700 dark:text-gray-300 font-medium leading-snug">
+                  <p className="text-xs text-gray-800 font-medium leading-snug">
                     {ent.purpose}
                   </p>
                 </div>
@@ -845,18 +873,24 @@ export default function ProjectDetailPage({
 
         {/* ================= 10. TECHNICAL INTERVIEW Q&A ACCORDION ================= */}
         {project.caseStudy?.interviewQA && project.caseStudy.interviewQA.length > 0 && (
-          <section id="section-faq" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-5 scroll-mt-28">
+          <section id="section-faq" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-5 scroll-mt-28 select-none">
             
+            {/* Screws */}
+            <div className="absolute top-3.5 left-3.5 plaque-screw" />
+            <div className="absolute top-3.5 right-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+            <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
             <div className="flex items-center justify-between pb-3 border-b-2 border-black">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+                <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                   🎙️
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
                   Technical Interview Q&A Deep Dive
                 </h3>
               </div>
-              <span className="font-mono text-xs text-gray-500 font-bold">
+              <span className="font-mono text-xs text-gray-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-black shadow-xs">
                 {project.caseStudy.interviewQA.length} QUESTIONS
               </span>
             </div>
@@ -867,15 +901,15 @@ export default function ProjectDetailPage({
                 return (
                   <div
                     key={qIdx}
-                    className="border-2 border-black rounded-xl overflow-hidden shadow-[3px_3px_0px_#000] transition-all"
+                    className="border-2 border-black rounded-xl overflow-hidden shadow-[3px_3px_0px_#000] transition-all bg-white"
                   >
                     <button
                       type="button"
                       onClick={() => toggleFaq(qIdx)}
-                      className="w-full p-4 bg-gray-50 dark:bg-[#1a1c28] hover:bg-brand-yellow/20 text-left font-black text-xs sm:text-sm text-black dark:text-white uppercase flex items-center justify-between gap-3 cursor-pointer transition-colors"
+                      className="w-full p-4 bg-white hover:bg-yellow-50 text-left font-black text-xs sm:text-sm text-black uppercase flex items-center justify-between gap-3 cursor-pointer transition-colors"
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-xs px-2 py-0.5 bg-black text-brand-yellow rounded">
+                        <span className="font-mono text-xs px-2.5 py-0.5 bg-black text-brand-yellow rounded font-black border border-black shadow-xs">
                           Q{qIdx + 1}
                         </span>
                         <span>{qa.q}</span>
@@ -884,9 +918,9 @@ export default function ProjectDetailPage({
                     </button>
 
                     {isOpen && (
-                      <div className="p-4 sm:p-5 bg-white dark:bg-[#12141f] border-t-2 border-black text-xs sm:text-sm text-gray-800 dark:text-gray-200 leading-relaxed font-medium animate-in fade-in duration-150">
+                      <div className="p-4 sm:p-5 bg-yellow-50/70 border-t-2 border-black text-xs sm:text-sm text-gray-900 leading-relaxed font-semibold animate-in fade-in duration-150">
                         <div className="flex items-start gap-2.5">
-                          <span className="font-mono font-black text-xs text-emerald-600 dark:text-emerald-400 mt-0.5">
+                          <span className="font-mono font-black text-xs text-emerald-700 mt-0.5">
                             ANSWER //
                           </span>
                           <p className="flex-1">{qa.a}</p>
@@ -902,13 +936,19 @@ export default function ProjectDetailPage({
         )}
 
         {/* ================= 11. PERSONAL CONTRIBUTION & LEARNINGS ================= */}
-        <section id="section-contributions" className="bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_#000] space-y-6 scroll-mt-28">
+        <section id="section-contributions" className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] space-y-6 scroll-mt-28 select-none">
           
+          {/* Screws */}
+          <div className="absolute top-3.5 left-3.5 plaque-screw" />
+          <div className="absolute top-3.5 right-3.5 plaque-screw" />
+          <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
+          <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
+
           <div className="flex items-center gap-2 pb-3 border-b-2 border-black">
-            <span className="p-1.5 bg-brand-yellow border border-black rounded-lg text-black font-black text-xs">
+            <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
               🎓
             </span>
-            <h3 className="text-xl sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
               Developer Attribution & Lessons Learned
             </h3>
           </div>
@@ -916,27 +956,27 @@ export default function ProjectDetailPage({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* My Contribution */}
-            <div className="p-5 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl space-y-2">
-              <span className="font-mono text-xs font-bold text-gray-500 uppercase">
+            <div className="p-5 bg-white border-2 border-black rounded-xl space-y-2 shadow-[3px_3px_0px_#000]">
+              <span className="font-mono text-xs font-black text-brand-orange-dark uppercase tracking-wider block">
                 ENGINEERING RESPONSIBILITIES
               </span>
-              <h4 className="text-base font-black text-black dark:text-white uppercase">
+              <h4 className="text-base font-black text-black uppercase">
                 My Primary Contributions
               </h4>
-              <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
                 {project.caseStudy?.myContribution || project.summary}
               </p>
             </div>
 
             {/* What I Learned */}
-            <div className="p-5 bg-gray-50 dark:bg-[#1a1c28] border-2 border-black rounded-xl space-y-2">
-              <span className="font-mono text-xs font-bold text-gray-500 uppercase">
+            <div className="p-5 bg-white border-2 border-black rounded-xl space-y-2 shadow-[3px_3px_0px_#000]">
+              <span className="font-mono text-xs font-black text-brand-orange-dark uppercase tracking-wider block">
                 SYSTEM DESIGN INSIGHTS
               </span>
-              <h4 className="text-base font-black text-black dark:text-white uppercase">
+              <h4 className="text-base font-black text-black uppercase">
                 Key Technical Takeaways
               </h4>
-              <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
                 {project.caseStudy?.whatILearned || "Hands-on experience delivering verified architectures under strict real-world constraints."}
               </p>
             </div>
@@ -945,8 +985,8 @@ export default function ProjectDetailPage({
 
           {/* Accuracy & Audit Notice */}
           {project.caseStudy?.accuracyNote && (
-            <div className="p-3.5 bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-400 rounded-xl flex items-start gap-2.5 text-xs font-mono font-medium text-amber-900 dark:text-amber-200">
-              <ShieldCheck className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-amber-100 border-2 border-black rounded-xl flex items-start gap-2.5 text-xs font-mono font-bold text-amber-950 shadow-[2px_2px_0px_#000]">
+              <ShieldCheck className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
               <span>
                 <strong>VERIFIED AUDIT NOTICE:</strong> {project.caseStudy.accuracyNote}
               </span>
@@ -956,7 +996,7 @@ export default function ProjectDetailPage({
         </section>
 
         {/* ================= 12. BOTTOM ADJACENT PROJECT NAVIGATION ================= */}
-        <section className="pt-6 border-t-2 border-black/20 dark:border-white/20">
+        <section className="pt-6 border-t-2 border-dashed border-black/30">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
             {/* Previous Project Card */}
@@ -967,20 +1007,20 @@ export default function ProjectDetailPage({
                   sound.playFlip();
                   onNavigate(adjacent.prev.canonicalUrl);
                 }}
-                className="p-5 bg-white dark:bg-[#12141f] hover:bg-brand-yellow/20 border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-left flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer"
+                className="p-5 bg-white hover:bg-yellow-50 border-[3.5px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-left flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer"
               >
                 <div>
-                  <span className="font-mono text-[10px] text-gray-500 uppercase font-black block">
+                  <span className="font-mono text-[10px] text-gray-600 uppercase font-black block">
                     ← PREVIOUS PROJECT
                   </span>
-                  <span className="text-base sm:text-lg font-black text-black dark:text-white uppercase group-hover:text-brand-orange-dark">
+                  <span className="text-base sm:text-lg font-black text-black uppercase group-hover:text-brand-orange-dark">
                     {adjacent.prev.title}
                   </span>
-                  <span className="text-xs text-gray-500 font-mono block line-clamp-1">
+                  <span className="text-xs text-gray-600 font-mono block line-clamp-1">
                     {adjacent.prev.subtitle}
                   </span>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 ml-3">
+                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 ml-3 shadow-[2px_2px_0px_#000]">
                   {adjacent.prev.flag || '←'}
                 </div>
               </button>
@@ -994,7 +1034,7 @@ export default function ProjectDetailPage({
                   sound.playFlip();
                   onNavigate(adjacent.next.canonicalUrl);
                 }}
-                className="p-5 bg-brand-yellow hover:bg-[#ffde59] text-black border-[3px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-right flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer sm:flex-row-reverse"
+                className="p-5 bg-brand-yellow hover:bg-[#ffde59] text-black border-[3.5px] border-black rounded-2xl shadow-[5px_5px_0px_#000] text-right flex items-center justify-between group transition-all hover:-translate-y-0.5 cursor-pointer sm:flex-row-reverse"
               >
                 <div>
                   <span className="font-mono text-[10px] text-black/70 uppercase font-black block">
@@ -1003,11 +1043,11 @@ export default function ProjectDetailPage({
                   <span className="text-base sm:text-lg font-black text-black uppercase">
                     {adjacent.next.title}
                   </span>
-                  <span className="text-xs text-gray-700 font-mono block line-clamp-1">
+                  <span className="text-xs text-gray-800 font-mono block line-clamp-1">
                     {adjacent.next.subtitle}
                   </span>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 mr-3 sm:mr-0 sm:ml-3">
+                <div className="w-10 h-10 rounded-xl bg-black text-brand-yellow flex items-center justify-center font-black text-sm border-2 border-black flex-shrink-0 mr-3 sm:mr-0 sm:ml-3 shadow-[2px_2px_0px_#000]">
                   {adjacent.next.flag || '→'}
                 </div>
               </button>
@@ -1023,7 +1063,7 @@ export default function ProjectDetailPage({
                 sound.playClick();
                 onBack();
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black hover:bg-gray-800 text-white rounded-full border-2 border-black font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#ffd31e] hover:scale-105 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-orange hover:bg-orange-600 text-white rounded-full border-2 border-black font-mono text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:scale-105 transition-all cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>RETURN TO COMPLETE PORTFOLIO DOSSIER</span>
@@ -1061,7 +1101,7 @@ export default function ProjectDetailPage({
                 e.stopPropagation();
                 setIsLightboxOpen(false);
               }}
-              className="absolute -top-12 right-0 p-2 bg-white text-black rounded-full border-2 border-black hover:bg-brand-yellow transition-all"
+              className="absolute -top-12 right-0 p-2 bg-brand-yellow text-black rounded-full border-2 border-black hover:bg-yellow-400 transition-all shadow-[2px_2px_0px_#000]"
             >
               <X className="w-6 h-6" />
             </button>
@@ -1069,12 +1109,12 @@ export default function ProjectDetailPage({
             <img
               src={currentImage}
               alt="Fullscreen Architecture"
-              className="max-w-full max-h-[82vh] object-contain rounded-xl border-4 border-black shadow-[0_0_50px_rgba(0,0,0,0.9)]"
+              className="max-w-full max-h-[82vh] object-contain rounded-xl border-4 border-black shadow-[0_0_50px_rgba(0,0,0,0.9)] bg-white"
               onClick={(e) => e.stopPropagation()}
             />
 
             {currentImageCaption && (
-              <div className="mt-3 px-4 py-2 bg-black/85 text-brand-yellow font-mono text-xs font-bold rounded-lg border border-white/20 text-center max-w-2xl">
+              <div className="mt-3 px-4 py-2 bg-brand-yellow text-black font-mono text-xs font-black rounded-lg border-2 border-black text-center max-w-2xl shadow-[2px_2px_0px_#000]">
                 {currentImageCaption}
               </div>
             )}

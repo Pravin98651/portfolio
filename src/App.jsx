@@ -700,7 +700,7 @@ export default function App() {
             
             {/* Status Telemetry & Pulse */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-black dark:bg-brand-orange flex items-center justify-center text-brand-yellow dark:text-black font-black text-xl border-2 border-black shadow-[2px_2px_0px_#000]">
+              <div className="w-12 h-12 rounded-xl bg-brand-orange flex items-center justify-center text-white font-black text-xl border-2 border-black shadow-[2px_2px_0px_#000]">
                 ⚡
               </div>
               <div>
@@ -712,8 +712,8 @@ export default function App() {
                     // WORKSPACE UNZIPPED
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-black text-black dark:text-white uppercase tracking-tight">
-                  Complete Engineering Dossier & Live Architecture
+                <h3 className="text-lg sm:text-2xl font-black text-black uppercase tracking-tight mt-1">
+                  <span className="bg-brand-yellow text-black px-2 py-0.5 border border-black rounded inline-block shadow-[1px_1px_0px_#000]">Complete Engineering Dossier & Live Architecture</span>
                 </h3>
               </div>
             </div>
@@ -723,7 +723,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={scrollToTop}
-                className="px-3.5 py-2 bg-gray-100 hover:bg-black hover:text-white text-black dark:bg-gray-800 dark:text-white dark:hover:bg-brand-yellow dark:hover:text-black rounded-xl border-2 border-black font-mono text-xs font-bold transition-all shadow-[2px_2px_0px_#000]"
+                className="px-3.5 py-2 bg-[#1a2233] hover:bg-black text-white rounded-xl border-2 border-black font-mono text-xs font-bold transition-all shadow-[2px_2px_0px_#000]"
               >
                 ↑ CONSOLE HERO
               </button>
@@ -739,15 +739,15 @@ export default function App() {
                 onClick={() => scrollToSection('hackathons')}
                 className="px-4 py-2 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
               >
-                HACKATHONS 🏆 ↓
+                HACKATHONS ({portfolioData.hackathons.items.length}) ↓
               </button>
             </div>
 
           </div>
 
           {/* Mechanical Zipper Track Partition Teeth Graphic */}
-          <div className="mt-4 pt-3 border-t-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-600 dark:text-gray-400 uppercase tracking-widest">
-            <span className="flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
+          <div className="mt-4 pt-3 border-t-2 border-dashed border-gray-400 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-gray-700 uppercase tracking-widest">
+            <span className="flex items-center gap-1.5 font-bold text-emerald-700">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               SYSTEM MODULES: ONLINE
             </span>
