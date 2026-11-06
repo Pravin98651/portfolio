@@ -336,25 +336,84 @@ html {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* Cinematic Mechanical Unzip Shutter Animations */
-@keyframes shutterTop {
-  0% { transform: translateY(-100%); }
-  35% { transform: translateY(0%); }
-  65% { transform: translateY(0%); }
-  100% { transform: translateY(-100%); }
+/* Realistic Vertical Center-Split Unzip Curtain Animations */
+@keyframes unzipCurtainLeft {
+  0% {
+    transform: translateX(0%) perspective(1200px) rotateY(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(-18%) perspective(1200px) rotateY(-5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-105%) perspective(1200px) rotateY(-12deg);
+    opacity: 0.95;
+  }
 }
 
-@keyframes shutterBottom {
-  0% { transform: translateY(100%); }
-  35% { transform: translateY(0%); }
-  65% { transform: translateY(0%); }
-  100% { transform: translateY(100%); }
+@keyframes unzipCurtainRight {
+  0% {
+    transform: translateX(0%) perspective(1200px) rotateY(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(18%) perspective(1200px) rotateY(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(105%) perspective(1200px) rotateY(12deg);
+    opacity: 0.95;
+  }
 }
 
-.animate-shutter-top {
-  animation: shutterTop 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes zipperHeadRun {
+  0% {
+    top: -50px;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  8% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+  88% {
+    top: 96vh;
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+  100% {
+    top: 112vh;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
 }
 
-.animate-shutter-bottom {
-  animation: shutterBottom 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes workspaceReveal {
+  0% {
+    transform: scale(0.94) translateY(35px);
+    opacity: 0.35;
+    filter: blur(4px);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.animate-unzip-left {
+  animation: unzipCurtainLeft 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-unzip-right {
+  animation: unzipCurtainRight 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-zipper-head {
+  animation: zipperHeadRun 0.7s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+}
+
+.animate-workspace-reveal {
+  animation: workspaceReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

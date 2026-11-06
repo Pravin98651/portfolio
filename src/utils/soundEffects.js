@@ -38,17 +38,23 @@ class SoundManager {
     if (this.muted) return;
     this.init();
     if (!this.ctx) return;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(650, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(320, this.ctx.currentTime + 0.03);
-    gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.03);
+    const now = this.ctx.currentTime;
+    
+    // Rapid dual-tooth ratchet clicks (simulates physical interlocking metal teeth)
+    [0, 0.012, 0.024].forEach((offset, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = idx % 2 === 0 ? 'sawtooth' : 'triangle';
+      const startFreq = 680 + (Math.random() * 80 - 40);
+      osc.frequency.setValueAtTime(startFreq, now + offset);
+      osc.frequency.exponentialRampToValueAtTime(260, now + offset + 0.02);
+      gain.gain.setValueAtTime(0.045, now + offset);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.02);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now + offset);
+      osc.stop(now + offset + 0.02);
+    });
   }
 
   playTransition() {
@@ -56,31 +62,53 @@ class SoundManager {
     this.init();
     if (!this.ctx) return;
     const now = this.ctx.currentTime;
-    // Layer 1: Low frequency shutter swoosh
-    const osc1 = this.ctx.createOscillator();
-    const gain1 = this.ctx.createGain();
-    osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(140, now);
-    osc1.frequency.exponentialRampToValueAtTime(520, now + 0.22);
-    gain1.gain.setValueAtTime(0.09, now);
-    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-    osc1.connect(gain1);
-    gain1.connect(this.ctx.destination);
-    osc1.start(now);
-    osc1.stop(now + 0.25);
 
-    // Layer 2: High-frequency mechanical ratchet chime
-    const osc2 = this.ctx.createOscillator();
-    const gain2 = this.ctx.createGain();
-    osc2.type = 'triangle';
-    osc2.frequency.setValueAtTime(587.33, now + 0.05);
-    osc2.frequency.exponentialRampToValueAtTime(880, now + 0.2);
-    gain2.gain.setValueAtTime(0.06, now + 0.05);
-    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-    osc2.connect(gain2);
-    gain2.connect(this.ctx.destination);
-    osc2.start(now + 0.05);
-    osc2.stop(now + 0.28);
+    // Rapid high-speed zipper rip
+    for (let i = 0; i < 8; i++) {
+      const offset = i * 0.025;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(450 + i * 50, now + offset);
+      osc.frequency.exponentialRampToValueAtTime(280 + i * 30, now + offset + 0.02);
+      gain.gain.setValueAtTime(0.04, now + offset);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.02);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now + offset);
+      osc.stop(now + offset + 0.02);
+    }
+
+    // Heavy mechanical latch release & spatial whoosh
+    setTimeout(() => {
+      if (!this.ctx || this.muted) return;
+      const t = this.ctx.currentTime;
+      // Sub bass impact
+      const sub = this.ctx.createOscillator();
+      const subGain = this.ctx.createGain();
+      sub.type = 'sine';
+      sub.frequency.setValueAtTime(120, t);
+      sub.frequency.exponentialRampToValueAtTime(35, t + 0.28);
+      subGain.gain.setValueAtTime(0.12, t);
+      subGain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+      sub.connect(subGain);
+      subGain.connect(this.ctx.destination);
+      sub.start(t);
+      sub.stop(t + 0.28);
+
+      // Metallic click latch
+      const click = this.ctx.createOscillator();
+      const clickGain = this.ctx.createGain();
+      click.type = 'triangle';
+      click.frequency.setValueAtTime(980, t);
+      click.frequency.exponentialRampToValueAtTime(140, t + 0.08);
+      clickGain.gain.setValueAtTime(0.07, t);
+      clickGain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+      click.connect(clickGain);
+      clickGain.connect(this.ctx.destination);
+      click.start(t);
+      click.stop(t + 0.08);
+    }, 200);
   }
 
   playFlip() {

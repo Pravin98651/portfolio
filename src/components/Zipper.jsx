@@ -104,55 +104,95 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
   return (
     <div
       ref={trackRef}
-      className="relative h-[720px] w-14 sm:w-16 flex items-center justify-center select-none z-30 touch-none"
+      className="relative h-[720px] w-20 flex items-center justify-center select-none z-30 touch-none"
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
-      {/* Precision Industrial Bus Rail Track */}
-      <div className="absolute inset-y-0 w-10 flex items-center justify-center">
+      {/* Physical Interlocking Zipper Track & Teeth Assembly */}
+      <div className="absolute inset-y-0 w-16 flex items-center justify-center pointer-events-none">
         
-        {/* Left Precision Ruler Rail */}
-        <div className="absolute left-1 top-0 bottom-0 w-2.5 bg-[#1e2028] border-x border-black/80 flex flex-col justify-between py-4 shadow-inner">
-          {Array.from({ length: 30 }).map((_, i) => (
-            <div
-              key={i}
-              className={`h-[1.5px] bg-[#4b5563] ${i % 5 === 0 ? 'w-full bg-brand-yellow' : 'w-1.5'}`}
-            />
-          ))}
-        </div>
-
-        {/* Center Magnetic Core */}
-        <div className="w-2 h-full bg-[#0a0a0d] border-x border-black relative overflow-hidden">
-          {/* Active Energized Voltage Line that glows as you scroll */}
+        {/* Under-Track Backplate & Exposed Glowing Energy Core */}
+        <div className="absolute inset-y-0 w-5 bg-[#0a0b10] border-x-2 border-black/90 flex flex-col items-center overflow-hidden shadow-inner">
+          {/* Active Energized Voltage Channel that reveals as teeth unzip */}
           <div
-            className="w-full bg-gradient-to-b from-brand-yellow via-brand-orange to-emerald-400 transition-all duration-75"
+            className="w-full bg-gradient-to-b from-brand-yellow via-brand-orange to-emerald-400 transition-all duration-75 shadow-[0_0_15px_rgba(243,103,14,0.9)]"
             style={{ height: `${Math.max(5, progress * 100)}%` }}
           />
         </div>
 
-        {/* Right Precision Ruler Rail */}
-        <div className="absolute right-1 top-0 bottom-0 w-2.5 bg-[#1e2028] border-x border-black/80 flex flex-col justify-between py-4 shadow-inner">
-          {Array.from({ length: 30 }).map((_, i) => (
+        {/* 36 Physical Interlocking Teeth Pairs with Real Separation Mechanics */}
+        <div className="absolute inset-y-0 w-full flex flex-col justify-between py-2">
+          {Array.from({ length: 36 }).map((_, i) => {
+            const toothProgress = i / 35;
+            const isUnmeshed = progress > toothProgress;
+            const diff = Math.max(0, progress - toothProgress);
+            const separation = isUnmeshed ? Math.min(28, diff * 75) : 0;
+            const rotation = isUnmeshed ? Math.min(20, diff * 50) : 0;
+
+            return (
+              <div
+                key={i}
+                className="relative w-full flex items-center justify-center h-4.5"
+              >
+                {/* Left Metallic Tooth */}
+                <div
+                  className="w-4 h-2.5 bg-gradient-to-r from-[#d97706] to-[#fbbf24] border border-black rounded-[2px] shadow-[1px_1px_0px_#000]"
+                  style={{
+                    transform: `translateX(-${separation + 1}px) rotate(-${rotation}deg)`,
+                    transition: 'transform 0.08s ease-out',
+                  }}
+                />
+
+                {/* Center Interlocking Seam Line */}
+                <div className="w-1" />
+
+                {/* Right Metallic Tooth (Staggered offset by 2px for realistic interlocking mesh) */}
+                <div
+                  className="w-4 h-2.5 bg-gradient-to-l from-[#d97706] to-[#fbbf24] border border-black rounded-[2px] shadow-[1px_1px_0px_#000] translate-y-[2px]"
+                  style={{
+                    transform: `translateX(${separation + 1}px) rotate(${rotation}deg)`,
+                    transition: 'transform 0.08s ease-out',
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Outer Ruler Ticks for Technical Console Precision */}
+        <div className="absolute left-0 inset-y-0 w-1 flex flex-col justify-between py-4">
+          {Array.from({ length: 24 }).map((_, i) => (
             <div
               key={i}
-              className={`h-[1.5px] bg-[#4b5563] ml-auto ${i % 5 === 0 ? 'w-full bg-brand-yellow' : 'w-1.5'}`}
+              className={`h-[1px] bg-black/40 ${i % 4 === 0 ? 'w-2 bg-brand-yellow' : 'w-1'}`}
+            />
+          ))}
+        </div>
+        <div className="absolute right-0 inset-y-0 w-1 flex flex-col justify-between py-4 items-end">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-[1px] bg-black/40 ${i % 4 === 0 ? 'w-2 bg-brand-yellow' : 'w-1'}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Kinetic Throttle Carriage (Draggable Slider) */}
+      {/* Kinetic Throttle Slider Puller */}
       <div
-        className="absolute top-0 flex flex-col items-center cursor-grab active:cursor-grabbing transition-transform duration-75 group"
+        className="absolute top-0 flex flex-col items-center cursor-grab active:cursor-grabbing transition-transform duration-75 group z-40"
         style={{
-          transform: `translateY(${sliderPosition}px)`,
+          transform: `translateY(${sliderPosition}px) rotate(${isDragging ? 4 : 0}deg)`,
         }}
         onPointerDown={handlePointerDown}
         onClick={handleThrottleClick}
-        title="Drag or click to engage system modules"
+        title="Pull down or click to unzip architectural workspace"
       >
+        {/* Dynamic Voltage Spark Glow at the Teeth Unmeshing Point */}
+        <div className="absolute -top-1 w-5 h-5 bg-brand-yellow/80 rounded-full blur-[4px] animate-pulse pointer-events-none" />
+
         {/* Main Anodized Metal Carriage */}
-        <div className="w-14 h-16 bg-[#ffd31e] border-[3px] border-black rounded-xl shadow-[4px_4px_0px_#000] flex flex-col items-center justify-between p-1.5 hover:scale-105 transition-transform group-hover:bg-[#ffde59]">
+        <div className="w-15 h-16 bg-[#ffd31e] border-[3px] border-black rounded-xl shadow-[4px_4px_0px_#000] flex flex-col items-center justify-between p-1.5 hover:scale-105 transition-transform group-hover:bg-[#ffde59]">
           
           {/* Knurled Grip Top */}
           <div className="w-full flex items-center justify-center gap-1">
@@ -165,7 +205,7 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
           <div className="flex flex-col items-center">
             <Zap className="w-4 h-4 text-black fill-current animate-pulse" />
             <span className="font-mono font-black text-[9px] uppercase tracking-tighter text-black leading-none mt-0.5">
-              ENGAGE
+              UNZIP
             </span>
           </div>
 
@@ -174,8 +214,8 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
         </div>
 
         {/* Lower Callsign Flag */}
-        <div className="mt-1 px-2 py-0.5 bg-black border border-black rounded text-[8.5px] font-mono font-bold text-white shadow-[2px_2px_0px_#ffd31e] whitespace-nowrap">
-          {progress > 0.05 ? `${Math.round(progress * 100)}% RUN` : 'SCROLL ↓'}
+        <div className="mt-1 px-2.5 py-0.5 bg-black border border-black rounded text-[8.5px] font-mono font-bold text-white shadow-[2px_2px_0px_#ffd31e] whitespace-nowrap">
+          {progress > 0.05 ? `${Math.round(progress * 100)}% UNZIPPED` : 'PULL TO UNZIP ↓'}
         </div>
       </div>
     </div>

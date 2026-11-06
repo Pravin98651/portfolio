@@ -274,39 +274,84 @@ export default function App() {
         </div>
       </header>
 
-      {/* Full-Screen Mechanical Unzip Aperture Shutter Transition */}
+      {/* ================= REALISTIC CENTER-SPLIT UNZIP TRANSITION OVERLAY ================= */}
       {isTransitioning && (
-        <div className="fixed inset-0 z-50 pointer-events-none flex flex-col justify-between overflow-hidden">
-          {/* Top Shutter Plate */}
-          <div className="w-full h-1/2 bg-[#090b10] border-b-4 border-brand-yellow flex flex-col justify-end items-center pb-6 animate-shutter-top shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
-            <div className="flex items-center gap-2.5 px-5 py-2 bg-black border-2 border-brand-yellow rounded-full text-brand-yellow font-mono text-xs font-black tracking-wider uppercase shadow-[3px_3px_0px_#f3670e]">
-              <span className="w-2.5 h-2.5 rounded-full bg-brand-yellow animate-ping" />
-              <span>{transitionText}</span>
+        <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center overflow-hidden">
+          
+          {/* Left Curtain Panel (Peels to the Left with 3D Fold) */}
+          <div className="absolute top-0 bottom-0 left-0 w-1/2 bg-[#0c0d14] border-r-4 border-brand-yellow animate-unzip-left shadow-[30px_0_70px_rgba(0,0,0,0.95)] flex items-center justify-end overflow-hidden">
+            <div className="absolute inset-0 bg-workspace-grid opacity-30 pointer-events-none" />
+            
+            {/* Metallic Zipper Teeth lining the right vertical edge */}
+            <div className="absolute right-0 inset-y-0 w-4 flex flex-col justify-between py-2">
+              {Array.from({ length: 42 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-3.5 h-2 bg-gradient-to-r from-amber-500 to-amber-300 border border-black rounded-l-xs shadow-xs"
+                />
+              ))}
             </div>
-            <div className="w-full h-2 bg-badge-stripes mt-4 border-y border-black" />
+
+            {/* Left Status Telemetry Badge */}
+            <div className="mr-8 px-4 py-2 bg-black/90 border-2 border-brand-yellow rounded-xl shadow-[4px_4px_0px_#f3670e] text-right font-mono hidden sm:block">
+              <span className="text-[10px] text-gray-400 font-bold tracking-widest uppercase block">UNZIPPING PORTAL</span>
+              <span className="text-xs text-brand-yellow font-black uppercase">STAGE 01 // PARTING</span>
+            </div>
           </div>
 
-          {/* Bottom Shutter Plate */}
-          <div className="w-full h-1/2 bg-[#090b10] border-t-4 border-brand-orange flex flex-col justify-start items-center pt-6 animate-shutter-bottom shadow-[0_-12px_40px_rgba(0,0,0,0.85)]">
-            <div className="w-full h-2 bg-badge-stripes mb-4 border-y border-black" />
-            <div className="flex items-center gap-3 font-mono text-[11px] text-gray-300 font-bold uppercase tracking-widest">
-              <span className="text-brand-orange">LEVEL 02</span>
-              <span>•</span>
-              <span className="text-white">DOSSIER WORKSPACE ONLINE</span>
+          {/* Right Curtain Panel (Peels to the Right with 3D Fold) */}
+          <div className="absolute top-0 bottom-0 right-0 w-1/2 bg-[#0c0d14] border-l-4 border-brand-orange animate-unzip-right shadow-[-30px_0_70px_rgba(0,0,0,0.95)] flex items-center justify-start overflow-hidden">
+            <div className="absolute inset-0 bg-workspace-grid opacity-30 pointer-events-none" />
+            
+            {/* Metallic Zipper Teeth lining the left vertical edge */}
+            <div className="absolute left-0 inset-y-0 w-4 flex flex-col justify-between py-2">
+              {Array.from({ length: 42 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-3.5 h-2 bg-gradient-to-l from-amber-500 to-amber-300 border border-black rounded-r-xs shadow-xs translate-y-1"
+                />
+              ))}
+            </div>
+
+            {/* Right Status Telemetry Badge */}
+            <div className="ml-8 px-4 py-2 bg-black/90 border-2 border-brand-orange rounded-xl shadow-[4px_4px_0px_#ffd31e] text-left font-mono hidden sm:block">
+              <span className="text-[10px] text-gray-400 font-bold tracking-widest uppercase block">REVELATION</span>
+              <span className="text-xs text-brand-orange font-black uppercase">LEVEL 02 // DOSSIER</span>
             </div>
           </div>
+
+          {/* Center High-Speed Running Golden Zipper Puller Head */}
+          <div className="absolute left-1/2 -translate-x-1/2 animate-zipper-head z-50 pointer-events-none flex flex-col items-center">
+            {/* Sparks & Voltage Bloom */}
+            <div className="w-12 h-12 bg-brand-yellow rounded-full blur-md opacity-85 animate-ping" />
+            <div className="w-16 h-20 bg-brand-yellow border-[3px] border-black rounded-2xl shadow-[0_0_30px_rgba(255,211,30,0.95)] flex flex-col items-center justify-between p-2">
+              <div className="w-4 h-1 bg-black rounded-full" />
+              <Zap className="w-6 h-6 text-black fill-current animate-bounce" />
+              <div className="w-5 h-2 bg-black rounded" />
+            </div>
+          </div>
+
+          {/* Center Telemetry HUD Notification */}
+          <div className="relative z-40 px-6 py-3 bg-black/95 border-[3px] border-brand-yellow rounded-2xl shadow-[6px_6px_0px_#f3670e] flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-brand-yellow animate-ping" />
+            <span className="font-mono font-black text-xs sm:text-sm text-white tracking-widest uppercase">
+              {transitionText}
+            </span>
+          </div>
+
         </div>
       )}
 
       {/* ================= HERO INTERACTIVE STAGE ================= */}
       <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 px-4 sm:px-8 py-4 sm:py-6 z-10 max-w-7xl mx-auto w-full">
         
-        {/* Left Side: Screwed Signboard & Floating Stickers (Physical divergence during unzipping) */}
+        {/* Left Side: Screwed Signboard & Floating Stickers (Physical 3D divergence during unzipping) */}
         <div
           className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2 transition-transform duration-200"
           style={{
-            transform: `translateX(-${zipperProgress * 44}px) translateY(-${zipperProgress * 20}px)`,
-            opacity: Math.max(0.15, 1 - zipperProgress * 0.75),
+            transform: `translateX(-${zipperProgress * 70}px) translateY(-${zipperProgress * 25}px) rotateY(${zipperProgress * 6}deg)`,
+            opacity: Math.max(0.12, 1 - zipperProgress * 0.85),
+            perspective: '1200px',
           }}
         >
           <Signboard />
@@ -323,12 +368,13 @@ export default function App() {
           />
         </div>
 
-        {/* Right Side: Red Backpack Pocket + Hanging ID Badge (Physical divergence during unzipping) */}
+        {/* Right Side: Red Backpack Pocket + Hanging ID Badge (Physical 3D divergence during unzipping) */}
         <div
           className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2 transition-transform duration-200"
           style={{
-            transform: `translateX(${zipperProgress * 44}px) translateY(-${zipperProgress * 20}px)`,
-            opacity: Math.max(0.15, 1 - zipperProgress * 0.75),
+            transform: `translateX(${zipperProgress * 70}px) translateY(-${zipperProgress * 25}px) rotateY(-${zipperProgress * 6}deg)`,
+            opacity: Math.max(0.12, 1 - zipperProgress * 0.85),
+            perspective: '1200px',
           }}
         >
           
