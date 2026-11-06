@@ -617,9 +617,11 @@ export default function ProjectDetailPage({
               </div>
             )}
 
-            {/* TAB: WORKFLOW PIPELINE */}
+            {/* TAB: WORKFLOW PIPELINE - ALL STAGES DISPLAYED SIMULTANEOUSLY AS A FLOW CHART */}
             {(activeTab === 'workflow' || activeTab === 'all') && project.caseStudy?.workflowSteps && project.caseStudy.workflowSteps.length > 0 && (
               <div id="section-workflow" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+                
+                {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b-2 border-black">
                   <div className="flex items-center gap-2">
                     <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
@@ -627,98 +629,90 @@ export default function ProjectDetailPage({
                     </span>
                     <div>
                       <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
-                        Execution Workflow Pipeline
+                        Execution Flowchart Pipeline
                       </h3>
                       <p className="text-xs font-mono font-bold text-gray-600">
-                        // {project.caseStudy.workflowSteps.length} Sequential Execution Stages
+                        // All {project.caseStudy.workflowSteps.length} Sequential Stages Shown in Full Execution Flow
                       </p>
                     </div>
                   </div>
 
-                  {/* Step Navigation Controls */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sound.playFlip();
-                        setActiveWorkflowStep(prev => Math.max(0, prev - 1));
-                        workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                      }}
-                      disabled={activeWorkflowStep === 0}
-                      className="px-3 py-1 bg-white hover:bg-gray-100 disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-bold shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
-                    >
-                      ← PREV
-                    </button>
-                    <span className="font-mono text-xs font-black px-2.5 bg-brand-yellow border-2 border-black rounded-lg py-1 shadow-[2px_2px_0px_#000]">
-                      {activeWorkflowStep + 1} / {project.caseStudy.workflowSteps.length}
+                  {/* Flowchart Legend Badge */}
+                  <div className="flex items-center gap-2 font-mono text-[11px] font-bold">
+                    <span className="px-2.5 py-1 bg-emerald-100 text-emerald-900 border border-black rounded-lg shadow-xs flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                      START TO FINISH DAG
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sound.playFlip();
-                        setActiveWorkflowStep(prev => Math.min(project.caseStudy.workflowSteps.length - 1, prev + 1));
-                        workflowStageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                      }}
-                      disabled={activeWorkflowStep === project.caseStudy.workflowSteps.length - 1}
-                      className="px-3 py-1 bg-brand-yellow hover:bg-yellow-400 text-black disabled:opacity-40 border-2 border-black rounded-xl font-mono text-xs font-black shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
-                    >
-                      NEXT →
-                    </button>
                   </div>
                 </div>
 
-                {/* Step Selector Horizontal Ribbon */}
-                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
+                {/* Flowchart Pipeline Matrix (All Stages Visible at Once) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
                   {project.caseStudy.workflowSteps.map((st, idx) => {
-                    const isActive = activeWorkflowStep === idx;
+                    const total = project.caseStudy.workflowSteps.length;
+                    const isFirst = idx === 0;
+                    const isLast = idx === total - 1;
+
                     return (
-                      <button
+                      <div 
                         key={idx}
-                        ref={(el) => (stepPillRefs.current[idx] = el)}
-                        type="button"
-                        onClick={() => {
-                          sound.playClick();
-                          setActiveWorkflowStep(idx);
-                        }}
-                        className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 font-mono text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-                          isActive
-                            ? 'bg-black text-brand-yellow border-black shadow-[3px_3px_0px_#ffd31e] scale-102 font-black'
-                            : 'bg-white text-gray-800 border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-yellow-50'
-                        }`}
+                        className="relative p-4 sm:p-5 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:-translate-y-1 transition-all group"
                       >
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black text-[10px] ${
-                          isActive ? 'bg-brand-yellow text-black' : 'bg-gray-200 text-black'
-                        }`}>
-                          {st.step || idx + 1}
-                        </span>
-                        <span>{st.title}</span>
-                      </button>
+                        <div>
+                          {/* Header with Step Number & Node Category */}
+                          <div className="flex items-center justify-between gap-2 mb-2.5">
+                            <span className="font-mono text-xs font-black px-2.5 py-0.5 bg-brand-yellow text-black rounded-md border border-black shadow-[1px_1px_0px_#000]">
+                              STAGE {st.step < 10 ? `0${st.step}` : st.step}
+                            </span>
+                            <span className="font-mono text-[10px] font-bold uppercase px-2 py-0.5 bg-gray-100 rounded border border-black/40 text-gray-700">
+                              {isFirst ? '● INPUT TRIGGER' : isLast ? '✓ FINAL OUTPUT' : `NODE 0${idx + 1}`}
+                            </span>
+                          </div>
+
+                          {/* Step Title */}
+                          <h4 className="text-sm sm:text-base font-black text-black uppercase leading-snug mb-2 group-hover:text-brand-orange-dark transition-colors">
+                            {st.title}
+                          </h4>
+
+                          {/* Step Detailed Execution Logic */}
+                          <p className="text-xs text-gray-800 font-medium leading-relaxed">
+                            {st.desc}
+                          </p>
+                        </div>
+
+                        {/* Flowchart Directional Connector Bar */}
+                        <div className="mt-4 pt-2.5 border-t-2 border-dashed border-gray-300 flex items-center justify-between text-[11px] font-mono font-bold">
+                          {isLast ? (
+                            <div className="w-full flex items-center justify-between text-emerald-800">
+                              <span className="uppercase tracking-wider font-black text-[10px]">PIPELINE VERIFIED</span>
+                              <span className="flex items-center gap-1 font-black text-white bg-emerald-600 px-2 py-0.5 rounded-lg border border-black shadow-xs text-[10px]">
+                                COMPLETE ✓
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="w-full flex items-center justify-between text-brand-orange-dark">
+                              <span className="uppercase tracking-wider font-extrabold text-[10px] text-gray-500">DATA STREAM</span>
+                              <span className="flex items-center gap-1.5 font-black text-black bg-brand-yellow px-2 py-0.5 rounded-lg border border-black shadow-xs text-[10px]">
+                                <span>STAGE {idx + 2}</span>
+                                <span className="text-xs font-black">➔</span>
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
 
-                {/* Active Step Feature Box */}
-                {project.caseStudy.workflowSteps[activeWorkflowStep] && (
-                  <div 
-                    ref={workflowStageRef}
-                    className="p-5 bg-[#fffbeb] border-[3px] border-black rounded-2xl shadow-[4px_4px_0px_#000] space-y-2 animate-in fade-in duration-200"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-extrabold uppercase px-2 py-0.5 bg-black text-brand-yellow rounded border border-black shadow-xs">
-                        STAGE 0{project.caseStudy.workflowSteps[activeWorkflowStep].step || activeWorkflowStep + 1} IN DETAIL
-                      </span>
-                      <span className="font-mono text-xs text-gray-700 font-bold">
-                        // EXECUTION PROTOCOL
-                      </span>
-                    </div>
-                    <h4 className="text-lg sm:text-xl font-black text-black uppercase">
-                      {project.caseStudy.workflowSteps[activeWorkflowStep].title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-gray-900 font-medium leading-relaxed">
-                      {project.caseStudy.workflowSteps[activeWorkflowStep].desc}
-                    </p>
+                {/* Pipeline Footer Telemetry */}
+                <div className="p-3 bg-white border-2 border-black rounded-xl flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold text-gray-700 shadow-[2px_2px_0px_#000]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>COMPLETE FLOW GRAPH: {project.caseStudy.workflowSteps.length} STAGES CONNECTED & GROUNDED</span>
                   </div>
-                )}
+                  <span className="text-brand-orange-dark font-black uppercase">FULL ARCHITECTURAL FLOW // VERIFIED</span>
+                </div>
+
               </div>
             )}
 
