@@ -762,14 +762,13 @@ export const portfolioData = {
         event: "Institutional Merit Award (2025–26)",
         organizer: "Vellore Institute of Technology (VIT)",
         detail: "Recognized and awarded as an 'Achiever' by VIT for outstanding merit and exceptional National-Level Achievement during the academic year 2025–26.",
-        credentials: "Presented by the Vice Chancellor and Chancellor of VIT (Reg. No. 23MIS0325) with official Certificate of Appreciation.",
         category: "Academic Merit · National Recognition · Technical Leadership",
         summary: "This prestigious institutional honor recognizes exemplary performance, innovation, and distinction while representing the Institute on national technical stages across India.",
         images: [
           {
             url: "/assets/hackathons/vit-achiever-certificate.png",
             title: "Official VIT Certificate of Appreciation",
-            caption: "Awarded to Mr. PRAVIN G (Reg. No. 23MIS0325) for National-Level Achievement by VIT Chancellor & Vice Chancellor"
+            caption: "Awarded to Mr. PRAVIN G for National-Level Achievement by VIT Chancellor & Vice Chancellor"
           }
         ]
       },

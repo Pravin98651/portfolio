@@ -19,8 +19,7 @@ import {
   MapPin,
   Users,
   ShieldCheck,
-  TrendingUp,
-  FileCheck
+  TrendingUp
 } from 'lucide-react';
 
 export default function HackathonsSection() {
@@ -300,19 +299,6 @@ export default function HackathonsSection() {
                     </li>
                   ))}
                 </ul>
-              </div>
-            )}
-
-            {/* Institutional Credentials / Detail if applicable */}
-            {currentItem.credentials && (
-              <div className="p-4 bg-amber-50/70 border-2 border-amber-300 rounded-xl space-y-1.5 font-mono text-xs">
-                <div className="font-extrabold text-amber-900 flex items-center gap-1.5">
-                  <FileCheck className="w-4 h-4 text-amber-700" />
-                  <span>Institutional Accreditation</span>
-                </div>
-                <p className="text-amber-800 leading-relaxed">
-                  {currentItem.credentials}
-                </p>
               </div>
             )}
 
