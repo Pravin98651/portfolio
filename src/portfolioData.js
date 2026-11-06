@@ -355,12 +355,16 @@ export const portfolioData = {
       ratingSource: "Polysemy Engine",
       stars: 5,
       tags: ["NLP", "GEMINI", "FASTAPI", "VITE", "TYPESCRIPT"],
-      cover: "/assets/lexifyd-preview.svg",
+      cover: "/assets/hackathons/sona-group.jpg",
       images: [
+        "/assets/hackathons/sona-group.jpg",
+        "/assets/hackathons/sona-lab.jpg",
         "/assets/lexifyd-preview.svg",
         "/assets/lexifyd-arch.svg"
       ],
       imageCaptions: [
+        "Lexifyd Tamil Hackathon Award Felicitation on stage",
+        "Pravin G and team in active engineering session developing Lexifyd Tamil",
         "Semantic Polysemy Explorer, Contextual Examples & Distractor Quiz Generator",
         "System Architecture — Gemini Prompt Chain, Polysemy Engine & Dual-Tier Storage"
       ],
@@ -601,14 +605,12 @@ export const portfolioData = {
       ratingSource: "National Hackathon 1st Place 🏆",
       stars: 5,
       tags: ["APPLIED AI", "OPTIMIZATION", "FASTAPI", "REACT", "HEURISTICS", "PYTHON"],
-      cover: "/assets/hackathons/sona-group.jpg",
+      cover: "/assets/hackathons/sairam-group.jpg",
       images: [
-        "/assets/hackathons/sona-group.jpg",
-        "/assets/hackathons/sona-lab.jpg"
+        "/assets/hackathons/sairam-group.jpg"
       ],
       imageCaptions: [
-        "National Hackathon 1st Place Felicitation on stage at Sona College of Technology",
-        "Pravin G and team building and testing the AI Trip Planner prototype during the competition"
+        "AI Trip Planner National Hackathon Award Felicitation on stage"
       ],
       client: "Maadhyamik Technologies (National Hackathon 1st Place)",
       role: "Core Algorithm Architect & Full-Stack Developer",
@@ -844,14 +846,9 @@ export const portfolioData = {
         contribution: "Architected the algorithmic itinerary generator, preference input modeling, and frontend journey display.",
         images: [
           {
-            url: "/assets/hackathons/sona-group.jpg",
-            title: "National Hackathon 1st Place Felicitation",
-            caption: "Receiving the 1st Place National Hackathon certificates on stage at Sona College"
-          },
-          {
-            url: "/assets/hackathons/sona-lab.jpg",
-            title: "Active Hackathon Engineering Session",
-            caption: "Building and testing the AI Trip Planner prototype during the hackathon session"
+            url: "/assets/hackathons/sairam-group.jpg",
+            title: "National Hackathon Award Felicitation",
+            caption: "Receiving the National Hackathon certificates on stage for AI Trip Planner"
           }
         ]
       },
@@ -876,9 +873,14 @@ export const portfolioData = {
         contribution: "Co-developed Lexifyd Tamil, focusing on the AI-assisted lexical content pipeline, sentence-based challenge logic, and the interactive quiz interface.",
         images: [
           {
-            url: "/assets/hackathons/sairam-group.jpg",
-            title: "2nd Place Award Presentation",
-            caption: "Receiving 2nd Place national hackathon honors and certificates at Sairam Engineering College"
+            url: "/assets/hackathons/sona-group.jpg",
+            title: "National Hackathon Award Felicitation",
+            caption: "Receiving national hackathon honors and certificates on stage for Lexifyd Tamil"
+          },
+          {
+            url: "/assets/hackathons/sona-lab.jpg",
+            title: "Active Hackathon Engineering Session",
+            caption: "Building and testing the Lexifyd Tamil lexical engine prototype during the hackathon"
           }
         ]
       },

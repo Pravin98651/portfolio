@@ -285,14 +285,12 @@ function transformHackathonToProject(item) {
       ratingSource: 'Maadhyamik Hackathon Winner',
       stars: 5,
       tags: ['APPLIED AI', 'OPTIMIZATION', 'FASTAPI', 'REACT', 'HEURISTICS'],
-      cover: '/assets/hackathons/sona-group.jpg',
+      cover: '/assets/hackathons/sairam-group.jpg',
       images: [
-        '/assets/hackathons/sona-group.jpg',
-        '/assets/hackathons/sona-lab.jpg'
+        '/assets/hackathons/sairam-group.jpg'
       ],
       imageCaptions: [
-        'National Hackathon 1st Place Felicitation on stage at Sona College',
-        'Pravin G and team in deep engineering session during the competition'
+        'National Hackathon Award Felicitation on stage for AI Trip Planner'
       ],
       client: 'Maadhyamik Technologies (Sona College of Tech)',
       role: 'Core Algorithm Architect & Full-Stack Developer',
