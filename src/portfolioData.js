@@ -649,14 +649,15 @@ export const portfolioData = {
     tagline: "// 02. COMPETITIVE ENGINEERING & MERIT",
     intro: "I value opportunities that challenge me to turn technical ideas into practical solutions. Through national-level hackathons, innovation competitions, and academic recognition, I have explored problems across artificial intelligence, software engineering, and industrial technology. These experiences have strengthened my ability to work through real constraints, build working prototypes under pressure, and present technical solutions to industry evaluators.",
     stats: [
-      { label: "National 1st Place", value: "Winner 🏆", subtext: "Maadhyamik Hackathon" },
+      { label: "National 1st Place", value: "2x Winner 🏆", subtext: "KRXGEN & Maadhyamik" },
       { label: "Danfoss Innovator", value: "2nd Place 🥈", subtext: "₹50,000 Cash Prize" },
       { label: "VIT Merit", value: "Achiever", subtext: "Academic Year 2025–26" },
-      { label: "National Podiums", value: "4+ Events", subtext: "Verified Competitions" }
+      { label: "National Podiums", value: "5+ Honors", subtext: "Verified Competitions" }
     ],
     items: [
       {
         id: "danfoss-2026",
+        shortTitle: "Robust RPM",
         badge: "2nd Place — National",
         badgeColor: "bg-amber-400 text-black",
         title: "Robust RPM — Vibration-Based Speed Estimation",
@@ -696,6 +697,7 @@ export const portfolioData = {
       },
       {
         id: "sona-2025",
+        shortTitle: "AI Trip Planner",
         badge: "1st Place Winner 🏆",
         badgeColor: "bg-emerald-400 text-black",
         title: "AI Trip Planner",
@@ -726,6 +728,7 @@ export const portfolioData = {
       },
       {
         id: "sairam-2025",
+        shortTitle: "Lexifyd Tamil",
         badge: "2nd Place 🥈",
         badgeColor: "bg-amber-400 text-black",
         title: "Lexifyd Tamil — Context-Aware Lexical Engine",
@@ -752,6 +755,7 @@ export const portfolioData = {
       },
       {
         id: "vit-achiever",
+        shortTitle: "VIT Achiever Honor",
         badge: "Achiever Recognition 🎖️",
         badgeColor: "bg-brand-yellow text-black",
         title: "VIT Achiever Honor — Merit & National Accomplishment",
@@ -770,25 +774,34 @@ export const portfolioData = {
         ]
       },
       {
-        id: "trichy-2025",
-        badge: "National Merit Certificate 🏅",
-        badgeColor: "bg-blue-400 text-black",
-        title: "AUTOMECH National Symposium & Technical Challenge",
-        event: "National Technical Challenge",
-        organizer: "K. Ramakrishnan College of Engineering, Trichy",
-        venue: "Department of Mechanical Engineering, Trichy",
-        category: "Applied Engineering · Hardware & Systems Prototype",
-        summary: "Participated and honored with Certificates of Appreciation at the national technical symposium, presenting technical solutions to engineering faculty and evaluators.",
+        id: "krxgen-hackathon",
+        shortTitle: "AI & AR Shopping (KRXGEN)",
+        badge: "1st Place Winner 🏆",
+        badgeColor: "bg-emerald-400 text-black",
+        title: "AI & AR Smart Shopping Experience Platform",
+        event: "KRXGEN '25 National-Level Hackathon",
+        organizer: "K. Ramakrishnan College of Engineering (Autonomous)",
+        venue: "Trichy, Tamil Nadu",
+        category: "Augmented Reality · Computer Vision · Retail AI Analytics · WebXR",
+        summary: "Won 1st Place at the KRXGEN National-Level Hackathon for developing an AI & AR-powered smart shopping system. Shoppers explore products as interactive 3D AR models and navigate aisles with in-store AR positioning, while the enterprise admin engine tracks customer viewing patterns, segment analytics, and automated shelf recommendations.",
+        highlights: [
+          "Interactive 3D AR product visualization allowing shoppers to view items in physical space before purchasing",
+          "In-store AR-based indoor navigation system guiding shoppers directly to product shelf locations",
+          "Admin sales intelligence suite monitoring live retail traffic, product dwell times, and conversion funnels",
+          "AI-driven shelf recommendation engine predicting high-demand inventory placements based on customer purchase history",
+          "Customer segmentation & purchase behavior analytics clustering shopper profiles by browsing and buying patterns"
+        ],
+        contribution: "I worked on the administrative intelligence suite for monitoring sales, customer segmentation, customer purchase behavior analysis, and AI-based shelf recommendations, as well as the in-store AR-based indoor navigation system for locating products on physical shelves.",
         images: [
           {
             url: "/assets/hackathons/trichy-stage.jpg",
-            title: "Trichy National Symposium Stage Felicitation",
-            caption: "Stage certificate ceremony at K. Ramakrishnan College of Engineering, Trichy"
+            title: "KRXGEN National Hackathon 1st Place Felicitation",
+            caption: "Receiving 1st Place honors on stage at the KRXGEN National-Level Hackathon, K. Ramakrishnan College of Engineering, Trichy"
           },
           {
             url: "/assets/hackathons/trichy-team.jpg",
-            title: "Certificate of Appreciation Display",
-            caption: "Team members displaying official Certificates of Appreciation at K. Ramakrishnan College"
+            title: "KRXGEN Hackathon Winner Certificates",
+            caption: "Pravin G and team displaying official 1st Place Certificates of Appreciation for the AI & AR Shopping Platform"
           }
         ]
       }

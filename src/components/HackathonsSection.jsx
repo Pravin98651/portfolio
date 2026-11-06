@@ -113,7 +113,7 @@ export default function HackathonsSection() {
           >
             <span>{item.badge}</span>
             <span className="text-gray-400 font-normal">|</span>
-            <span className="font-sans font-black">{item.title.split('—')[0].trim()}</span>
+            <span className="font-sans font-black">{item.shortTitle || item.title.split('—')[0].trim()}</span>
           </button>
         ))}
       </div>

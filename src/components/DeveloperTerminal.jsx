@@ -87,7 +87,8 @@ Type "project kidtube" or click the project cards to open full deep dives.`
   🎖️ Achiever Recognition - Vellore Institute of Technology (VIT, 2025–26)
       Official Certificate of Appreciation from Vice Chancellor & Chancellor
 
-  🏅 National Merit Certificate - AUTOMECH Symposium (K. Ramakrishnan College, Trichy)
+  🏆 1st Place Winner - KRXGEN '25 National Hackathon (K. Ramakrishnan College, Trichy)
+      Project: AI & AR Smart Shopping Experience Platform & In-Store Navigation
 
 Scrolling to Hackathons & Awards Section...`
         });
