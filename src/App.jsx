@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Signboard from './components/Signboard';
 import Zipper from './components/Zipper';
 import BackpackPocket from './components/BackpackPocket';
@@ -61,10 +61,46 @@ export default function App() {
 
   const [scrollPercent, setScrollPercent] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionText, setTransitionText] = useState('UNZIPPING WORKSPACE...');
+
+  const hasTriggeredScrollTransition = useRef(false);
+  const isTransitioningRef = useRef(false);
+  const isDraggingZipperRef = useRef(false);
+  const lastScrollY = useRef(0);
+  const lastSoundProgress = useRef(0);
+
+  const triggerUnzipTransition = useCallback((targetId = 'workspace-portal') => {
+    sound.playTransition();
+    setIsTransitioning(true);
+    isTransitioningRef.current = true;
+    hasTriggeredScrollTransition.current = true;
+    setIsUnzipped(true);
+    setZipperProgress(1);
+
+    if (targetId === 'projects') {
+      setTransitionText('INITIALIZING PROJECT SHOWCASE EXHIBITION...');
+    } else {
+      setTransitionText('INITIALIZING ARCHITECTURAL DOSSIER...');
+    }
+
+    setTimeout(() => {
+      const elem = document.getElementById(targetId) || document.getElementById('bento');
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 260);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      isTransitioningRef.current = false;
+    }, 850);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset || 0;
+      const isScrollingDown = scrollY > lastScrollY.current;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollY / docHeight) * 100)) : 0;
       setScrollPercent(pct);
@@ -74,6 +110,45 @@ export default function App() {
       } else {
         setShowScrollTop(false);
       }
+
+      // If user is manually dragging the zipper handle, let drag events control progress
+      if (!isDraggingZipperRef.current) {
+        // While in hero region (top 380px) and not unzipped yet, sync zipperProgress to scroll
+        if (scrollY <= 380 && !hasTriggeredScrollTransition.current) {
+          const prog = Math.min(1, Math.max(0, scrollY / 240));
+          setZipperProgress(prog);
+
+          // Tactile ratchet audio ticks as teeth unmesh during scroll
+          if (Math.abs(prog - lastSoundProgress.current) > 0.08) {
+            sound.playZipper();
+            lastSoundProgress.current = prog;
+          }
+        }
+
+        // TRIGGER UNZIP ANIMATION ON SCROLL:
+        // When scrolling down past 140px from hero and transition hasn't fired yet
+        if (
+          scrollY > 140 &&
+          isScrollingDown &&
+          !hasTriggeredScrollTransition.current &&
+          !isTransitioningRef.current
+        ) {
+          hasTriggeredScrollTransition.current = true;
+          setZipperProgress(1);
+          triggerUnzipTransition('workspace-portal');
+        }
+
+        // RE-ARM ON SCROLLING BACK TO TOP:
+        // When user scrolls back to the very top (< 40px), reset so scroll-to-unzip can fire again
+        if (scrollY < 40 && hasTriggeredScrollTransition.current) {
+          hasTriggeredScrollTransition.current = false;
+          setIsUnzipped(false);
+          setZipperProgress(0);
+          lastSoundProgress.current = 0;
+        }
+      }
+
+      lastScrollY.current = scrollY;
 
       // Determine active section for nav highlight
       const sections = ['contact', 'skills', 'about', 'hackathons', 'projects', 'bento'];
@@ -105,7 +180,7 @@ export default function App() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [triggerUnzipTransition]);
 
   // Global IntersectionObserver to trigger .is-visible on scroll
   useEffect(() => {
@@ -167,34 +242,11 @@ export default function App() {
     setBgPalette(nextPalette.id);
   };
 
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionText, setTransitionText] = useState('UNZIPPING WORKSPACE...');
-
-  const triggerUnzipTransition = (targetId = 'workspace-portal') => {
-    sound.playTransition();
-    setIsTransitioning(true);
-    if (targetId === 'projects') {
-      setTransitionText('INITIALIZING PROJECT SHOWCASE EXHIBITION...');
-    } else {
-      setTransitionText('INITIALIZING ARCHITECTURAL DOSSIER...');
-    }
-    setIsUnzipped(true);
-
-    setTimeout(() => {
-      const elem = document.getElementById(targetId) || document.getElementById('bento');
-      if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 220);
-
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 700);
-  };
-
   const scrollToSection = (id) => {
     sound.playClick();
+    hasTriggeredScrollTransition.current = true;
     setIsUnzipped(true);
+    setZipperProgress(1);
     const elem = document.getElementById(id);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth' });
@@ -203,6 +255,10 @@ export default function App() {
 
   const scrollToTop = () => {
     sound.playClick();
+    hasTriggeredScrollTransition.current = false;
+    setIsUnzipped(false);
+    setZipperProgress(0);
+    lastSoundProgress.current = 0;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -465,6 +521,9 @@ export default function App() {
             isOpen={isUnzipped}
             onToggleOpen={handleToggleUnzip}
             onTriggerTransition={() => triggerUnzipTransition('workspace-portal')}
+            onDragStateChange={(dragging) => {
+              isDraggingZipperRef.current = dragging;
+            }}
           />
         </div>
 

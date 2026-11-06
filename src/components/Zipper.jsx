@@ -2,7 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { sound } from '../utils/soundEffects';
 import { ChevronDown, Zap } from 'lucide-react';
 
-export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpen, onTriggerTransition }) {
+export default function Zipper({
+  progress,
+  onProgressChange,
+  onToggleOpen,
+  isOpen,
+  onTriggerTransition,
+  onDragStateChange,
+}) {
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
   const lastSoundProgress = useRef(0);
@@ -15,30 +22,16 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
     }
   };
 
-  // Synchronize throttle carriage with window scroll position
+  // Play mechanical sound whenever progress changes significantly
   useEffect(() => {
-    const handleScroll = () => {
-      if (isDragging) return;
-      const scrollThreshold = 420;
-      const currentScroll = window.scrollY || window.pageYOffset || 0;
-      const prog = Math.min(1, Math.max(0, currentScroll / scrollThreshold));
-      maybePlaySound(prog);
-      onProgressChange(prog);
-      if (prog > 0.35 && !isOpen) {
-        onToggleOpen(true);
-      } else if (prog <= 0.35 && isOpen) {
-        onToggleOpen(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDragging, isOpen, onProgressChange, onToggleOpen]);
+    maybePlaySound(progress);
+  }, [progress]);
 
   // Handle pointer down on throttle handle
   const handlePointerDown = (e) => {
     sound.playClick();
     setIsDragging(true);
+    onDragStateChange?.(true);
     e.target.setPointerCapture(e.pointerId);
   };
 
@@ -55,10 +48,10 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
     onProgressChange(newProgress);
 
     // Scroll window smoothly in sync
-    const scrollThreshold = 420;
+    const scrollThreshold = 350;
     window.scrollTo({
       top: newProgress * scrollThreshold,
-      behavior: 'instant'
+      behavior: 'instant',
     });
   };
 
@@ -66,6 +59,7 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
   const handlePointerUp = (e) => {
     if (isDragging) {
       setIsDragging(false);
+      onDragStateChange?.(false);
       try {
         e.target.releasePointerCapture(e.pointerId);
       } catch (err) {}
@@ -75,10 +69,11 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
         if (onTriggerTransition) {
           onTriggerTransition();
         } else {
-          document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('workspace-portal')?.scrollIntoView({ behavior: 'smooth' });
         }
       } else {
         onToggleOpen(false);
+        onProgressChange(0);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
@@ -91,7 +86,7 @@ export default function Zipper({ progress, onProgressChange, onToggleOpen, isOpe
       onTriggerTransition();
     } else {
       sound.playTransition();
-      const target = document.getElementById('bento') || document.getElementById('projects');
+      const target = document.getElementById('workspace-portal') || document.getElementById('bento');
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
       }
