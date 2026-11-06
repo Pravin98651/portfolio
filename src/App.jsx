@@ -13,7 +13,7 @@ import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import DeveloperTerminal from './components/DeveloperTerminal';
 import { portfolioData } from './portfolioData';
-import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette, Zap } from 'lucide-react';
 import { sound } from './utils/soundEffects';
 
 export default function App() {
