@@ -30,7 +30,7 @@ export default function ProjectDetailPage({
 }) {
   if (!project) return null;
 
-  const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'screens' | 'workflow' | 'stack' | 'features' | 'decisions' | 'faq' | 'contributions' | 'all'
+  const [activeTab, setActiveTab] = useState('all'); // 'all' is default for comprehensive deep-dive viewing
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
   const [copiedClone, setCopiedClone] = useState(false);
@@ -166,6 +166,7 @@ export default function ProjectDetailPage({
   const currentImageCaption = project.imageCaptions?.[selectedImageIndex] || '';
 
   const navTabs = [
+    { id: 'all', label: 'View All (Complete Dossier)', icon: '📑' },
     { id: 'overview', label: 'Overview', icon: '📋' },
     ...(project.images && project.images.length > 0 ? [{ id: 'screens', label: 'UI & Architecture', icon: '📐' }] : []),
     ...(project.caseStudy?.workflowSteps?.length ? [{ id: 'workflow', label: 'Workflow', icon: '⚡' }] : []),
@@ -174,8 +175,7 @@ export default function ProjectDetailPage({
     ...(project.caseStudy?.engineeringDecisions?.length ? [{ id: 'decisions', label: 'Decisions', icon: '⚖️' }] : []),
     ...(project.caseStudy?.dataEntities?.length ? [{ id: 'data', label: 'Data Entities', icon: '💾' }] : []),
     ...(project.caseStudy?.interviewQA?.length ? [{ id: 'faq', label: 'Interview Q&A', icon: '🎙️' }] : []),
-    { id: 'contributions', label: 'Attribution', icon: '🎓' },
-    { id: 'all', label: 'View All', icon: '📑' }
+    { id: 'contributions', label: 'Attribution', icon: '🎓' }
   ];
 
   return (
@@ -475,7 +475,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: OVERVIEW */}
             {(activeTab === 'overview' || activeTab === 'all') && (
-              <div className="space-y-5 animate-in fade-in duration-200">
+              <div id="section-overview" className="space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     📋
@@ -523,7 +523,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: UI & ARCHITECTURE SCREENS */}
             {(activeTab === 'screens' || activeTab === 'all') && project.images && project.images.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-screens" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center justify-between pb-2.5 border-b-2 border-black">
                   <div className="flex items-center gap-2">
                     <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
@@ -619,7 +619,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: WORKFLOW PIPELINE */}
             {(activeTab === 'workflow' || activeTab === 'all') && project.caseStudy?.workflowSteps && project.caseStudy.workflowSteps.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-workflow" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b-2 border-black">
                   <div className="flex items-center gap-2">
                     <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
@@ -724,7 +724,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: TECH STACK */}
             {(activeTab === 'stack' || activeTab === 'all') && project.caseStudy?.techStackTable && project.caseStudy.techStackTable.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-stack" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-emerald-400 border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     ⚙️
@@ -764,7 +764,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: KEY FEATURES */}
             {(activeTab === 'features' || activeTab === 'all') && project.caseStudy?.keyFeatures && project.caseStudy.keyFeatures.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-features" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     🎯
@@ -794,7 +794,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: ARCHITECTURAL DECISIONS */}
             {(activeTab === 'decisions' || activeTab === 'all') && project.caseStudy?.engineeringDecisions && project.caseStudy.engineeringDecisions.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-decisions" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     ⚖️
@@ -824,7 +824,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: DATA ENTITIES */}
             {(activeTab === 'data' || activeTab === 'all') && project.caseStudy?.dataEntities && project.caseStudy.dataEntities.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-data" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     💾
@@ -855,7 +855,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: INTERVIEW Q&A ACCORDION */}
             {(activeTab === 'faq' || activeTab === 'all') && project.caseStudy?.interviewQA && project.caseStudy.interviewQA.length > 0 && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-faq" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center justify-between pb-2.5 border-b-2 border-black">
                   <div className="flex items-center gap-2">
                     <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
@@ -911,7 +911,7 @@ export default function ProjectDetailPage({
 
             {/* TAB: ATTRIBUTION & LEARNINGS */}
             {(activeTab === 'contributions' || activeTab === 'all') && (
-              <div className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
+              <div id="section-contributions" className={`space-y-4 animate-in fade-in duration-200 ${activeTab === 'all' ? 'pt-8 border-t-2 border-dashed border-black/30' : ''}`}>
                 <div className="flex items-center gap-2 pb-2.5 border-b-2 border-black">
                   <span className="p-1.5 bg-brand-yellow border-2 border-black rounded-lg text-black font-black text-xs shadow-[2px_2px_0px_#000]">
                     🎓
