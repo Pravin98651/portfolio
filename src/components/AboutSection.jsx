@@ -27,17 +27,20 @@ export default function AboutSection() {
   return (
     <section id="about" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
       
-      {/* Plaque Container */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none scroll-reveal">
+      {/* Plaque Container (Editorial Biography Dossier) */}
+      <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[12px_12px_0px_#000000] select-none scroll-reveal">
         
-        {/* Four Screws */}
+        {/* Brass Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
         <div className="absolute top-3.5 right-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
         {/* Header Tag */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-3 shadow-[2px_2px_0px_#000]">
           <Sparkles className="w-3.5 h-3.5 text-black" />
           <span>// 02. BACKGROUND & PHILOSOPHY</span>
         </div>
@@ -46,15 +49,15 @@ export default function AboutSection() {
           
           {/* Left: Bio & Positioning */}
           <div className="lg:col-span-7 space-y-4 scroll-reveal-left delay-100">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              Engineering Ideas Into <span className="text-brand-orange">Working Products</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              ENGINEERING IDEAS INTO <span className="text-brand-orange underline decoration-wavy decoration-black">WORKING PRODUCTS</span>
             </h2>
 
-            <div className="text-sm sm:text-base text-gray-700 font-medium space-y-3 leading-relaxed">
+            <div className="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium space-y-3 leading-relaxed">
               <p>
                 {personal.aboutLong}
               </p>
-              <p className="border-l-4 border-black pl-3 py-1 font-mono text-xs sm:text-sm text-gray-900 bg-gray-50 rounded-r">
+              <p className="border-l-4 border-black pl-3 py-1 font-mono text-xs sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-black/40 border border-black rounded-r shadow-xs">
                 "{personal.coreMessage}"
               </p>
             </div>

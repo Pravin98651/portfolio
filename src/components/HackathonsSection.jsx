@@ -105,28 +105,31 @@ export default function HackathonsSection({ onNavigateToProject }) {
     <section id="hackathons" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20">
       
       {/* ================= SECTION HEADER PLAQUE ================= */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
+      <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">
         {/* Four Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
         <div className="absolute top-3.5 right-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-3 shadow-[2px_2px_0px_#000]">
               <Trophy className="w-3.5 h-3.5 text-black" />
               <span>{hackathons.tagline}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              AWARDS, HACKATHONS & <span className="text-brand-orange">RECOGNITION</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              AWARDS, HACKATHONS & <span className="text-brand-orange underline decoration-wavy decoration-black">HONORS</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-700 font-medium max-w-3xl leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium max-w-3xl leading-relaxed">
               {hackathons.intro}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold text-gray-600 bg-gray-100 p-2 rounded-xl border border-gray-300 self-start md:self-end">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold text-gray-800 bg-white p-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] self-start md:self-end">
             <span className="flex items-center gap-1.5 text-black font-extrabold">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>OFFICIAL EVIDENCE ATTACHED</span>
@@ -135,7 +138,7 @@ export default function HackathonsSection({ onNavigateToProject }) {
         </div>
 
         {/* 4 Telemetry Stats Badges */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t-2 border-dashed border-gray-300">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t-2 border-dashed border-black/40">
           {hackathons.stats.map((st, sIdx) => (
             <div key={sIdx} className="p-3 bg-white border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
               <div className="text-[10px] font-mono font-bold uppercase text-gray-500">
@@ -153,7 +156,7 @@ export default function HackathonsSection({ onNavigateToProject }) {
       </div>
 
       {/* ================= AWARDS AT A GLANCE (QUICK MATRIX PILLS + AUTO-SCROLLING CONTROLS) ================= */}
-      <div className="bg-white border-[3px] border-black rounded-2xl p-3 sm:p-4 shadow-[6px_6px_0px_#000] mb-8 flex flex-col md:flex-row items-center justify-between gap-3 scroll-reveal">
+      <div className="manila-card border-[3.5px] border-black rounded-2xl p-3 sm:p-4 shadow-[8px_8px_0px_#000] mb-8 flex flex-col md:flex-row items-center justify-between gap-3 scroll-reveal">
         {/* Horizontal scroll ribbon with pills */}
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto no-scrollbar py-1 scroll-smooth">
           {hackathons.items.map((item, idx) => {
@@ -183,7 +186,7 @@ export default function HackathonsSection({ onNavigateToProject }) {
 
         {/* Paging Prev/Next Controls */}
         <div className="flex items-center gap-2 self-end md:self-center font-mono shrink-0">
-          <span className="text-xs font-bold text-gray-500 mr-1 uppercase hidden sm:inline">
+          <span className="text-xs font-bold text-gray-600 mr-1 uppercase hidden sm:inline">
             AWARD {currentIndex + 1} OF {hackathons.items.length}
           </span>
           <button
@@ -210,7 +213,7 @@ export default function HackathonsSection({ onNavigateToProject }) {
       {/* ================= FEATURED SHOWCASE STAGE ================= */}
       <div 
         ref={showcaseRef}
-        className="relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all scroll-reveal"
+        className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[12px_12px_0px_#000000] transition-all scroll-reveal"
       >
         
         {/* Top Header Badge Ribbon */}

@@ -67,8 +67,8 @@ export default function BackpackPocket({
   return (
     <div className="relative w-full max-w-[480px] sm:max-w-[540px] flex flex-col select-none">
       
-      {/* ================= MODULAR CONSOLE TABS ================= */}
-      <div className="relative flex items-end justify-between px-3 z-10 -mb-[2px]">
+      {/* ================= PHYSICAL FOLDER TABS ================= */}
+      <div className="relative flex items-end justify-between px-2 sm:px-3 z-10 -mb-[2px] font-mono">
         {/* Tab 1: RÉSUMÉ */}
         <button
           type="button"
@@ -76,29 +76,29 @@ export default function BackpackPocket({
             sound.playClick();
             onSelectTab('resume');
           }}
-          className={`relative group px-4 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
+          className={`relative group px-3.5 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'resume'
-              ? 'bg-brand-yellow text-black -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
-              : 'bg-[#ffde59] text-gray-800 hover:-translate-y-1 z-10'
+              ? 'bg-[#ffd31e] text-black -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.2)] z-20'
+              : 'bg-[#feee91] text-gray-900 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>📄 RÉSUMÉ</span>
+          <span>📁 01. RÉSUMÉ</span>
         </button>
 
-        {/* Tab 2: SYSTEMS */}
+        {/* Tab 2: SYSTEMS / CASE STUDIES */}
         <button
           type="button"
           onClick={() => {
             sound.playClick();
             onSelectTab('portfolio');
           }}
-          className={`relative group px-4 sm:px-6 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
+          className={`relative group px-3.5 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'portfolio'
-              ? 'bg-brand-blue text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
-              : 'bg-[#3b5beb] text-white/90 hover:-translate-y-1 z-10'
+              ? 'bg-[#f36b16] text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.2)] z-20'
+              : 'bg-[#ea580c] text-white/90 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>💾 SYSTEMS ({currentProjectIndex + 1}/{projects.length})</span>
+          <span>⚡ 02. CASE STUDIES ({currentProjectIndex + 1}/{projects.length})</span>
         </button>
 
         {/* Tab 3: DISPATCH */}
@@ -108,63 +108,35 @@ export default function BackpackPocket({
             sound.playClick();
             onSelectTab('contact');
           }}
-          className={`relative group px-4 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
+          className={`relative group px-3.5 sm:px-5 py-2 font-black text-xs sm:text-sm uppercase tracking-wider rounded-t-xl border-[3px] border-b-0 border-black transition-all duration-200 cursor-pointer ${
             activeTab === 'contact'
-              ? 'bg-brand-red text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.15)] z-20'
-              : 'bg-[#c91823] text-white/90 hover:-translate-y-1 z-10'
+              ? 'bg-[#d3222a] text-white -translate-y-2 shadow-[0px_-3px_0px_rgba(0,0,0,0.2)] z-20'
+              : 'bg-[#b91c1c] text-white/90 hover:-translate-y-1 z-10'
           }`}
         >
-          <span>📡 DISPATCH</span>
+          <span>✉️ 03. DISPATCH</span>
         </button>
       </div>
 
-      {/* ================= MODULAR CONSOLE CHASSIS ================= */}
-      <div className="relative w-full rounded-2xl border-[3px] border-black bg-console-chassis shadow-[10px_10px_0px_#000000] overflow-hidden">
+      {/* ================= PHYSICAL FOLDER CHASSIS ================= */}
+      <div className="relative w-full rounded-2xl border-[3.5px] border-black manila-card shadow-[10px_10px_0px_#000000] overflow-hidden">
         
-        {/* Four Corner Hex Rivets */}
-        <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
-        <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
-        <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
-        <div className="absolute bottom-3 right-3 w-2 h-2 rounded-full bg-gray-500 border border-black z-20" />
+        {/* Brass Corner Staples */}
+        <div className="brass-staple top-3 left-3 rotate-[-45deg]" />
+        <div className="brass-staple top-3 right-3 rotate-[45deg]" />
 
-        {/* Original Oscilloscope & Telemetry Visualizer Banner */}
-        <div className="relative w-full h-24 sm:h-28 bg-[#0c0d12] border-b-[3px] border-black overflow-hidden flex flex-col justify-between p-3">
-          {/* Header Row */}
-          <div className="flex items-center justify-between z-10 text-[10px] font-mono">
-            <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span>SYSTEM BUS // TELEMETRY OK</span>
-            </div>
-            <div className="text-gray-400 font-bold">
-              PORT 3000 · 115200 BAUD
-            </div>
-          </div>
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-2.5 bg-caution-stripes-sm border-b-2 border-black" />
 
-          {/* Animated SVG Oscilloscope Waveform */}
-          <div className="w-full h-12 relative flex items-center justify-center overflow-hidden">
-            <svg className="w-full h-full text-emerald-500/70" viewBox="0 0 400 60" preserveAspectRatio="none">
-              <path
-                d="M0 30 Q 50 10, 100 30 T 200 30 T 300 30 T 400 30"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M0 30 Q 30 50, 70 30 T 140 10 T 210 50 T 280 20 T 350 40 T 400 30"
-                fill="none"
-                stroke="#ffd31e"
-                strokeWidth="1.5"
-                strokeDasharray="4 2"
-              />
-            </svg>
+        {/* Folder Meta Header (Editorial Case File Identity) */}
+        <div className="px-4 py-2.5 bg-amber-50 dark:bg-black/40 border-b-2 border-black flex items-center justify-between font-mono text-[11px]">
+          <div className="flex items-center gap-1.5 font-black text-black dark:text-brand-yellow uppercase">
+            <Cpu className="w-3.5 h-3.5 text-brand-orange" />
+            <span>PRAVIN G // ENGINEERING CASE FILE</span>
           </div>
-
-          {/* Status readout */}
-          <div className="flex items-center justify-between text-[9px] font-mono text-gray-500 z-10">
-            <span>CH-01: LANGGRAPH</span>
-            <span>CH-02: FAISS DENSE</span>
-            <span>CH-03: JWT AUTH</span>
-          </div>
+          <span className="px-2 py-0.5 bg-brand-yellow text-black border border-black rounded text-[9.5px] font-black uppercase">
+            VERIFIED BUILD
+          </span>
         </div>
 
         {/* ================= CARD PULL-OUT CONTENT ================= */}

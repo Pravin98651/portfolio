@@ -22,29 +22,32 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
       
-      {/* Plaque Header */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
+      {/* Plaque Header (Retro Technical Matrix Board) */}
+      <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">
         {/* Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
         <div className="absolute top-3.5 right-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-3 shadow-[2px_2px_0px_#000]">
               <Sparkles className="w-3.5 h-3.5 text-black" />
               <span>// 03. TECHNICAL CAPABILITIES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              Skills & <span className="text-brand-orange">Technology Matrix</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              SKILLS & <span className="text-brand-orange underline decoration-wavy decoration-black">TECHNOLOGY MATRIX</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-700 font-medium max-w-2xl leading-relaxed">
-              Grounded in technologies actively used across verified projects. Grouped cleanly by domain rather than arbitrary percentage bars.
+            <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium max-w-2xl leading-relaxed">
+              Grounded in technologies actively used across verified production projects. Grouped by engineering domain rather than arbitrary percentage bars.
             </p>
           </div>
 
-          <div className="text-xs font-mono font-bold text-gray-500 bg-gray-100 px-3.5 py-1.5 rounded-lg border border-gray-300 self-start md:self-end">
+          <div className="text-xs font-mono font-black text-black bg-white px-3.5 py-1.5 rounded-lg border-2 border-black shadow-[2px_2px_0px_#000] self-start md:self-end">
             CONFIDENT IN TECHNICAL INTERVIEWS
           </div>
         </div>

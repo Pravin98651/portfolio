@@ -44,21 +44,24 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
   return (
     <section id="bento" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-10 z-20">
       
-      {/* Plaque Header Bar */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
+      {/* Plaque Header Bar (Tactile Workbench Dossier) */}
+      <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-5 sm:p-7 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">
         <div className="absolute top-3 left-3 plaque-screw" />
         <div className="absolute top-3 right-3 plaque-screw" />
         <div className="absolute bottom-3 left-3 plaque-screw" />
         <div className="absolute bottom-3 right-3 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-2.5 bg-caution-stripes-sm rounded-full border border-black mb-4 shadow-xs" />
+
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-brand-yellow border border-black rounded-full text-xs font-mono font-bold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-2 shadow-[2px_2px_0px_#000]">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>// SYSTEM OVERVIEW & LIVE METRICS</span>
+              <span>// 00. SYSTEM OVERVIEW & WORKBENCH</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight uppercase leading-none">
-              Engineering <span className="text-brand-orange">At A Glance</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              ENGINEERING <span className="text-brand-orange underline decoration-wavy decoration-black">AT A GLANCE</span>
             </h2>
           </div>
 
@@ -69,7 +72,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
               sound.playClick();
               onOpenTerminal();
             }}
-            className="self-start sm:self-center px-4 py-2 bg-black hover:bg-gray-800 text-brand-yellow font-mono font-bold text-xs uppercase rounded-xl border-2 border-black shadow-[3px_3px_0px_#ffd31e] flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
+            className="self-start sm:self-center px-4 py-2 bg-black hover:bg-gray-800 text-brand-yellow font-mono font-black text-xs uppercase rounded-xl border-2 border-black shadow-[3px_3px_0px_#ffd31e] flex items-center gap-2 transition-all hover:scale-105 cursor-pointer"
           >
             <Terminal className="w-4 h-4 text-emerald-400" />
             <span>LAUNCH DEVELOPER CLI</span>
@@ -81,7 +84,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         
         {/* ================= 1. VERIFIED ARCHITECTURES (7 Cols) ================= */}
-        <div className="md:col-span-7 bg-white border-[3px] border-black rounded-2xl p-6 shadow-[8px_8px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-100">
+        <div className="md:col-span-7 manila-card border-[3.5px] border-black rounded-2xl p-6 shadow-[10px_10px_0px_#000000] flex flex-col justify-between scroll-reveal scroll-reveal-scale delay-100">
           <div>
             <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-4">
               <div className="flex items-center gap-2">

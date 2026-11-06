@@ -32,8 +32,8 @@ export default function ContactSection() {
   return (
     <section id="contact" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
       
-      {/* Plaque Container */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-10 shadow-[10px_10px_0px_#000000] select-none scroll-reveal">
+      {/* Plaque Container (Retro Dispatch Envelope) */}
+      <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[12px_12px_0px_#000000] select-none scroll-reveal">
         
         {/* Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
@@ -41,19 +41,22 @@ export default function ContactSection() {
         <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Contact Info & Action Buttons */}
           <div className="lg:col-span-6 space-y-5 scroll-reveal-left delay-100">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-3 shadow-[2px_2px_0px_#000]">
                 <Sparkles className="w-3.5 h-3.5 text-black" />
-                <span>// 04. GET IN TOUCH</span>
+                <span>// 04. GET IN TOUCH & COLLABORATE</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-                Let's Build <span className="text-brand-orange">Something</span> Meaningful
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+                LET'S BUILD <span className="text-brand-orange underline decoration-wavy decoration-black">SOMETHING</span> EXTRAORDINARY
               </h2>
-              <p className="mt-3 text-sm sm:text-base text-gray-700 font-medium leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
                 {contact.subtitle}
               </p>
             </div>

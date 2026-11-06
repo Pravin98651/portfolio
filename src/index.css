@@ -22,38 +22,65 @@ button, a, [role="button"], input, select, textarea {
   cursor: url('/assets/cursor-hover.png'), pointer;
 }
 
-/* Modern Engineered Technical Blueprint Canvas (Day & Night Themes) */
+/* Rich Vibrant Burnt-Orange Industrial Canvas with Corrugated Metal Lines & Halftone Grain */
 .bg-orange-ribbed,
 .bg-workspace-grid {
-  background-color: #faf6f0;
+  background-color: #f36b16;
   background-image: 
-    radial-gradient(circle at 10% 12%, rgba(243, 103, 14, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 90% 18%, rgba(255, 211, 30, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 85% 65%, rgba(243, 103, 14, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 20% 85%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
-    radial-gradient(rgba(0, 0, 0, 0.11) 1.2px, transparent 1.2px),
-    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 24px 24px, 72px 72px, 72px 72px;
-  background-attachment: fixed, fixed, fixed, fixed, scroll, scroll, scroll;
+    /* Vignette depth shadows from corners and edges */
+    radial-gradient(circle at 50% 0%, rgba(255, 211, 30, 0.25) 0%, transparent 60%),
+    radial-gradient(circle at 10% 25%, rgba(255, 170, 0, 0.20) 0%, transparent 45%),
+    radial-gradient(circle at 90% 70%, rgba(180, 50, 0, 0.30) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(135, 35, 0, 0.45) 0%, transparent 60%),
+    /* Vintage Halftone screen dots */
+    radial-gradient(rgba(100, 25, 0, 0.16) 1.25px, transparent 1.25px),
+    /* Vertical Corrugated Metal Ridges & Mechanical Grooves */
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 240, 200, 0.14) 0px,
+      rgba(255, 240, 200, 0.14) 2px,
+      rgba(243, 107, 22, 0.95) 4px,
+      rgba(217, 78, 0, 0.95) 14px,
+      rgba(154, 45, 0, 0.40) 18px,
+      rgba(110, 30, 0, 0.45) 20px,
+      transparent 22px,
+      transparent 32px
+    ),
+    /* Industrial Panel Seam Divisions */
+    linear-gradient(to right, rgba(90, 20, 0, 0.25) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(90, 20, 0, 0.18) 1.5px, transparent 1.5px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 20px 20px, 32px 100%, 192px 192px, 192px 192px;
+  background-attachment: fixed, fixed, fixed, fixed, scroll, scroll, scroll, scroll;
+  box-shadow: inset 0 0 160px rgba(115, 30, 0, 0.55);
   transition: background-color 0.4s ease, background-image 0.4s ease;
 }
 
-/* Dark Tactical Cybernetic Workstation (Night Mode - Default Warm Amber Forge) */
+/* Dark Forged Industrial Steel & Amber Foundry Mode */
 .dark .bg-orange-ribbed,
 .dark .bg-workspace-grid {
-  background-color: #07090e;
+  background-color: #120502;
   background-image: 
-    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(243, 103, 14, 0.38) 0%, rgba(255, 180, 0, 0.15) 35%, transparent 72%),
-    radial-gradient(circle at 88% 22%, rgba(124, 58, 237, 0.32) 0%, rgba(99, 102, 241, 0.12) 40%, transparent 65%),
-    radial-gradient(circle at 12% 52%, rgba(243, 103, 14, 0.24) 0%, transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.08) 35%, transparent 60%),
-    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(243, 103, 14, 0.26) 0%, transparent 68%),
-    radial-gradient(rgba(255, 255, 255, 0.18) 1.25px, transparent 1.25px),
-    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 84px 84px, 84px 84px;
-  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
+    radial-gradient(ellipse 75% 50% at 50% -5%, rgba(243, 107, 22, 0.48) 0%, rgba(255, 180, 0, 0.20) 35%, transparent 72%),
+    radial-gradient(circle at 88% 22%, rgba(217, 78, 0, 0.35) 0%, transparent 65%),
+    radial-gradient(circle at 12% 52%, rgba(243, 107, 22, 0.28) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(255, 211, 30, 0.20) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 40% at 50% 102%, rgba(243, 107, 22, 0.32) 0%, transparent 68%),
+    radial-gradient(rgba(255, 200, 100, 0.16) 1.25px, transparent 1.25px),
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 180, 50, 0.08) 0px,
+      rgba(255, 180, 50, 0.08) 2px,
+      rgba(30, 10, 5, 0.95) 4px,
+      rgba(18, 5, 2, 0.95) 14px,
+      rgba(0, 0, 0, 0.6) 18px,
+      transparent 22px,
+      transparent 32px
+    ),
+    linear-gradient(to right, rgba(255, 150, 50, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 150, 50, 0.07) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 20px 20px, 32px 100%, 192px 192px, 192px 192px;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, scroll, scroll, scroll, scroll;
+  box-shadow: inset 0 0 160px rgba(0, 0, 0, 0.85);
 }
 
 /* Custom Background Palette Variants (Toggleable) */
@@ -298,6 +325,117 @@ button, a, [role="button"], input, select, textarea {
   height: 1.5px;
   background: #333;
   transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* ================= RETRO-INDUSTRIAL & COMIC UTILITIES ================= */
+
+/* Caution Hazard Stripes */
+.bg-caution-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #ffd31e 0px,
+    #ffd31e 16px,
+    #000000 16px,
+    #000000 32px
+  );
+}
+
+.bg-caution-stripes-sm {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #ffd31e 0px,
+    #ffd31e 8px,
+    #000000 8px,
+    #000000 16px
+  );
+}
+
+/* Manila Paper & Physical Folder Cardstock */
+.manila-card {
+  background-color: #fffdf8;
+  background-image: 
+    radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.05), transparent 45px);
+  background-size: 16px 16px, 100% 100%;
+}
+
+.dark .manila-card {
+  background-color: #161822;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(243, 107, 22, 0.08), transparent 45px);
+  background-size: 16px 16px, 100% 100%;
+}
+
+/* Distressed Rubber Stamp Effect */
+.rubber-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace, ui-monospace;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 3px dashed currentColor;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transform: rotate(-3deg);
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+}
+
+/* Masking Tape Effect */
+.masking-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(254, 240, 138, 0.78);
+  border: 1px dashed rgba(202, 138, 4, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(1px);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Brass Dual-Punched Staple */
+.brass-staple {
+  position: absolute;
+  width: 28px;
+  height: 6px;
+  background: linear-gradient(to bottom, #d97706, #fef08a 45%, #78350f);
+  border: 1px solid #000;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  border-radius: 1px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Paperclip Accent */
+.paperclip-clip {
+  width: 14px;
+  height: 38px;
+  border: 3px solid #6b7280;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+  position: absolute;
+  z-index: 25;
+}
+
+/* Lanyard Swing Physics */
+@keyframes lanyardSway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+}
+
+.animate-lanyard-sway {
+  transform-origin: top center;
+  animation: lanyardSway 5s ease-in-out infinite;
 }
 
 html {

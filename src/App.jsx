@@ -692,7 +692,10 @@ export default function App() {
         id="workspace-portal"
         className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 z-20 scroll-mt-20"
       >
-        <div className="relative bg-white dark:bg-[#12141f] border-[3px] border-black rounded-2xl p-5 sm:p-7 shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#f3670e] transition-all">
+        <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-5 sm:p-7 shadow-[10px_10px_0px_#000000] transition-all">
+          {/* Top Caution Hazard Stripe Trim */}
+          <div className="w-full h-2.5 bg-caution-stripes-sm rounded-full border border-black mb-4 shadow-xs" />
+
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             
             {/* Status Telemetry & Pulse */}
@@ -702,10 +705,10 @@ export default function App() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-brand-yellow text-black px-2 py-0.5 rounded border border-black">
-                    LEVEL 02 DOSSIER
+                  <span className="text-[10px] font-mono font-black tracking-widest uppercase bg-brand-yellow text-black px-2 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">
+                    ARCHITECTURAL DOSSIER
                   </span>
-                  <span className="text-xs font-mono font-bold text-gray-500 dark:text-gray-400">
+                  <span className="text-xs font-mono font-bold text-gray-800 dark:text-gray-300">
                     // WORKSPACE UNZIPPED
                   </span>
                 </div>

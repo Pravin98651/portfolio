@@ -118,31 +118,34 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
   return (
     <section id="projects" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20">
       
-      {/* Section Header Plaque */}
-      <div className="relative bg-[#fcfcfc] border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[8px_8px_0px_#000000] mb-8 select-none scroll-reveal">
-        {/* Four Screws */}
+      {/* Section Header Plaque (Retro-Industrial Case File Dossier) */}
+      <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">
+        {/* Brass Screws */}
         <div className="absolute top-3.5 left-3.5 plaque-screw" />
         <div className="absolute top-3.5 right-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 left-3.5 plaque-screw" />
         <div className="absolute bottom-3.5 right-3.5 plaque-screw" />
 
+        {/* Top Caution Striping Trim */}
+        <div className="w-full h-3 bg-caution-stripes-sm rounded-full border border-black mb-5 shadow-xs" />
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/80 border border-black rounded-full text-xs font-mono font-bold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-mono font-black mb-3 shadow-[2px_2px_0px_#000]">
               <Sparkles className="w-3.5 h-3.5 text-black" />
-              <span>// 01. SELECTED WORKS & DEEP DIVES</span>
+              <span>// 01. SELECTED WORKS & CASE STUDIES</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              Featured <span className="text-brand-orange">Engineering</span> Projects
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black dark:text-white tracking-tight uppercase leading-none">
+              FEATURED <span className="text-brand-orange underline decoration-wavy decoration-black">ENGINEERING</span> DOSSIERS
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-700 font-medium max-w-2xl leading-relaxed">
-              Production systems combining stateful workflows, applied artificial intelligence, and robust full-stack software architectures.
+            <p className="mt-3 text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium max-w-2xl leading-relaxed">
+              Tactile case study folders covering autonomous multi-agent pipelines, applied LLMs, RAG systems, and robust full-stack software architectures.
             </p>
           </div>
 
           {/* View Mode Switcher Toggle */}
           <div className="flex flex-wrap items-center gap-2 self-start md:self-end">
-            <div className="flex items-center gap-1 p-1 bg-gray-100 border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">
+            <div className="flex items-center gap-1 p-1 bg-white/90 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
               <button
                 type="button"
                 onClick={() => {
@@ -152,11 +155,11 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                 className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'theater'
                     ? 'bg-brand-yellow text-black border border-black shadow-[1px_1px_0px_#000] font-black'
-                    : 'text-gray-600 hover:text-black'
+                    : 'text-gray-700 hover:text-black'
                 }`}
               >
                 <MonitorPlay className="w-3.5 h-3.5" />
-                <span>SHOWCASE PAGE</span>
+                <span>CASE STUDY DECK</span>
               </button>
               <button
                 type="button"
@@ -167,7 +170,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                 className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'grid'
                     ? 'bg-brand-yellow text-black border border-black shadow-[1px_1px_0px_#000] font-black'
-                    : 'text-gray-600 hover:text-black'
+                    : 'text-gray-700 hover:text-black'
                 }`}
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
@@ -265,19 +268,25 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
 
           </div>
 
-          {/* Active Project Stage Container */}
+          {/* Active Project Stage Container (Physical Case Study Folder) */}
           <div
             ref={projectStageRef}
             key={currentProject.id}
-            className={`relative bg-white border-[3px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] transition-all ${
+            className={`relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-9 shadow-[12px_12px_0px_#000000] transition-all ${
               slideDirection === 'right' ? 'animate-project-in-right' : 'animate-project-in-left'
             } ${isFlagship ? 'ring-2 ring-brand-yellow' : ''}`}
           >
+            {/* Paperclip Graphic on Upper Left */}
+            <div className="paperclip-clip -top-4 left-8" />
+
+            {/* Masking Tape Accent on Upper Right */}
+            <div className="masking-tape -top-3 right-8 w-24 rotate-[-8deg]" />
+
             {/* Flagship Ribbon if applicable */}
             {isFlagship && (
-              <div className="absolute -top-3.5 right-6 px-3.5 py-0.5 bg-brand-yellow border-2 border-black rounded-full text-[11px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] flex items-center gap-1.5">
-                <Star className="w-3.5 h-3.5 fill-black" />
-                <span>Flagship Production System</span>
+              <div className="absolute -top-3.5 right-36 px-4 py-1 bg-brand-yellow border-2 border-black rounded-full text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] flex items-center gap-1.5 z-20">
+                <Star className="w-4 h-4 fill-black" />
+                <span>FLAGSHIP SYSTEM</span>
               </div>
             )}
 
@@ -286,13 +295,13 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
               {/* Left Column: Interactive Screen Gallery & Diagram Switcher */}
               <div className="lg:col-span-6 space-y-4">
                 
-                {/* Main Screen Preview Box */}
+                {/* Main Screen Preview Box styled as a printed photograph */}
                 <div
                   onClick={() => {
                     sound.playClick();
                     onOpenCaseStudy(currentProject);
                   }}
-                  className="relative w-full h-64 sm:h-80 rounded-xl border-[3px] border-black overflow-hidden bg-black flex items-center justify-center cursor-pointer group shadow-[4px_4px_0px_#000]"
+                  className="relative w-full h-64 sm:h-80 rounded-2xl border-[3px] border-black overflow-hidden bg-black flex items-center justify-center cursor-pointer group shadow-[6px_6px_0px_#000]"
                 >
                   <img
                     src={currentImg}
@@ -313,7 +322,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                     <div className="px-2.5 py-1 bg-black/85 backdrop-blur-md rounded border border-white/20 text-white text-[10px] font-mono font-bold">
                       {currentProject?.imageCaptions ? currentProject.imageCaptions[currentImageIdx] : currentProject?.title}
                     </div>
-                    <div className="px-2 py-0.5 bg-brand-yellow border border-black rounded text-[10px] font-black text-black">
+                    <div className="px-2.5 py-0.5 bg-brand-yellow border border-black rounded text-[10px] font-black text-black">
                       {currentProject?.country} {currentProject?.flag}
                     </div>
                   </div>
