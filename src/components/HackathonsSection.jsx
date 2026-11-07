@@ -25,17 +25,7 @@ import { getProjectUrl } from '../utils/projectRoutes';
 
 export default function HackathonsSection({ onNavigateToProject }) {
   const { hackathons } = portfolioData;
-  const [activeItemId, setActiveItemId] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = sessionStorage.getItem('portfolio_hackathons_active_item');
-      if (saved && hackathons.items.some(it => it.id === saved)) return saved;
-    }
-    return 'danfoss-2026';
-  });
-
-  useEffect(() => {
-    sessionStorage.setItem('portfolio_hackathons_active_item', activeItemId);
-  }, [activeItemId]);
+  const [activeItemId, setActiveItemId] = useState('danfoss-2026');
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState(null); // { url, title, caption }
 

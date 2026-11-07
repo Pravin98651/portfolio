@@ -23,30 +23,8 @@ import {
 export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }) {
   const { projects } = portfolioData;
   const [viewMode, setViewMode] = useState('theater'); // 'theater' (Showcase Page) | 'grid' (All projects)
-  const [selectedCategory, setSelectedCategory] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('portfolio_projects_category') || 'ALL';
-    }
-    return 'ALL';
-  });
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = sessionStorage.getItem('portfolio_projects_index');
-      if (saved !== null) {
-        const parsed = parseInt(saved, 10);
-        if (!isNaN(parsed) && parsed >= 0 && parsed < projects.length) return parsed;
-      }
-    }
-    return 0;
-  });
-
-  useEffect(() => {
-    sessionStorage.setItem('portfolio_projects_index', String(currentIndex));
-  }, [currentIndex]);
-
-  useEffect(() => {
-    sessionStorage.setItem('portfolio_projects_category', selectedCategory);
-  }, [selectedCategory]);
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState('right');
   const [activeImageMap, setActiveImageMap] = useState({});
 
