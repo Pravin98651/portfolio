@@ -124,6 +124,8 @@ export default function App() {
   const isDraggingZipperRef = useRef(false);
   const lastScrollY = useRef(0);
   const lastSoundProgress = useRef(0);
+  const isProgrammaticScroll = useRef(false);
+  const programmaticScrollTimer = useRef(null);
 
   const triggerUnzipTransition = useCallback((targetId = 'workspace-portal') => {
     sound.playTransition();
@@ -142,7 +144,13 @@ export default function App() {
     setTimeout(() => {
       const elem = document.getElementById(targetId) || document.getElementById('bento');
       if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth' });
+        const headerOffset = 75;
+        const elemTop = elem.getBoundingClientRect().top;
+        const offsetPosition = elemTop + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
       }
     }, 260);
 
@@ -166,8 +174,8 @@ export default function App() {
         setShowScrollTop(false);
       }
 
-      // If user is manually dragging the zipper handle, let drag events control progress
-      if (!isDraggingZipperRef.current) {
+      // If user is manually dragging the zipper handle or programmatic scroll in flight, guard
+      if (!isDraggingZipperRef.current && !isProgrammaticScroll.current) {
         // While in hero region (top 380px) and not unzipped yet, sync zipperProgress to scroll
         if (scrollY <= 380 && !hasTriggeredScrollTransition.current) {
           const prog = Math.min(1, Math.max(0, scrollY / 240));
@@ -181,7 +189,7 @@ export default function App() {
         }
 
         // TRIGGER UNZIP ANIMATION ON SCROLL:
-        // When scrolling down past 140px from hero and transition hasn't fired yet
+        // When manually scrolling down past 140px from hero and transition hasn't fired yet
         if (
           scrollY > 140 &&
           isScrollingDown &&
@@ -193,9 +201,8 @@ export default function App() {
           triggerUnzipTransition('workspace-portal');
         }
 
-        // RE-ARM ON SCROLLING BACK TO TOP:
-        // When user scrolls back to the very top (< 40px), reset so scroll-to-unzip can fire again
-        if (scrollY < 40 && hasTriggeredScrollTransition.current) {
+        // RE-ARM ONLY ON MANUAL SCROLL BACK UP TO TOP (< 40px):
+        if (scrollY < 40 && !isScrollingDown && hasTriggeredScrollTransition.current) {
           hasTriggeredScrollTransition.current = false;
           setIsUnzipped(false);
           setZipperProgress(0);
@@ -206,18 +213,24 @@ export default function App() {
       lastScrollY.current = scrollY;
 
       // Determine active section for nav highlight
-      const sections = ['contact', 'skills', 'about', 'hackathons', 'projects', 'bento'];
+      const sections = ['contact', 'skills', 'about', 'hackathons', 'projects', 'bento', 'workspace-portal'];
       let current = 'hero';
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= 250) {
-            current = id;
+            current = (id === 'workspace-portal') ? 'bento' : id;
             break;
           }
         }
       }
+
+      // If user reached bottom of page, highlight contact
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 60) {
+        current = 'contact';
+      }
+
       setActiveSection(current);
     };
 
@@ -302,18 +315,56 @@ export default function App() {
     hasTriggeredScrollTransition.current = true;
     setIsUnzipped(true);
     setZipperProgress(1);
-    const elem = document.getElementById(id);
+
+    // Provide instant visual active-state feedback on click
+    if (id === 'workspace-portal' || id === 'bento') {
+      setActiveSection('bento');
+    } else {
+      setActiveSection(id);
+    }
+
+    // Lock out zipper scroll interception during smooth travel
+    isProgrammaticScroll.current = true;
+    if (programmaticScrollTimer.current) {
+      clearTimeout(programmaticScrollTimer.current);
+    }
+    programmaticScrollTimer.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 1200);
+
+    const targetId = id === 'bento' ? 'workspace-portal' : id;
+    const elem = document.getElementById(targetId) || document.getElementById(id);
     if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
+      const performScroll = () => {
+        const headerOffset = 75;
+        const elemTop = elem.getBoundingClientRect().top;
+        const offsetPosition = elemTop + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
+      };
+
+      performScroll();
+      setTimeout(performScroll, 60);
     }
   };
 
   const scrollToTop = () => {
     sound.playClick();
+    isProgrammaticScroll.current = true;
+    if (programmaticScrollTimer.current) {
+      clearTimeout(programmaticScrollTimer.current);
+    }
+    programmaticScrollTimer.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 1000);
+
     hasTriggeredScrollTransition.current = false;
     setIsUnzipped(false);
     setZipperProgress(0);
     lastSoundProgress.current = 0;
+    setActiveSection('hero');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -690,7 +741,7 @@ export default function App() {
       {/* ================= WORKSPACE TRANSITION PORTAL / LEVEL 02 GATE ================= */}
       <section
         id="workspace-portal"
-        className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 z-20 scroll-mt-20"
+        className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 z-20 scroll-mt-20 sm:scroll-mt-24"
       >
         <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-5 sm:p-7 shadow-[10px_10px_0px_#000000] transition-all">
           {/* Top Caution Hazard Stripe Trim */}
@@ -740,6 +791,13 @@ export default function App() {
                 className="px-4 py-2 bg-brand-yellow hover:bg-yellow-400 text-black rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
               >
                 HACKATHONS ({portfolioData.hackathons.items.length}) ↓
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('skills')}
+                className="px-3.5 py-2 bg-white hover:bg-gray-100 text-black rounded-xl border-2 border-black font-mono text-xs font-black uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000]"
+              >
+                SKILLS ↓
               </button>
             </div>
 

@@ -42,7 +42,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
   }, []);
 
   return (
-    <section id="bento" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-10 z-20">
+    <section id="bento" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-10 z-20 scroll-mt-20 sm:scroll-mt-24">
       
       {/* Plaque Header Bar (Tactile Workbench Dossier) */}
       <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-5 sm:p-7 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">
@@ -92,7 +92,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
                   <Layers className="w-4 h-4" />
                 </div>
                 <h3 className="font-black text-lg text-black uppercase tracking-tight">
-                  4 Verified Systems Built
+                  {projects.length} Verified Systems Built
                 </h3>
               </div>
               <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-300">

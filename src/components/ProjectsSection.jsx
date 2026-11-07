@@ -116,7 +116,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
   const isFlagship = currentProject?.id === 'kidtube' || currentProject?.id === 'job-hunt-ai';
 
   return (
-    <section id="projects" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20">
+    <section id="projects" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20 sm:scroll-mt-24">
       
       {/* Section Header Plaque (Retro-Industrial Case File Dossier) */}
       <div className="relative manila-card border-[3.5px] border-black rounded-2xl p-6 sm:p-9 shadow-[10px_10px_0px_#000000] mb-8 select-none scroll-reveal">

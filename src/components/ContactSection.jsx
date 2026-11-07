@@ -30,7 +30,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20">
+    <section id="contact" className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-16 z-20 scroll-mt-20 sm:scroll-mt-24">
       
       {/* Plaque Container (Retro Dispatch Envelope) */}
       <div className="relative manila-card border-[3.5px] border-black rounded-3xl p-6 sm:p-10 shadow-[12px_12px_0px_#000000] select-none scroll-reveal">
