@@ -79,11 +79,10 @@ export default function IdBadge({ onOpenResume }) {
       card3DRef.current.style.boxShadow = `${shadowX}px ${shadowY}px 0px #000000`;
     }
 
-    // 4. Specular Holographic Glare / Sheen angle shifts dynamically with tilt and swing
-    const sheenX = 50 + (p.tiltY / 15) * 40;
-    const sheenY = 50 - (p.tiltX / 15) * 40;
-    const sheenAngle = 115 + (p.tiltY / 15) * 25;
-    const sheenStyle = `radial-gradient(ellipse 90% 65% at ${sheenX}% ${sheenY}%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, rgba(252,219,101,0.12) 60%, transparent 80%), linear-gradient(${sheenAngle}deg, transparent 20%, rgba(255,255,255,0.32) 47%, rgba(255,255,255,0.65) 50%, rgba(255,255,255,0.32) 53%, transparent 75%)`;
+    // 4. Soft subtle ambient lighting (no harsh laser glare line)
+    const sheenX = 50 + (p.tiltY / 15) * 20;
+    const sheenY = 50 - (p.tiltX / 15) * 20;
+    const sheenStyle = `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255,255,255,0.08) 0%, rgba(255,215,0,0.04) 35%, transparent 65%)`;
     
     if (sheenRef.current) {
       sheenRef.current.style.background = sheenStyle;
@@ -344,7 +343,7 @@ export default function IdBadge({ onOpenResume }) {
         className="flex flex-col items-center z-10 -mb-2 transition-none origin-top will-change-transform"
       >
         {/* Woven Industrial Strap with Ribbed Texture */}
-        <div className="w-6 sm:w-7 h-14 sm:h-20 bg-gradient-to-b from-[#f36b16] to-[#b43200] border-x-[3px] border-black relative overflow-hidden shadow-md">
+        <div className="w-5.5 sm:w-6 h-9 sm:h-11 bg-gradient-to-b from-[#f36b16] to-[#b43200] border-x-[2.5px] border-black relative overflow-hidden shadow-md">
           {/* Subtle woven industrial herringbone texture */}
           <div className="w-full h-full opacity-40 bg-[repeating-linear-gradient(45deg,#000_0px,#000_3px,transparent_3px,transparent_7px)]" />
           <div className="absolute inset-y-0 left-1 w-[1px] bg-white/40" />
@@ -380,7 +379,7 @@ export default function IdBadge({ onOpenResume }) {
         {/* The 3D Physical ID Badge Card */}
         <div
           ref={card3DRef}
-          className="relative w-[245px] sm:w-[270px] h-[395px] sm:h-[425px] rounded-2xl will-change-transform select-none"
+          className="relative w-[240px] sm:w-[260px] h-[380px] sm:h-[405px] rounded-2xl will-change-transform select-none"
           style={{
             transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
             transformStyle: 'preserve-3d',
@@ -391,7 +390,7 @@ export default function IdBadge({ onOpenResume }) {
         >
           {/* ================= FRONT SIDE ================= */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden p-4 flex flex-col justify-between border-[3.5px] border-black bg-golden-reflect"
+            className="absolute inset-0 rounded-2xl overflow-hidden p-4 flex flex-col justify-between border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24]"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -401,14 +400,11 @@ export default function IdBadge({ onOpenResume }) {
               transition: 'opacity 0.25s ease-in-out',
             }}
           >
-            {/* Holographic Specular Reflection Foil Overlays for Front */}
+            {/* Subtle Soft Ambient Light Overlay for Front */}
             <div
               ref={sheenRef}
-              style={{
-                background: 'radial-gradient(ellipse 90% 65% at 50% 50%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, transparent 75%)',
-              }}
               className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-                isFlipped ? 'opacity-0' : isDragging ? 'opacity-75' : 'opacity-50'
+                isFlipped ? 'opacity-0' : isDragging ? 'opacity-20' : 'opacity-10'
               }`}
             />
             {/* Top Lanyard Slot & Flip Button */}
@@ -431,7 +427,7 @@ export default function IdBadge({ onOpenResume }) {
             </div>
 
             {/* Halftone Portrait Box with Pravin's Avatar */}
-            <div className="relative mx-auto w-full h-[185px] sm:h-[200px] border-2 border-black rounded-xl halftone-pink overflow-hidden shadow-inner flex items-center justify-center bg-black pointer-events-none">
+            <div className="relative mx-auto w-full h-[170px] sm:h-[185px] border-2 border-black rounded-xl halftone-pink overflow-hidden shadow-inner flex items-center justify-center bg-black pointer-events-none">
               <img
                 src={personal.avatar}
                 alt={personal.fullName}
@@ -518,14 +514,11 @@ export default function IdBadge({ onOpenResume }) {
               transition: 'opacity 0.25s ease-in-out',
             }}
           >
-            {/* Holographic Specular Foil for Back */}
+            {/* Subtle Soft Ambient Light Overlay for Back */}
             <div
               ref={sheenBackRef}
-              style={{
-                background: 'radial-gradient(ellipse 90% 65% at 50% 50%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, transparent 75%)',
-              }}
               className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-                !isFlipped ? 'opacity-0' : isDragging ? 'opacity-75' : 'opacity-50'
+                !isFlipped ? 'opacity-0' : isDragging ? 'opacity-20' : 'opacity-10'
               }`}
             />
             {/* Top Lanyard Slot & Flip Back Button */}
@@ -670,7 +663,7 @@ export default function IdBadge({ onOpenResume }) {
       </div>
 
       {/* Physics Quick Controls Bar */}
-      <div className="mt-3 flex items-center gap-2 z-20">
+      <div className="mt-1.5 flex items-center gap-2 z-20">
         <button
           type="button"
           onClick={triggerImpulse}

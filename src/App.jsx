@@ -699,11 +699,11 @@ export default function App() {
       )}
 
       {/* ================= HERO INTERACTIVE STAGE ================= */}
-      <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10 px-4 sm:px-8 py-4 sm:py-6 z-10 max-w-7xl mx-auto w-full">
+      <main className="relative flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-start xl:justify-center gap-4 lg:gap-5 px-3 sm:px-6 lg:pl-6 lg:pr-2 py-2 sm:py-3 z-10 max-w-[1420px] mx-auto w-full">
         
         {/* Left Side: Screwed Signboard & Floating Stickers (Physical 3D divergence during unzipping) */}
         <div
-          className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center py-2 transition-transform duration-200"
+          className="flex-shrink-0 w-full lg:w-auto flex justify-center items-center py-2 transition-transform duration-200"
           style={{
             transform: `translateX(-${zipperProgress * 70}px) translateY(-${zipperProgress * 25}px) rotateY(${zipperProgress * 6}deg)`,
             opacity: Math.max(0.12, 1 - zipperProgress * 0.85),
@@ -714,7 +714,7 @@ export default function App() {
         </div>
 
         {/* Center: The Central Interactive Zipper (Synced with Page Scroll) */}
-        <div className="hidden lg:flex items-center justify-center h-[720px] z-30">
+        <div className="hidden lg:flex items-center justify-center h-[680px] z-30 flex-shrink-0">
           <Zipper
             progress={zipperProgress}
             onProgressChange={setZipperProgress}
@@ -729,7 +729,7 @@ export default function App() {
 
         {/* Right Side: Red Backpack Pocket + Hanging ID Badge (Physical 3D divergence during unzipping) */}
         <div
-          className="w-full lg:w-1/2 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-6 py-2 transition-transform duration-200"
+          className="flex-1 flex flex-col sm:flex-row items-center sm:items-start justify-center lg:justify-start gap-4 sm:gap-5 py-2 transition-transform duration-200"
           style={{
             transform: `translateX(${zipperProgress * 70}px) translateY(-${zipperProgress * 25}px) rotateY(-${zipperProgress * 6}deg)`,
             opacity: Math.max(0.12, 1 - zipperProgress * 0.85),
@@ -738,7 +738,7 @@ export default function App() {
         >
           
           {/* Backpack Pocket with 3 interactive folder tabs */}
-          <div className="w-full max-w-[480px]">
+          <div className="w-full max-w-[460px]">
             <BackpackPocket
               activeTab={activeTab}
               onSelectTab={setActiveTab}
@@ -750,7 +750,7 @@ export default function App() {
           </div>
 
           {/* Suspended ID Badge */}
-          <div className="flex-shrink-0 -mt-2 sm:mt-6">
+          <div className="flex-shrink-0 -mt-2 sm:mt-1">
             <IdBadge onOpenResume={handleOpenResume} />
           </div>
 

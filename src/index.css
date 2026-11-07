@@ -272,13 +272,11 @@ button, a, [role="button"], input, select, textarea {
 .bg-golden-reflect {
   background: linear-gradient(
     180deg,
-    #f5c438 0%,
-    #fcdb65 14%,
-    #fee88b 32%,
-    #fffdf2 50%,
-    #fee88b 68%,
-    #fcdb65 86%,
-    #eaa816 100%
+    #f5bf30 0%,
+    #ffd31e 22%,
+    #fce068 50%,
+    #ffd31e 78%,
+    #e5a010 100%
   );
 }
 
