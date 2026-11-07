@@ -50,7 +50,7 @@ export default function AboutSection() {
           {/* Left: Bio & Positioning */}
           <div className="lg:col-span-7 space-y-4 scroll-reveal-left delay-100">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              ENGINEERING IDEAS INTO <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">WORKING PRODUCTS</span>
+              ENGINEERING IDEAS INTO <span className="text-brand-orange wavy-accent">WORKING PRODUCTS</span>
             </h2>
 
             <div className="text-sm sm:text-base text-gray-900 font-medium space-y-3 leading-relaxed">

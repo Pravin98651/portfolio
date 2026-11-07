@@ -61,7 +61,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
               <span>// 00. SYSTEM OVERVIEW & WORKBENCH</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight uppercase leading-none">
-              ENGINEERING <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">AT A GLANCE</span>
+              ENGINEERING <span className="text-brand-orange wavy-accent">AT A GLANCE</span>
             </h2>
           </div>
 

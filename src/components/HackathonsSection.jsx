@@ -129,7 +129,7 @@ export default function HackathonsSection({ onNavigateToProject }) {
               <span>{hackathons.tagline}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              AWARDS, HACKATHONS & <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">HONORS</span>
+              AWARDS, HACKATHONS & <span className="text-brand-orange wavy-accent">HONORS</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium max-w-3xl leading-relaxed">
               {hackathons.intro}
