@@ -459,7 +459,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                     }}
                     className="flex-1 py-3 px-5 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>EXPLORE FULL SPECIFICATION ({getProjectUrl(currentProject.id)})</span>
+                    <span>EXPLORE FULL SPECIFICATION</span>
                     {currentProject?.caseStudy?.workflowSteps && (
                       <span className="font-mono text-[11px] bg-black text-white px-2 py-0.5 rounded">
                         {currentProject.caseStudy.workflowSteps.length} Steps
@@ -693,7 +693,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
                         }}
                         className="flex-1 py-3 px-4 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-2 border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>VIEW FULL SPECIFICATION ({getProjectUrl(project.id)})</span>
+                        <span>EXPLORE FULL SPECIFICATION</span>
                         <ExternalLink className="w-4 h-4 ml-0.5" />
                       </button>
 

@@ -431,10 +431,7 @@ export default function IdBadge({ onOpenResume }) {
                 <span>OFFICIAL</span>
               </div>
 
-              {/* Identification Stamp Overlay */}
-              <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-black/85 text-brand-yellow border border-black rounded text-[9px] font-mono font-bold">
-                REG: 23MIS0325
-              </div>
+
             </div>
 
             {/* Physical Label: Name & Professional Title */}

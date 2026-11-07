@@ -38,8 +38,8 @@ export default function Signboard() {
     },
     {
       id: "patents",
-      label: "6 PATENT FILINGS",
-      sub: "1 IN GRANT PROCESS",
+      label: "20+ PATENTS",
+      sub: "PUBLISHED",
       bg: "bg-[#ffd31e] text-black",
       border: "border-black",
       shadow: "shadow-[4px_4px_0px_#000]",

@@ -132,7 +132,7 @@ export default function BentoGrid({ onOpenCaseStudy, onOpenTerminal, onOpenResum
                   </div>
 
                   <div className="flex items-center justify-between pt-2 border-t border-gray-200 text-[10px] font-mono font-bold text-gray-600">
-                    <span className="text-brand-orange-dark font-black">{getProjectUrl(p.id)}</span>
+                    <span className="text-brand-orange-dark font-black">FULL SPECIFICATION</span>
                     <span className="text-black group-hover:underline flex items-center gap-0.5">
                       Case Study <ArrowRight className="w-2.5 h-2.5" />
                     </span>

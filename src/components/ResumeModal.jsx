@@ -244,7 +244,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                   <ul className="space-y-1.5 text-xs text-gray-800">
                     <li className="flex items-start gap-2 leading-snug">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                      <span><strong>Filed 6 Patents:</strong> 1 currently in the grant process.</span>
+                      <span><strong>20+ Patents Published:</strong> Across software engineering, AI, and computer vision.</span>
                     </li>
                     <li className="flex items-start gap-2 leading-snug">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
