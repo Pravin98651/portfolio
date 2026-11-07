@@ -504,7 +504,7 @@ export default function IdBadge({ onOpenResume }) {
 
           {/* ================= BACK SIDE ================= */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-center border-[3.5px] border-black bg-[#fffdf0]"
+            className="absolute inset-0 rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-center border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24]"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -535,7 +535,7 @@ export default function IdBadge({ onOpenResume }) {
                 type="button"
                 onClick={toggleFlip}
                 title="Flip to Front (Photo & Socials)"
-                className="px-2 py-0.5 bg-white hover:bg-black hover:text-white text-black border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[9.5px] uppercase transition-all shadow-[1px_1px_0px_#000] hover:scale-105 cursor-pointer"
+                className="px-2 py-0.5 bg-black hover:bg-brand-orange text-brand-yellow hover:text-white border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[9.5px] uppercase transition-all shadow-[1.5px_1.5px_0px_#000] hover:scale-105 cursor-pointer"
               >
                 <span>FRONT</span>
                 <RotateCw className="w-2.5 h-2.5" />
@@ -563,7 +563,7 @@ export default function IdBadge({ onOpenResume }) {
               </div>
 
               {/* Clearance & Availability Badge */}
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-400 rounded-full font-mono text-[8.5px] font-black">
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-white/95 text-emerald-900 border-2 border-black rounded-full font-mono text-[8.5px] font-black shadow-[1px_1px_0px_#000]">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>OPEN FOR ROLES // GLOBAL & REMOTE</span>
               </div>
@@ -582,7 +582,7 @@ export default function IdBadge({ onOpenResume }) {
             </div>
 
             {/* Core Capabilities Box */}
-            <div className="py-1 px-2 bg-white/90 border-2 border-black rounded-xl text-left shadow-[2px_2px_0px_#000] text-[9.5px] font-mono font-bold space-y-0.5">
+            <div className="py-1 px-2 bg-white/95 border-2 border-black rounded-xl text-left shadow-[2px_2px_0px_#000] text-[9.5px] font-mono font-bold space-y-0.5">
               <div className="flex items-center justify-between text-[8px] text-gray-500 font-extrabold uppercase border-b border-gray-200 pb-0.5 mb-1">
                 <span>CORE SPECIALTIES</span>
                 <span className="text-emerald-700">VERIFIED BUILDER</span>
@@ -606,7 +606,7 @@ export default function IdBadge({ onOpenResume }) {
               type="button"
               onClick={handleCopyEmail}
               title="Click to copy email address"
-              className="w-full py-1 px-2 bg-white hover:bg-brand-yellow/20 border border-black rounded-lg flex items-center justify-between font-mono text-[9px] font-bold text-gray-800 transition-colors shadow-[1px_1px_0px_#000] cursor-pointer"
+              className="w-full py-1 px-2 bg-white hover:bg-yellow-50 border-2 border-black rounded-lg flex items-center justify-between font-mono text-[9px] font-bold text-gray-800 transition-colors shadow-[1.5px_1.5px_0px_#000] cursor-pointer"
             >
               <span className="flex items-center gap-1.5 text-black truncate">
                 <Mail className="w-3 h-3 text-brand-orange shrink-0" />
@@ -626,7 +626,7 @@ export default function IdBadge({ onOpenResume }) {
                   e.stopPropagation();
                   sound.playSuccess();
                 }}
-                className="w-full py-2 px-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[2.5px_2.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full py-2 px-3 bg-black hover:bg-neutral-800 text-brand-yellow hover:text-white font-black text-xs uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[2.5px_2.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
                 <span>DOWNLOAD CV / RÉSUMÉ</span>
@@ -639,7 +639,7 @@ export default function IdBadge({ onOpenResume }) {
                   sound.playClick();
                   if (onOpenResume) onOpenResume();
                 }}
-                className="w-full py-1 px-2 bg-white hover:bg-black hover:text-white text-black font-mono font-bold text-[9.5px] uppercase tracking-wider rounded-lg border border-black shadow-[1px_1px_0px_#000] flex items-center justify-center gap-1 transition-all cursor-pointer"
+                className="w-full py-1 px-2 bg-white hover:bg-black hover:text-white text-black font-mono font-bold text-[9.5px] uppercase tracking-wider rounded-lg border-2 border-black shadow-[1.5px_1.5px_0px_#000] flex items-center justify-center gap-1 transition-all cursor-pointer"
               >
                 <span>VIEW INTERACTIVE DOSSIER TAB</span>
                 <ArrowRight className="w-3 h-3" />
