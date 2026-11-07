@@ -15,7 +15,7 @@ import DeveloperTerminal from './components/DeveloperTerminal';
 import ProjectDetailPage from './components/ProjectDetailPage';
 import { portfolioData } from './portfolioData';
 import { getProjectBySlug, getProjectUrl, ALL_PROJECT_ROUTES } from './utils/projectRoutes';
-import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette, Zap, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, ArrowUp, ChevronDown, Terminal, Sun, Moon, Palette, Zap, ArrowLeft, ExternalLink, Undo2 } from 'lucide-react';
 import { sound } from './utils/soundEffects';
 
 export default function App() {
@@ -74,34 +74,128 @@ export default function App() {
   const isHome = currentRoute === '/' || currentRoute === '' || currentRoute === '/#hero';
   const matchedProject = !isHome ? getProjectBySlug(currentRoute) : null;
 
-  const navigateTo = useCallback((targetPath) => {
+    const navigateTo = useCallback((targetPath) => {
     sound.playClick();
     if (typeof window !== 'undefined') {
       let cleanPath = targetPath || '/';
       if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+
+      // If leaving home page to go to a project page, record the current home scroll position!
+      if (isHome && cleanPath !== '/') {
+        const currentScrollY = window.scrollY || window.pageYOffset || 0;
+        sessionStorage.setItem('portfolio_home_scroll_y', String(currentScrollY));
+        sessionStorage.setItem('portfolio_home_section', activeSection);
+        window.history.pushState({
+          type: 'project',
+          fromScrollY: currentScrollY,
+          fromSection: activeSection,
+          toPath: cleanPath
+        }, '', cleanPath);
+        setCurrentRoute(cleanPath);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
+      // If returning to home explicitly from a sub-page:
+      if (!isHome && cleanPath === '/') {
+        const savedY = Number(sessionStorage.getItem('portfolio_home_scroll_y') || 0);
+        const savedSection = sessionStorage.getItem('portfolio_home_section') || 'projects';
+        window.history.pushState({ type: 'home_restored', fromScrollY: savedY }, '', '/');
+        setCurrentRoute('/');
+        if (savedY > 80) {
+          setIsUnzipped(true);
+          setZipperProgress(1);
+          hasTriggeredScrollTransition.current = true;
+          setActiveSection(savedSection);
+        }
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: savedY, behavior: 'instant' });
+          setTimeout(() => {
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+          }, 60);
+          setTimeout(() => {
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+          }, 180);
+        });
+        return;
+      }
+
       window.history.pushState({}, '', cleanPath);
       setCurrentRoute(cleanPath);
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
-  }, []);
+  }, [isHome, activeSection]);
 
-  // Listen to popstate and hashchange events for browser back/forward buttons
+  // Listen to popstate for browser back/forward and section restoration
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopState = (event) => {
       const path = window.location.pathname;
       const hash = window.location.hash.replace(/^#/, '');
-      const route = (path && path !== '' && path !== '/') ? path : (hash ? '/' + hash.replace(/^\//, '') : '/');
+      const route = (path && path !== '' && path !== '/') ? path : (hash && !['projects', 'hackathons', 'about', 'skills', 'contact', 'bento', 'overview'].includes(hash) ? '/' + hash.replace(/^\//, '') : '/');
+
+      // Case 1: Returning to home from a project page
+      if (route === '/' && !isHome) {
+        setCurrentRoute('/');
+        const savedY = event.state?.fromScrollY ?? Number(sessionStorage.getItem('portfolio_home_scroll_y') || 0);
+        const savedSection = event.state?.fromSection ?? (sessionStorage.getItem('portfolio_home_section') || 'projects');
+
+        if (savedY > 80) {
+          setIsUnzipped(true);
+          setZipperProgress(1);
+          hasTriggeredScrollTransition.current = true;
+          setActiveSection(savedSection);
+        }
+
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: savedY, behavior: 'instant' });
+          setTimeout(() => {
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+          }, 60);
+          setTimeout(() => {
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+          }, 180);
+        });
+        return;
+      }
+
+      // Case 2: Popstate on home page (e.g. section jump back/forward)
+      if (route === '/' && isHome) {
+        if (event.state && typeof event.state.fromScrollY === 'number') {
+          const targetY = event.state.fromScrollY;
+          const targetSec = event.state.fromSection || 'hero';
+          if (targetY > 80) {
+            setIsUnzipped(true);
+            setZipperProgress(1);
+            hasTriggeredScrollTransition.current = true;
+          }
+          setActiveSection(targetSec);
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          setPreviousSectionJump(null);
+          return;
+        }
+
+        if (hash) {
+          const targetElem = document.getElementById(hash === 'overview' ? 'bento' : hash);
+          if (targetElem) {
+            const headerOffset = 75;
+            const elemTop = targetElem.getBoundingClientRect().top;
+            const offsetPosition = elemTop + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
+            setActiveSection(hash);
+            return;
+          }
+        }
+      }
+
       setCurrentRoute(route);
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
 
     window.addEventListener('popstate', handlePopState);
-    window.addEventListener('hashchange', handlePopState);
     return () => {
       window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('hashchange', handlePopState);
     };
-  }, []);
+  }, [isHome]);
 
   // Update browser document.title dynamically based on route
   useEffect(() => {
@@ -114,34 +208,69 @@ export default function App() {
     }
   }, [matchedProject, isHome]);
 
-  // Enforce starting at the very top (Hero console) on initial visit or refresh
+  // Auto-dismiss previous section jump after 12 seconds
+  useEffect(() => {
+    if (!previousSectionJump) return;
+    const timer = setTimeout(() => {
+      setPreviousSectionJump(null);
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [previousSectionJump]);
+
+  // Keyboard Escape listener to return to previous section
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && previousSectionJump && !isTerminalOpen && !isResumeOpen && !selectedCaseStudy) {
+        handleReturnToPreviousSection();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previousSectionJump, isTerminalOpen, isResumeOpen, selectedCaseStudy]);
+
+    // Enforce starting at the very top (Hero console) on initial visit or refresh
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      const isReload = window.performance?.getEntriesByType?.('navigation')?.[0]?.type === 'reload' ||
+                       window.performance?.navigation?.type === 1;
+
+      if (isReload) {
+        sessionStorage.removeItem('portfolio_home_scroll_y');
+        sessionStorage.removeItem('portfolio_home_section');
+        sessionStorage.removeItem('portfolio_projects_index');
+        sessionStorage.removeItem('portfolio_projects_category');
+        sessionStorage.removeItem('portfolio_hackathons_active_item');
+      }
+
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'manual';
       }
-      window.scrollTo(0, 0);
-      setIsUnzipped(false);
-      setZipperProgress(0);
-      hasTriggeredScrollTransition.current = false;
-      setActiveSection('hero');
 
-      const frameId = requestAnimationFrame(() => {
+      const hasSavedScroll = !isReload && sessionStorage.getItem('portfolio_home_scroll_y');
+
+      if (!hasSavedScroll) {
         window.scrollTo(0, 0);
-      });
+        setIsUnzipped(false);
+        setZipperProgress(0);
+        hasTriggeredScrollTransition.current = false;
+        setActiveSection('hero');
 
-      const onBeforeUnload = () => {
-        if ('scrollRestoration' in window.history) {
-          window.history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-      };
-      window.addEventListener('beforeunload', onBeforeUnload);
+        const frameId = requestAnimationFrame(() => {
+          window.scrollTo(0, 0);
+        });
 
-      return () => {
-        cancelAnimationFrame(frameId);
-        window.removeEventListener('beforeunload', onBeforeUnload);
-      };
+        const onBeforeUnload = () => {
+          if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+          }
+        };
+        window.addEventListener('beforeunload', onBeforeUnload);
+
+        return () => {
+          cancelAnimationFrame(frameId);
+          window.removeEventListener('beforeunload', onBeforeUnload);
+        };
+      }
     }
   }, []);
 
@@ -243,6 +372,11 @@ export default function App() {
 
       lastScrollY.current = scrollY;
 
+      // Auto-dismiss previousSectionJump if user scrolls back near the origin
+      if (previousSectionJump && Math.abs(scrollY - previousSectionJump.scrollY) < 120) {
+        setPreviousSectionJump(null);
+      }
+
       // Determine active section for nav highlight
       const sections = ['contact', 'skills', 'about', 'hackathons', 'projects', 'bento', 'workspace-portal'];
       let current = 'hero';
@@ -341,11 +475,14 @@ export default function App() {
     setBgPalette(nextPalette.id);
   };
 
-  const scrollToSection = (id) => {
+    const scrollToSection = (id) => {
     sound.playClick();
     hasTriggeredScrollTransition.current = true;
     setIsUnzipped(true);
     setZipperProgress(1);
+
+    const currentY = window.scrollY || window.pageYOffset || 0;
+    const currentSec = activeSection;
 
     // Provide instant visual active-state feedback on click
     if (id === 'workspace-portal' || id === 'bento') {
@@ -366,10 +503,29 @@ export default function App() {
     const targetId = id === 'bento' ? 'workspace-portal' : id;
     const elem = document.getElementById(targetId) || document.getElementById(id);
     if (elem) {
+      const headerOffset = 75;
+      const elemTop = elem.getBoundingClientRect().top;
+      const offsetPosition = elemTop + window.pageYOffset - headerOffset;
+
+      // If jumping more than 180px, record history so browser back returns to exact position where user was!
+      if (Math.abs(currentY - offsetPosition) > 180) {
+        window.history.pushState({
+          type: 'section_jump',
+          fromScrollY: currentY,
+          fromSection: currentSec,
+          toSection: id,
+          route: '/'
+        }, '', '#' + id);
+
+        setPreviousSectionJump({
+          scrollY: currentY,
+          section: currentSec,
+          label: getSectionLabel(currentSec),
+          timestamp: Date.now()
+        });
+      }
+
       const performScroll = () => {
-        const headerOffset = 75;
-        const elemTop = elem.getBoundingClientRect().top;
-        const offsetPosition = elemTop + window.pageYOffset - headerOffset;
         window.scrollTo({
           top: Math.max(0, offsetPosition),
           behavior: 'smooth'
@@ -383,6 +539,26 @@ export default function App() {
 
   const scrollToTop = () => {
     sound.playClick();
+    const currentY = window.scrollY || window.pageYOffset || 0;
+    const currentSec = activeSection;
+
+    if (currentY > 300) {
+      window.history.pushState({
+        type: 'section_jump',
+        fromScrollY: currentY,
+        fromSection: currentSec,
+        toSection: 'hero',
+        route: '/'
+      }, '', '#hero');
+
+      setPreviousSectionJump({
+        scrollY: currentY,
+        section: currentSec,
+        label: getSectionLabel(currentSec),
+        timestamp: Date.now()
+      });
+    }
+
     isProgrammaticScroll.current = true;
     if (programmaticScrollTimer.current) {
       clearTimeout(programmaticScrollTimer.current);
@@ -399,12 +575,40 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleReturnToPreviousSection = () => {
+    if (!previousSectionJump) return;
+    sound.playClick();
+    isProgrammaticScroll.current = true;
+    if (programmaticScrollTimer.current) clearTimeout(programmaticScrollTimer.current);
+    programmaticScrollTimer.current = setTimeout(() => {
+      isProgrammaticScroll.current = false;
+    }, 1200);
+
+    if (previousSectionJump.scrollY > 80) {
+      setIsUnzipped(true);
+      setZipperProgress(1);
+      hasTriggeredScrollTransition.current = true;
+    }
+    setActiveSection(previousSectionJump.section);
+    window.scrollTo({
+      top: previousSectionJump.scrollY,
+      behavior: 'smooth'
+    });
+    setPreviousSectionJump(null);
+  };
+
   // If the user navigated to a dedicated project page (e.g. /lexifyd, /kidtube, /rag-chatbot)
   if (!isHome && matchedProject) {
     return (
       <ProjectDetailPage
         project={matchedProject}
-        onBack={() => navigateTo('/')}
+        onBack={() => {
+          if (typeof window !== 'undefined' && window.history.length > 1) {
+            window.history.back();
+          } else {
+            navigateTo('/');
+          }
+        }}
         onNavigate={(path) => navigateTo(path)}
         isDark={isDark}
         onToggleTheme={handleToggleTheme}
@@ -882,6 +1086,24 @@ export default function App() {
         >
           <ArrowUp className="w-5 h-5" />
         </button>
+      )}
+
+      {/* Quick Return to Previous Section Floating Pill */}
+      {previousSectionJump && isHome && (
+        <div className="fixed bottom-6 left-6 z-40 animate-in fade-in slide-in-from-bottom-2">
+          <button
+            type="button"
+            onClick={handleReturnToPreviousSection}
+            className="px-4 py-2.5 bg-brand-yellow hover:bg-[#ffe043] text-black font-mono font-black text-xs uppercase rounded-xl border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-center gap-2 transition-all hover:scale-105 cursor-pointer group select-none"
+            title={`Return to ${previousSectionJump.label} (where you left off)`}
+          >
+            <Undo2 className="w-4 h-4 text-black group-hover:-translate-x-0.5 transition-transform" />
+            <span>RETURN TO {previousSectionJump.label}</span>
+            <span className="text-[10px] text-gray-700 bg-white/80 px-1.5 py-0.5 rounded border border-black/40 font-bold ml-0.5 hidden sm:inline">
+              ESC / BACK
+            </span>
+          </button>
+        </div>
       )}
 
       {/* Bottom Hint / Info Bar */}
