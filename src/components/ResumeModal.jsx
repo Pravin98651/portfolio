@@ -229,7 +229,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                     <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-200 text-xs font-mono">
                       <span className="text-gray-600 font-semibold">{resume.education.period}</span>
                       <span className="px-2 py-0.5 bg-brand-yellow border border-black rounded font-black text-black">
-                        CGPA: {resume.education.cgpa}
+                        {resume.education.location}
                       </span>
                     </div>
                   </div>

@@ -54,7 +54,7 @@ export default function ContactSection() {
                 <span>// 04. GET IN TOUCH & COLLABORATE</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-                LET'S BUILD <span className="text-brand-orange underline decoration-wavy decoration-black">SOMETHING</span> EXTRAORDINARY
+                LET'S BUILD <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">SOMETHING</span> EXTRAORDINARY
               </h2>
               <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium leading-relaxed">
                 {contact.subtitle}

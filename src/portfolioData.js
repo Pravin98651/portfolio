@@ -17,8 +17,8 @@ export const portfolioData = {
       since: "SOFTWARE DEVELOPER · APPLIED AI",
     },
     heroIntro: "Innovative software engineering student with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. Demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. 20+ patents published.",
-    aboutLong: "I am an innovative software engineering student at Vellore Institute of Technology (VIT, Integrated M.Tech in Software Engineering, CGPA 8.92/10.0) with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. I have demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. 20+ patents published.",
-    aboutShort: "Software engineering student at VIT (CGPA 8.92/10) specializing in LLMs, agentic AI, RAG, and full-stack systems. 20+ patents published.",
+    aboutLong: "I am an innovative software engineering student at Vellore Institute of Technology (VIT, Integrated M.Tech in Software Engineering) with a strong foundation in building intelligent systems using LLMs, agentic AI, RAG, and Computer Vision. I have demonstrated success delivering autonomous agents, production-grade full-stack platforms, and secure multi-role chatbots using modern Python and JavaScript frameworks. 20+ patents published.",
+    aboutShort: "Software engineering student at VIT specializing in LLMs, agentic AI, RAG, and full-stack systems. 20+ patents published.",
     backCard: {
       title: "Full-Stack & Applied AI",
       since: "PRAVIN G · DEV",
@@ -708,7 +708,6 @@ export const portfolioData = {
       institution: "Vellore Institute of Technology",
       degree: "Integrated M.Tech in Software Engineering",
       period: "Aug 2023 – May 2028",
-      cgpa: "8.92 / 10.0",
       location: "Vellore, India"
     },
     patents: "20+ patents published.",

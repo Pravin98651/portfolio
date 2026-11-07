@@ -40,7 +40,7 @@ export default function SkillsSection() {
               <span>// 03. TECHNICAL CAPABILITIES</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              SKILLS & <span className="text-brand-orange underline decoration-wavy decoration-black">TECHNOLOGY MATRIX</span>
+              SKILLS & <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">TECHNOLOGY MATRIX</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium max-w-2xl leading-relaxed">
               Grounded in technologies actively used across verified production projects. Grouped by engineering domain rather than arbitrary percentage bars.

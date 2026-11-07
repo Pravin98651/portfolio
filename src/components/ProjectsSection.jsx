@@ -140,7 +140,7 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
               <span>// 01. SELECTED WORKS & CASE STUDIES</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight uppercase leading-none">
-              FEATURED <span className="text-brand-orange underline decoration-wavy decoration-black">ENGINEERING</span> DOSSIERS
+              FEATURED <span className="text-brand-orange underline decoration-wavy decoration-black [text-decoration-skip-ink:none] underline-offset-8 decoration-2 sm:decoration-[3px]">ENGINEERING</span> DOSSIERS
             </h2>
             <p className="mt-3 text-sm sm:text-base text-gray-900 font-medium max-w-2xl leading-relaxed">
               Tactile case study folders covering autonomous multi-agent pipelines, applied LLMs, RAG systems, and robust full-stack software architectures.

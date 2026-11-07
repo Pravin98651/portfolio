@@ -379,32 +379,34 @@ export default function IdBadge({ onOpenResume }) {
         {/* The 3D Physical ID Badge Card */}
         <div
           ref={card3DRef}
-          className="relative w-[245px] sm:w-[270px] h-[395px] sm:h-[425px] rounded-2xl border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24] will-change-transform transform-style-3d select-none overflow-hidden"
+          className="relative w-[245px] sm:w-[270px] h-[395px] sm:h-[425px] rounded-2xl will-change-transform select-none"
           style={{
             transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
-            boxShadow: '8px 8px 0px #000000'
+            transformStyle: 'preserve-3d',
+            WebkitTransformStyle: 'preserve-3d',
+            boxShadow: '8px 8px 0px #000000',
+            transition: isDragging ? 'none' : 'transform 0.45s cubic-bezier(0.34, 1.3, 0.64, 1)',
           }}
         >
-          {/* Holographic Specular Reflection Foil Overlays */}
-          <div
-            ref={sheenRef}
-            className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-              isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
-            }`}
-          />
-          <div
-            ref={sheenBackRef}
-            className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-              !isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
-            }`}
-          />
-
           {/* ================= FRONT SIDE ================= */}
           <div
-            className={`absolute inset-0 backface-hidden p-4 flex flex-col justify-between transition-opacity duration-300 ${
-              isFlipped ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'
-            }`}
+            className="absolute inset-0 rounded-2xl overflow-hidden p-4 flex flex-col justify-between border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24]"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)',
+              opacity: isFlipped ? 0 : 1,
+              pointerEvents: isFlipped ? 'none' : 'auto',
+              transition: 'opacity 0.25s ease-in-out',
+            }}
           >
+            {/* Holographic Specular Reflection Foil Overlays for Front */}
+            <div
+              ref={sheenRef}
+              className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
+                isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
+              }`}
+            />
             {/* Top Lanyard Slot & Flip Button */}
             <div className="relative flex items-center justify-between mb-1 pb-1 border-b-2 border-black/80">
               <div className="w-14" />
@@ -502,10 +504,23 @@ export default function IdBadge({ onOpenResume }) {
 
           {/* ================= BACK SIDE ================= */}
           <div
-            className={`absolute inset-0 backface-hidden rotate-y-180 p-3 sm:p-3.5 flex flex-col justify-between text-center bg-badge-stripes rounded-2xl transition-opacity duration-300 ${
-              isFlipped ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-            }`}
+            className="absolute inset-0 rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-center border-[3.5px] border-black bg-[#fffdf0]"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+              opacity: isFlipped ? 1 : 0,
+              pointerEvents: isFlipped ? 'auto' : 'none',
+              transition: 'opacity 0.25s ease-in-out',
+            }}
           >
+            {/* Holographic Specular Foil for Back */}
+            <div
+              ref={sheenBackRef}
+              className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
+                !isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
+              }`}
+            />
             {/* Top Lanyard Slot & Flip Back Button */}
             <div className="relative flex items-center justify-between mb-0.5 pb-1 border-b-2 border-black/80">
               <span className="font-mono text-[8.5px] font-black uppercase tracking-wider text-brand-yellow bg-black px-2 py-0.5 border border-black rounded shadow-[1px_1px_0px_#000]">
@@ -533,7 +548,7 @@ export default function IdBadge({ onOpenResume }) {
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
                 <span>MAGSTRIPE // AUTH LEVEL-02</span>
               </span>
-              <span className="text-brand-orange-dark font-black tracking-widest">SN: 2026-ENG-892</span>
+              <span className="text-brand-orange-dark font-black tracking-widest">SN: 2026-ENG-PAT20</span>
             </div>
 
             {/* Back Card Header & Identity */}
@@ -570,7 +585,7 @@ export default function IdBadge({ onOpenResume }) {
             <div className="py-1 px-2 bg-white/90 border-2 border-black rounded-xl text-left shadow-[2px_2px_0px_#000] text-[9.5px] font-mono font-bold space-y-0.5">
               <div className="flex items-center justify-between text-[8px] text-gray-500 font-extrabold uppercase border-b border-gray-200 pb-0.5 mb-1">
                 <span>CORE SPECIALTIES</span>
-                <span className="text-emerald-700">CGPA 8.92 / 10.0</span>
+                <span className="text-emerald-700">VERIFIED BUILDER</span>
               </div>
               <div className="text-gray-900 truncate flex items-center gap-1.5">
                 <span className="w-1 h-1 rounded-full bg-brand-orange shrink-0" />
