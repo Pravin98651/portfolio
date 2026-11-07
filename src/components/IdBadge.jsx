@@ -82,7 +82,8 @@ export default function IdBadge({ onOpenResume }) {
     // 4. Specular Holographic Glare / Sheen angle shifts dynamically with tilt and swing
     const sheenX = 50 + (p.tiltY / 15) * 40;
     const sheenY = 50 - (p.tiltX / 15) * 40;
-    const sheenStyle = `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255,255,255,0.48) 0%, rgba(255,215,0,0.2) 35%, transparent 70%)`;
+    const sheenAngle = 115 + (p.tiltY / 15) * 25;
+    const sheenStyle = `radial-gradient(ellipse 90% 65% at ${sheenX}% ${sheenY}%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, rgba(252,219,101,0.12) 60%, transparent 80%), linear-gradient(${sheenAngle}deg, transparent 20%, rgba(255,255,255,0.32) 47%, rgba(255,255,255,0.65) 50%, rgba(255,255,255,0.32) 53%, transparent 75%)`;
     
     if (sheenRef.current) {
       sheenRef.current.style.background = sheenStyle;
@@ -390,7 +391,7 @@ export default function IdBadge({ onOpenResume }) {
         >
           {/* ================= FRONT SIDE ================= */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden p-4 flex flex-col justify-between border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24]"
+            className="absolute inset-0 rounded-2xl overflow-hidden p-4 flex flex-col justify-between border-[3.5px] border-black bg-golden-reflect"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -403,8 +404,11 @@ export default function IdBadge({ onOpenResume }) {
             {/* Holographic Specular Reflection Foil Overlays for Front */}
             <div
               ref={sheenRef}
+              style={{
+                background: 'radial-gradient(ellipse 90% 65% at 50% 50%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, transparent 75%)',
+              }}
               className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-                isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
+                isFlipped ? 'opacity-0' : isDragging ? 'opacity-75' : 'opacity-50'
               }`}
             />
             {/* Top Lanyard Slot & Flip Button */}
@@ -419,7 +423,7 @@ export default function IdBadge({ onOpenResume }) {
                 type="button"
                 onClick={toggleFlip}
                 title="Flip badge to view resume & download"
-                className="px-2 py-0.5 bg-black hover:bg-brand-orange text-brand-yellow hover:text-white border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[10px] uppercase transition-all shadow-[1.5px_1.5px_0px_#000] hover:scale-105 cursor-pointer"
+                className="px-2 py-0.5 bg-black hover:bg-brand-orange text-[#fcdb65] hover:text-white border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[10px] uppercase transition-all shadow-[1.5px_1.5px_0px_#000] hover:scale-105 cursor-pointer"
               >
                 <span>FLIP</span>
                 <RotateCw className="w-3 h-3 animate-spin-slow" />
@@ -504,7 +508,7 @@ export default function IdBadge({ onOpenResume }) {
 
           {/* ================= BACK SIDE ================= */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-center border-[3.5px] border-black bg-gradient-to-b from-[#ffd31e] via-[#fffbeb] to-[#fbbf24]"
+            className="absolute inset-0 rounded-2xl overflow-hidden p-3 sm:p-3.5 flex flex-col justify-between text-center border-[3.5px] border-black bg-golden-reflect"
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -517,13 +521,16 @@ export default function IdBadge({ onOpenResume }) {
             {/* Holographic Specular Foil for Back */}
             <div
               ref={sheenBackRef}
+              style={{
+                background: 'radial-gradient(ellipse 90% 65% at 50% 50%, rgba(255,255,255,0.65) 0%, rgba(255,248,200,0.3) 35%, transparent 75%)',
+              }}
               className={`absolute inset-0 pointer-events-none rounded-2xl z-30 transition-opacity duration-300 ${
-                !isFlipped ? 'opacity-0' : isDragging ? 'opacity-70' : 'opacity-40'
+                !isFlipped ? 'opacity-0' : isDragging ? 'opacity-75' : 'opacity-50'
               }`}
             />
             {/* Top Lanyard Slot & Flip Back Button */}
             <div className="relative flex items-center justify-between mb-0.5 pb-1 border-b-2 border-black/80">
-              <span className="font-mono text-[8.5px] font-black uppercase tracking-wider text-brand-yellow bg-black px-2 py-0.5 border border-black rounded shadow-[1px_1px_0px_#000]">
+              <span className="font-mono text-[8.5px] font-black uppercase tracking-wider text-[#fcdb65] bg-black px-2 py-0.5 border border-black rounded shadow-[1px_1px_0px_#000]">
                 DEV-ID // ACCESS PASS
               </span>
 
@@ -535,7 +542,7 @@ export default function IdBadge({ onOpenResume }) {
                 type="button"
                 onClick={toggleFlip}
                 title="Flip to Front (Photo & Socials)"
-                className="px-2 py-0.5 bg-black hover:bg-brand-orange text-brand-yellow hover:text-white border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[9.5px] uppercase transition-all shadow-[1.5px_1.5px_0px_#000] hover:scale-105 cursor-pointer"
+                className="px-2 py-0.5 bg-black hover:bg-brand-orange text-[#fcdb65] hover:text-white border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[9.5px] uppercase transition-all shadow-[1.5px_1.5px_0px_#000] hover:scale-105 cursor-pointer"
               >
                 <span>FRONT</span>
                 <RotateCw className="w-2.5 h-2.5" />
@@ -612,7 +619,7 @@ export default function IdBadge({ onOpenResume }) {
                 <Mail className="w-3 h-3 text-brand-orange shrink-0" />
                 <span className="truncate">{personal.email}</span>
               </span>
-              <span className="text-[8px] font-black uppercase text-black bg-brand-yellow px-1.5 py-0.2 rounded border border-black shrink-0">
+              <span className="text-[8px] font-black uppercase text-black bg-[#fcdb65] px-1.5 py-0.2 rounded border border-black shrink-0">
                 {copiedEmail ? 'COPIED! ✓' : 'COPY'}
               </span>
             </button>
@@ -626,7 +633,7 @@ export default function IdBadge({ onOpenResume }) {
                   e.stopPropagation();
                   sound.playSuccess();
                 }}
-                className="w-full py-2 px-3 bg-black hover:bg-neutral-800 text-brand-yellow hover:text-white font-black text-xs uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[2.5px_2.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full py-2 px-3 bg-black hover:bg-neutral-800 text-[#fcdb65] hover:text-white font-black text-xs uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[2.5px_2.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
                 <span>DOWNLOAD CV / RÉSUMÉ</span>
