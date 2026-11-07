@@ -782,8 +782,8 @@ export const portfolioData = {
     stats: [
       { label: "National 1st Place", value: "2x Winner 🏆", subtext: "KRXGEN & Maadhyamik" },
       { label: "Danfoss Innovator", value: "2nd Place 🥈", subtext: "₹50,000 Cash Prize" },
-      { label: "VIT Merit", value: "Achiever", subtext: "Academic Year 2025–26" },
-      { label: "National Podiums", value: "5+ Honors", subtext: "Verified Competitions" }
+      { label: "Patents Published", value: "20+ Patents", subtext: "8+ Hackathon Wins" },
+      { label: "National Podiums", value: "8+ Wins 🏆", subtext: "Verified Competitions" }
     ],
     items: [
       {

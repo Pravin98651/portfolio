@@ -398,9 +398,7 @@ export default function IdBadge({ onOpenResume }) {
           >
             {/* Top Lanyard Slot & Flip Button */}
             <div className="relative flex items-center justify-between mb-1 pb-1 border-b-2 border-black/80">
-              <span className="font-mono text-[9px] font-black uppercase tracking-wider text-black bg-white px-2 py-0.5 border border-black rounded shadow-[1px_1px_0px_#000]">
-                ENG-ID // VIT
-              </span>
+              <div className="w-14" />
 
               {/* Lanyard Hole cutout */}
               <div className="w-12 h-3 bg-[#111] rounded-full border-2 border-black mx-auto" />
