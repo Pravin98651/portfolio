@@ -50,39 +50,49 @@ export default function ProjectDetailPage({
   const adjacent = getAdjacentProjects(project.id);
   const cloneCommand = project.githubUrl && project.githubUrl !== '#' ? `git clone ${project.githubUrl}.git` : '';
 
-  // Auto-scroll the active workflow step pill horizontally into view
+  const isFirstStepMount = useRef(true);
+  const isFirstTabMount = useRef(true);
+  const isFirstImageMount = useRef(true);
+
+  // Auto-scroll the active workflow step pill horizontally into view (skip on first mount)
   useEffect(() => {
+    if (isFirstStepMount.current) {
+      isFirstStepMount.current = false;
+      return;
+    }
     const el = stepPillRefs.current[activeWorkflowStep];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [activeWorkflowStep]);
 
-  // Auto-scroll the active nav tab in sticky bar horizontally into view
+  // Auto-scroll the active nav tab in sticky bar horizontally into view (skip on first mount)
   useEffect(() => {
+    if (isFirstTabMount.current) {
+      isFirstTabMount.current = false;
+      return;
+    }
     const el = navTabRefs.current[activeTab];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [activeTab]);
 
-  // Auto-scroll image thumbnail into view
+  // Auto-scroll image thumbnail into view (skip on first mount)
   useEffect(() => {
+    if (isFirstImageMount.current) {
+      isFirstImageMount.current = false;
+      return;
+    }
     const el = imageThumbRefs.current[selectedImageIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [selectedImageIndex]);
 

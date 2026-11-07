@@ -47,15 +47,19 @@ export default function ProjectsSection({ onOpenCaseStudy, onNavigateToProject }
     return true;
   });
 
-  // Auto-scroll the active project pill horizontally into view whenever currentIndex changes
+  const isFirstMount = useRef(true);
+
+  // Auto-scroll the active project pill horizontally into view whenever currentIndex changes (skip on first mount)
   useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
     const el = projectPillRefs.current[currentIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [currentIndex]);
 

@@ -114,6 +114,37 @@ export default function App() {
     }
   }, [matchedProject, isHome]);
 
+  // Enforce starting at the very top (Hero console) on initial visit or refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      setIsUnzipped(false);
+      setZipperProgress(0);
+      hasTriggeredScrollTransition.current = false;
+      setActiveSection('hero');
+
+      const frameId = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+      });
+
+      const onBeforeUnload = () => {
+        if ('scrollRestoration' in window.history) {
+          window.history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+      };
+      window.addEventListener('beforeunload', onBeforeUnload);
+
+      return () => {
+        cancelAnimationFrame(frameId);
+        window.removeEventListener('beforeunload', onBeforeUnload);
+      };
+    }
+  }, []);
+
   const [scrollPercent, setScrollPercent] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [isTransitioning, setIsTransitioning] = useState(false);

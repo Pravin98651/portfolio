@@ -36,27 +36,34 @@ export default function HackathonsSection({ onNavigateToProject }) {
   const currentIndex = Math.max(0, hackathons.items.findIndex(it => it.id === activeItemId));
   const currentItem = hackathons.items[currentIndex] || hackathons.items[0];
 
-  // Auto-scroll the active pill horizontally into view whenever active item changes
+  const isFirstPillMount = useRef(true);
+  const isFirstPhotoMount = useRef(true);
+
+  // Auto-scroll the active pill horizontally into view whenever active item changes (skip on first mount)
   useEffect(() => {
+    if (isFirstPillMount.current) {
+      isFirstPillMount.current = false;
+      return;
+    }
     const el = pillRefs.current[activeItemId];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [activeItemId]);
 
-  // Auto-scroll photo thumbnail into view whenever photo changes
+  // Auto-scroll photo thumbnail into view whenever photo changes (skip on first mount)
   useEffect(() => {
+    if (isFirstPhotoMount.current) {
+      isFirstPhotoMount.current = false;
+      return;
+    }
     const el = photoRefs.current[selectedPhotoIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [selectedPhotoIndex]);
 

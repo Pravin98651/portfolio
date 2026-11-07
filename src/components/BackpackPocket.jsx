@@ -23,15 +23,19 @@ export default function BackpackPocket({
   const chipRefs = useRef({});
   const thumbRefs = useRef({});
 
-  // Auto-scroll the active project chip horizontally into view in Backpack
+  const isFirstMount = useRef(true);
+
+  // Auto-scroll the active project chip horizontally into view in Backpack (skip on first mount)
   useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
     const el = chipRefs.current[currentProjectIndex];
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest'
-      });
+    if (el && el.parentElement) {
+      const container = el.parentElement;
+      const targetLeft = el.offsetLeft - (container.clientWidth / 2) + (el.clientWidth / 2);
+      container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
     }
   }, [currentProjectIndex]);
 
