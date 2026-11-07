@@ -1,12 +1,21 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { portfolioData } from '../portfolioData';
-import { RotateCw, ArrowRight, Download, Sparkles, Wind } from 'lucide-react';
+import { RotateCw, ArrowRight, Download, Sparkles, Wind, Mail } from 'lucide-react';
 import { sound } from '../utils/soundEffects';
 
 export default function IdBadge({ onOpenResume }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const { personal } = portfolioData;
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = (e) => {
+    e.stopPropagation();
+    sound.playSuccess();
+    navigator.clipboard.writeText(personal.email || 'pravin98651@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   // DOM Refs for direct 60/120fps physics updates
   const containerRef = useRef(null);
@@ -493,90 +502,147 @@ export default function IdBadge({ onOpenResume }) {
 
           {/* ================= BACK SIDE ================= */}
           <div
-            className={`absolute inset-0 backface-hidden rotate-y-180 p-4 sm:p-5 flex flex-col justify-between text-center bg-badge-stripes rounded-2xl transition-opacity duration-300 ${
+            className={`absolute inset-0 backface-hidden rotate-y-180 p-3 sm:p-3.5 flex flex-col justify-between text-center bg-badge-stripes rounded-2xl transition-opacity duration-300 ${
               isFlipped ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
             }`}
           >
             {/* Top Lanyard Slot & Flip Back Button */}
-            <div className="relative flex items-center justify-center mb-1">
-              <div className="w-12 h-3.5 bg-[#1a1a1a] rounded-full border-2 border-black" />
+            <div className="relative flex items-center justify-between mb-0.5 pb-1 border-b-2 border-black/80">
+              <span className="font-mono text-[8.5px] font-black uppercase tracking-wider text-brand-yellow bg-black px-2 py-0.5 border border-black rounded shadow-[1px_1px_0px_#000]">
+                DEV-ID // ACCESS PASS
+              </span>
+
+              {/* Lanyard Hole cutout */}
+              <div className="w-10 h-2.5 bg-[#111] rounded-full border-2 border-black mx-auto" />
+
+              {/* Flip to Front Button */}
               <button
                 type="button"
                 onClick={toggleFlip}
                 title="Flip to Front (Photo & Socials)"
-                className="absolute right-0 top-0 px-2 py-0.5 bg-white hover:bg-black hover:text-white text-black border-2 border-black rounded-md flex items-center gap-1 font-mono font-bold text-[10px] uppercase transition-all shadow-[1px_1px_0px_#000] hover:scale-105 cursor-pointer"
+                className="px-2 py-0.5 bg-white hover:bg-black hover:text-white text-black border-2 border-black rounded-md flex items-center gap-1 font-mono font-black text-[9.5px] uppercase transition-all shadow-[1px_1px_0px_#000] hover:scale-105 cursor-pointer"
               >
                 <span>FRONT</span>
-                <RotateCw className="w-3 h-3" />
+                <RotateCw className="w-2.5 h-2.5" />
               </button>
             </div>
 
-            {/* Back Card Header & Core Skills */}
-            <div className="my-auto space-y-2.5">
+            {/* Magnetic Stripe Graphic */}
+            <div className="w-full h-3.5 bg-[#0e0f14] border border-black rounded-xs flex items-center justify-between px-2 font-mono text-[7.5px] text-gray-400 select-none">
+              <span className="flex items-center gap-1 text-gray-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+                <span>MAGSTRIPE // AUTH LEVEL-02</span>
+              </span>
+              <span className="text-brand-orange-dark font-black tracking-widest">SN: 2026-ENG-892</span>
+            </div>
+
+            {/* Back Card Header & Identity */}
+            <div className="space-y-0.5 mt-0.5">
               <div>
-                <h3 className="text-black font-black text-lg sm:text-xl leading-tight uppercase">
+                <h3 className="text-black font-black text-base sm:text-lg leading-none uppercase tracking-tight">
                   {personal.name}
                 </h3>
-                <div className="text-[11px] font-mono font-bold tracking-wider text-brand-orange-dark uppercase">
-                  {personal.backCard.title}
+                <div className="text-[10px] font-mono font-bold text-brand-orange-dark uppercase mt-0.5">
+                  {personal.role}
                 </div>
               </div>
 
-              {/* Core Specialties List */}
-              <div className="py-2 px-2.5 bg-white/80 border-2 border-black rounded-xl text-left shadow-[2px_2px_0px_#000]">
-                <p className="text-[9px] font-mono font-extrabold uppercase tracking-wider text-gray-500 mb-1">
-                  {personal.backCard.skillsCategory}
-                </p>
-                <div className="space-y-1">
-                  {personal.backCard.skills.map((skill, idx) => (
-                    <div key={idx} className="text-[11px] font-bold text-gray-900 flex items-center gap-1.5 leading-tight">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-orange flex-shrink-0" />
-                      <span className="truncate">{skill}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Prominent DOWNLOAD RESUME / CV Button */}
-              <div className="space-y-1.5 pt-1 relative z-20">
-                <a
-                  href={personal.backCard.downloadUrl || "/assets/Pravin_Resume.pdf"}
-                  download="Pravin_Resume.pdf"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    sound.playSuccess();
-                  }}
-                  className="w-full py-2.5 px-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
-                >
-                  <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                  <span>DOWNLOAD CV / RÉSUMÉ</span>
-                </a>
-
-                {/* Secondary Button to view interactive CV tab */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    sound.playClick();
-                    if (onOpenResume) onOpenResume();
-                  }}
-                  className="w-full py-1.5 px-2 bg-white hover:bg-black hover:text-white text-black font-mono font-bold text-[10px] uppercase tracking-wider rounded-lg border-2 border-black shadow-[1.5px_1.5px_0px_#000] flex items-center justify-center gap-1 transition-all cursor-pointer"
-                >
-                  <span>View Interactive CV Tab</span>
-                  <ArrowRight className="w-3 h-3" />
-                </button>
+              {/* Clearance & Availability Badge */}
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-400 rounded-full font-mono text-[8.5px] font-black">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>OPEN FOR ROLES // GLOBAL & REMOTE</span>
               </div>
             </div>
 
-            {/* Footer Flip Note */}
+            {/* Key Verified Credentials Matrix */}
+            <div className="grid grid-cols-2 gap-1.5 my-1 font-mono">
+              <div className="p-1 bg-white/95 border-2 border-black rounded-lg shadow-[1.5px_1.5px_0px_#000] text-center">
+                <span className="text-black font-black text-[10px] block leading-tight">📜 20+ PATENTS</span>
+                <span className="text-[8px] font-bold text-gray-500 uppercase">PUBLISHED</span>
+              </div>
+              <div className="p-1 bg-white/95 border-2 border-black rounded-lg shadow-[1.5px_1.5px_0px_#000] text-center">
+                <span className="text-black font-black text-[10px] block leading-tight">🏆 8+ HACKATHONS</span>
+                <span className="text-[8px] font-bold text-gray-500 uppercase">PODIUM WINS</span>
+              </div>
+            </div>
+
+            {/* Core Capabilities Box */}
+            <div className="py-1 px-2 bg-white/90 border-2 border-black rounded-xl text-left shadow-[2px_2px_0px_#000] text-[9.5px] font-mono font-bold space-y-0.5">
+              <div className="flex items-center justify-between text-[8px] text-gray-500 font-extrabold uppercase border-b border-gray-200 pb-0.5 mb-1">
+                <span>CORE SPECIALTIES</span>
+                <span className="text-emerald-700">CGPA 8.92 / 10.0</span>
+              </div>
+              <div className="text-gray-900 truncate flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-brand-orange shrink-0" />
+                <span>LLMs, LangGraph & Agentic Systems</span>
+              </div>
+              <div className="text-gray-900 truncate flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-brand-orange shrink-0" />
+                <span>FastAPI, Next.js 14 & React Native</span>
+              </div>
+              <div className="text-gray-900 truncate flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-brand-orange shrink-0" />
+                <span>Hybrid RAG, pgvector & FAISS Dense Search</span>
+              </div>
+            </div>
+
+            {/* Direct Contact Dispatch with 1-Click Copy */}
             <button
               type="button"
-              onClick={toggleFlip}
-              className="text-[10px] font-mono font-bold text-gray-700 hover:text-black flex items-center justify-center gap-1 pt-1 border-t border-black/20 cursor-pointer"
+              onClick={handleCopyEmail}
+              title="Click to copy email address"
+              className="w-full py-1 px-2 bg-white hover:bg-brand-yellow/20 border border-black rounded-lg flex items-center justify-between font-mono text-[9px] font-bold text-gray-800 transition-colors shadow-[1px_1px_0px_#000] cursor-pointer"
             >
-              <RotateCw className="w-2.5 h-2.5" />
-              <span>Flip to see photo & socials</span>
+              <span className="flex items-center gap-1.5 text-black truncate">
+                <Mail className="w-3 h-3 text-brand-orange shrink-0" />
+                <span className="truncate">{personal.email}</span>
+              </span>
+              <span className="text-[8px] font-black uppercase text-black bg-brand-yellow px-1.5 py-0.2 rounded border border-black shrink-0">
+                {copiedEmail ? 'COPIED! ✓' : 'COPY'}
+              </span>
             </button>
+
+            {/* Action Buttons */}
+            <div className="space-y-1 relative z-20">
+              <a
+                href={personal.backCard.downloadUrl || "/assets/Pravin_Resume.pdf"}
+                download="Pravin_Resume.pdf"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sound.playSuccess();
+                }}
+                className="w-full py-2 px-3 bg-brand-yellow hover:bg-[#ffde59] text-black font-black text-xs uppercase tracking-wider rounded-xl border-[2.5px] border-black shadow-[2.5px_2.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+                <span>DOWNLOAD CV / RÉSUMÉ</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sound.playClick();
+                  if (onOpenResume) onOpenResume();
+                }}
+                className="w-full py-1 px-2 bg-white hover:bg-black hover:text-white text-black font-mono font-bold text-[9.5px] uppercase tracking-wider rounded-lg border border-black shadow-[1px_1px_0px_#000] flex items-center justify-center gap-1 transition-all cursor-pointer"
+              >
+                <span>VIEW INTERACTIVE DOSSIER TAB</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+
+            {/* Industrial Security Barcode & Footer Flip Note */}
+            <div className="pt-1 flex items-center justify-between border-t border-black/30 font-mono text-[8.5px] text-gray-700">
+              <span className="font-bold tracking-widest select-none truncate">||| || | |||| ||| ||||</span>
+              <button
+                type="button"
+                onClick={toggleFlip}
+                className="text-[8.5px] font-black text-black hover:text-brand-orange uppercase flex items-center gap-1 cursor-pointer"
+              >
+                <RotateCw className="w-2.5 h-2.5" />
+                <span>FLIP TO PHOTO ⟲</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
